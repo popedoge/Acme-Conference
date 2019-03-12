@@ -1,8 +1,6 @@
 <%@ page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -47,19 +45,12 @@
 <p>
 	<spring:message code="terms.cond.13" />
 </p>
-<p>
+<h3>
 	<spring:message code="terms.cond.14" />
-</p>
-<h3>
+</h3>
+<b>
 	<spring:message code="terms.cond.15" />
-</h3>
-<p>
-	<spring:message code="terms.cond.16" />
-</p>
-<h3>
-	<spring:message code="terms.cond.17" />
-</h3>
-<p>
-	<spring:message code="terms.cond.18" />
-</p>
+</b>
+<br/>
+<br/>
 

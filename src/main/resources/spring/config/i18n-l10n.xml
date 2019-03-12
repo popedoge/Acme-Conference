@@ -30,8 +30,8 @@
 		<value>/views/position/messages</value>
 		<value>/views/enrollment/messages</value>
 		<value>/views/procession/messages</value>		
-		<value>/views/log/tiles.xml</value>
-		<value>/views/terms/tiles.xml</value>
+		<value>/views/log/messages</value>
+		<value>/views/terms/messages</value>
 	</util:list>
 
 </beans>
