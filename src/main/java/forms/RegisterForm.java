@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 public class RegisterForm {
 
 	private ActorForm	form;
@@ -45,7 +43,6 @@ public class RegisterForm {
 		this.form = form;
 	}
 
-	@NotBlank
 	@Size(min = 4, max = 32, message = "Username must have 4 to 32 characters")
 	@Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "Characters must be alphanumeric")
 	public String getUsername() {

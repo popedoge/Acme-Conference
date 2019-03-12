@@ -44,7 +44,7 @@
 
 		
 		<security:intercept-url pattern="/actor/**" access="permitAll" /> 
-		<security:intercept-url pattern="/terms/**" access="permitAll" /> 
+		<security:intercept-url pattern="/misc/**" access="permitAll" /> 
 		<security:intercept-url pattern="/user/**" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

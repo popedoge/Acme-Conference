@@ -58,14 +58,17 @@
 		<div>
 			<form:checkbox path="acceptTerms" />
 			<spring:message code="terms.accept" />
-			&nbsp;<a href="terms/conditions.do"><spring:message
+			<a href="misc/terms.do" target="_blank"><spring:message
 					code="terms.terms" /></a>
 		</div>
 		<div>
-			<jstl:set var="terms-fail">
+			<jstl:set var="acceptTermsHasBindError">
 				<form:errors path="acceptTerms" />
 			</jstl:set>
-			<spring:message code="${terms-fail}" cssClass="error"/>
+			<jstl:if test="${not empty acceptTermsHasBindError}">
+				<span class="error"> <spring:message code="terms.error" />
+				</span>
+			</jstl:if>
 		</div>
 	</div>
 	<div>
