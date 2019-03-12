@@ -43,16 +43,6 @@ public class RegisterForm {
 		this.form = form;
 	}
 
-	@Size(min = 4, max = 32, message = "Username must have 4 to 32 characters")
-	@Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "Characters must be alphanumeric")
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(final String username) {
-		this.username = username;
-	}
-
 	@Size(min = 4, max = 32, message = "Password must have 4 to 32 characters")
 	@Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "Characters must be alphanumeric")
 	public String getPassword() {

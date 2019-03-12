@@ -29,7 +29,7 @@ public class ActorPreferences extends DomainEntity {
 		this.owner = owner;
 	}
 
-	public boolean isDisplayRealName() {
+	public boolean getDisplayRealName() {
 		return this.displayRealName;
 	}
 
@@ -37,7 +37,7 @@ public class ActorPreferences extends DomainEntity {
 		this.displayRealName = displayRealName;
 	}
 
-	public boolean isDisplayPhoneNumber() {
+	public boolean getDisplayPhoneNumber() {
 		return this.displayPhoneNumber;
 	}
 
@@ -45,7 +45,7 @@ public class ActorPreferences extends DomainEntity {
 		this.displayPhoneNumber = displayPhoneNumber;
 	}
 
-	public boolean isDisplayAddress() {
+	public boolean getDisplayAddress() {
 		return this.displayAddress;
 	}
 
@@ -53,7 +53,7 @@ public class ActorPreferences extends DomainEntity {
 		this.displayAddress = displayAddress;
 	}
 
-	public boolean isDisplayEmail() {
+	public boolean getDisplayEmail() {
 		return this.displayEmail;
 	}
 

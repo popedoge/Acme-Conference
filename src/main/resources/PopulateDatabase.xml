@@ -108,6 +108,7 @@
 			value="https://www.bewelcome.org/members/avatar/doge?500" />
 		<property name="user" ref="userAccount4" />
 	</bean>
+	<!-- SITE CONFIG -->
 	
 	<bean id="siteConfig" class="domain.SiteConfig">
 		<property name="siteName" value="Acme Madruga" />
@@ -115,5 +116,43 @@
 		<property name="welcomeMessage" value="Welcome vro..." />
 		<property name="countryCode" value="34" />
 	</bean>
+	
+	<!-- ACTOR PREFERENCES -->
+	<bean id="preferences1" class="domain.ActorPreferences">
+		<property name="owner" ref="admin1" />
+		<property name="displayRealName" value="false" />
+		<property name="displayPhoneNumber" value="false" />
+		<property name="displayAddress" value="false" />
+		<property name="displayEmail" value="true" />
+		<property name="messageSignature" value="- ADMIN" />
+	</bean>
+	
+	<bean id="preferences2" class="domain.ActorPreferences">
+		<property name="owner" ref="member1" />
+		<property name="displayRealName" value="true" />
+		<property name="displayPhoneNumber" value="true" />
+		<property name="displayAddress" value="true" />
+		<property name="displayEmail" value="true" />
+		<property name="messageSignature" value="" />
+	</bean>
+	
+	<bean id="preferences3" class="domain.ActorPreferences">
+		<property name="owner" ref="member2" />
+		<property name="displayRealName" value="true" />
+		<property name="displayPhoneNumber" value="true" />
+		<property name="displayAddress" value="true" />
+		<property name="displayEmail" value="true" />
+		<property name="messageSignature" value="" />
+	</bean>
+	
+	<bean id="preferences4" class="domain.ActorPreferences">
+		<property name="owner" ref="member3" />
+		<property name="displayRealName" value="true" />
+		<property name="displayPhoneNumber" value="false" />
+		<property name="displayAddress" value="false" />
+		<property name="displayEmail" value="true" />
+		<property name="messageSignature" value="" />
+	</bean>
+	
 
 </beans>

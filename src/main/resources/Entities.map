@@ -1,11 +1,15 @@
 #./src/main/resources/Entities.map
-#Tue Mar 12 12:12:42 CET 2019
-admin1=14
-member3=17
-member2=16
-member1=15
-userAccount4=13
-userAccount3=12
-siteConfig=18
-userAccount2=11
-userAccount1=10
+#Tue Mar 12 19:36:50 CET 2019
+admin1=18
+member3=21
+member2=20
+member1=19
+userAccount4=17
+userAccount3=16
+preferences4=26
+siteConfig=22
+userAccount2=15
+preferences3=25
+userAccount1=14
+preferences2=24
+preferences1=23

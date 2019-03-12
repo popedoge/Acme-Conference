@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorPreferencesService;
 import services.ActorService;
 import services.AdminService;
 import services.MemberService;
 import domain.Actor;
+import domain.ActorPreferences;
 import forms.ActorForm;
 import forms.RegisterForm;
 
@@ -27,51 +29,33 @@ import forms.RegisterForm;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private MemberService	memberService;
+	private MemberService			memberService;
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
 	@Autowired
-	private AdminService	adminService;
+	private AdminService			adminService;
+	@Autowired
+	private ActorPreferencesService	preferencesService;
 
-
-	//REGISTER
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView register() {
-		ModelAndView res;
-		final RegisterForm registerForm = new RegisterForm();
-		res = this.createEditModelAndView(registerForm);
-		return res;
-	}
-
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("regForm") @Valid final RegisterForm registerForm, final BindingResult binding) {
-		ModelAndView res;
-		if (binding.hasErrors())
-			res = this.createEditModelAndView(registerForm);
-		else
-			try {
-				this.actorService.register(registerForm);
-				res = new ModelAndView("redirect:../security/login.do");
-			} catch (final Exception e) {
-				res = this.createEditModelAndView(registerForm, "actor.commit.error");
-			}
-		return res;
-	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView userProfile(@RequestParam(required = false) final Integer id) {
 		ModelAndView res;
 		res = new ModelAndView("actor/profile");
 		Actor actor;
+		ActorForm form;
+		ActorPreferences preferences;
 		if (id == null || id == 0) {
 			actor = this.actorService.findPrincipal();
-			res.addObject("owner", true);
+			preferences = this.preferencesService.findByPrincipal();
+			form = this.actorService.formatForm(actor, preferences);
 		} else {
 			actor = this.actorService.findOne(id);
 			Assert.notNull(actor);
+			preferences = this.preferencesService.findByActor(actor);
+			form = this.actorService.formatForm(actor, preferences);
 		}
-
-		res.addObject("actor", actor);
+		res.addObject("actor", form);
 		return res;
 	}
 

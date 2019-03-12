@@ -21,72 +21,39 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jstl:if test="${role=='BROTHERHOOD'}">
-	<div>
-		<jstl:if test="${photos != null}">
-			<div class="inline-outer">
-				<jstl:forEach items="${photos}" var="attachment">
-					<div class="inline attachment-150"
-						style="background-image:url('${attachment.URL}')"></div>
-				</jstl:forEach>
-			</div>
-		</jstl:if>
-		<jstl:if test="${empty photos}">
-			<span style="color: grey;"><spring:message
-					code="profile.nodisplay" /></span>
-		</jstl:if>
-	</div>
-	<div>
-		<h3>
-			<jstl:out value="${actor.title}" />
-			<!-- 			<i id="edittitle" class="fa fa-pencil" aria-hidden="true"></i> -->
-		</h3>
-		<%-- 		<form action="brotherhood/title.do" method="get" id="titleform"> --%>
-		<!-- 			<div> -->
-		<%-- 				<spring:message code="actor.title" /> --%>
-		<!-- 				: <input type="text" name="title"> <input type="submit" -->
-		<%-- 					value="<spring:message code="save"/>"> --%>
-		<!-- 			</div> -->
-		<%-- 		</form> --%>
-		<jstl:if test="${message}">
-			<div>
-				<spring:message code="${message}" />
-			</div>
-		</jstl:if>
-		<span style="color: grey;">Est. <fmt:formatDate
-				value="${actor.estDate}" pattern="dd/MM/yyyy" /></span>
-	</div>
-</jstl:if>
 <div>
 	<div class="inline-outer">
 		<div class="thumb inline"
 			style="background-image:url('${actor.photo}')"></div>
 		<div class="inline">
-			<b><jstl:out value="${actor.name}" />&nbsp;<jstl:if
-					test="${actor.middleName != null}">
-					<jstl:out value="${actor.middleName}"></jstl:out>&nbsp;</jstl:if> <jstl:out
-					value="${actor.surname}" /></b>
+			<div>
+				<b><security:authentication
+						property="principal.username" /></b>
+			</div>
+			<div>
+				<jstl:out value="${actor.firstName}" />
+				<jstl:out value="${actor.lastName}" />
+			</div>
 		</div>
 	</div>
-	<div>
-		<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;
-		<jstl:out value="${actor.email}" />
-	</div>
-	<div>
-		<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;
-		<jstl:if test="${actor.countryCode!=null && actor.phoneNumber!=''}">+<jstl:out
-				value="${actor.countryCode}" />
-		</jstl:if>
-		<jstl:if test="${actor.areaCode!=null && actor.areaCode!=''}">(<jstl:out
-				value="${actor.areaCode}" />)</jstl:if>
-		<jstl:if test="${actor.phoneNumber!=null && actor.phoneNumber!=''}">
+	<jstl:if test="${not empty actor.email}">
+		<div>
+			<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;
+			<jstl:out value="${actor.email}" />
+		</div>
+	</jstl:if>
+	<jstl:if test="${not empty actor.phoneNumber}">
+		<div>
+			<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;
 			<jstl:out value="${actor.phoneNumber}" />
-		</jstl:if>
-	</div>
-	<div>
-		<i class="fa fa-home" aria-hidden="true"></i>&nbsp;
-		<jstl:out value="${actor.address}" />
-	</div>
+		</div>
+	</jstl:if>
+	<jstl:if test="${not empty actor.address}">
+		<div>
+			<i class="fa fa-home" aria-hidden="true"></i>&nbsp;
+			<jstl:out value="${actor.address}" />
+		</div>
+	</jstl:if>
 </div>
 <br />
 <jstl:if test="${owner==true}">
@@ -96,7 +63,8 @@
 </jstl:if>
 <jstl:if test="${role=='BROTHERHOOD'}">
 	<div>
-		<a href="brotherhood/brother/members.do?id=${actor.id}"><spring:message code="brotherhood.members" /></a>
+		<a href="brotherhood/brother/members.do?id=${actor.id}"><spring:message
+				code="brotherhood.members" /></a>
 	</div>
 	<div>
 		<a href="procession/brother/list.do?id=${actor.id}"><spring:message
@@ -104,6 +72,7 @@
 	</div>
 
 	<div>
-		<a href="bfloat/brother/list.do?id=${actor.id}"><spring:message code="brotherhood.floats" /></a>
+		<a href="bfloat/brother/list.do?id=${actor.id}"><spring:message
+				code="brotherhood.floats" /></a>
 	</div>
 </jstl:if>

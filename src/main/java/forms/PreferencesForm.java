@@ -10,7 +10,7 @@ public class PreferencesForm {
 	private String	messageSignature;
 
 
-	public boolean isDisplayName() {
+	public boolean getDisplayName() {
 		return this.displayName;
 	}
 
@@ -18,7 +18,7 @@ public class PreferencesForm {
 		this.displayName = displayName;
 	}
 
-	public boolean isDisplayEmail() {
+	public boolean getDisplayEmail() {
 		return this.displayEmail;
 	}
 
@@ -26,7 +26,7 @@ public class PreferencesForm {
 		this.displayEmail = displayEmail;
 	}
 
-	public boolean isDisplayAddress() {
+	public boolean getDisplayAddress() {
 		return this.displayAddress;
 	}
 
@@ -34,7 +34,7 @@ public class PreferencesForm {
 		this.displayAddress = displayAddress;
 	}
 
-	public boolean isDisplayNumber() {
+	public boolean getDisplayNumber() {
 		return this.displayNumber;
 	}
 

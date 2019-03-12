@@ -25,6 +25,7 @@ import security.LoginService;
 import security.User;
 import security.UserAccountService;
 import domain.Actor;
+import domain.ActorPreferences;
 import forms.ActorForm;
 import forms.RegisterForm;
 
@@ -70,6 +71,7 @@ public class ActorService {
 		res.setPhoto(actor.getPhoto());
 		res.setPhoneNumber(actor.getPhoneNumber());
 		res.setId(actor.getId());
+		res.setUsername(actor.getUser().getUsername());
 		return res;
 	}
 
@@ -82,6 +84,24 @@ public class ActorService {
 		res.setPhoto(form.getPhoto());
 		res.setName(form.getFirstName());
 		res.setSurname(form.getLastName());
+		res.getUser().setUsername(form.getUsername());
+		return res;
+	}
+
+	public ActorForm formatForm(final Actor actor, final ActorPreferences preferences) {
+		final ActorForm res = new ActorForm();
+		if (preferences.getDisplayAddress())
+			res.setAddress(actor.getAddress());
+		if (preferences.getDisplayEmail())
+			res.setEmail(actor.getEmail());
+		if (preferences.getDisplayPhoneNumber())
+			res.setPhoneNumber(actor.getPhoneNumber());
+		if (preferences.getDisplayRealName()) {
+			res.setFirstName(actor.getName());
+			res.setLastName(actor.getSurname());
+		}
+		res.setUsername(actor.getSurname());
+		res.setPhoto(actor.getPhoto());
 		return res;
 	}
 
@@ -99,15 +119,16 @@ public class ActorService {
 			res.setPhoneNumber(form.getForm().getPhoneNumber());
 			if (form.getForm().getPhoto() != "")
 				res.setPhoto(form.getForm().getPhoto());
-			res.getUser().setUsername(form.getUsername());
+			res.getUser().setUsername(form.getForm().getUsername());
 			res.setName(form.getForm().getFirstName());
 			res.setSurname(form.getForm().getLastName());
-			res.getUser().setUsername(form.getUsername());
 
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			res.getUser().setPassword(encoder.encodePassword(form.getPassword(), null));
 		}
-		return this.save(res);
+		final Actor saved = this.save(res);
+
+		return saved;
 	}
 
 	public Collection<Actor> findAll() {
