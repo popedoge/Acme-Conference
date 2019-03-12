@@ -44,8 +44,8 @@
 </div>
 
 <div>
-	<ul id="jMenu">		
-		
+	<ul id="jMenu">
+
 		<!-- admin -->
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message
@@ -75,6 +75,8 @@
 					<li class="arrow"></li>
 					<li><a href="actor/profile.do"><spring:message
 								code="master.page.profile" /></a></li>
+					<li><a href="user/settings/edit.do"><spring:message
+								code="master.page.preferences" /></a></li>
 					<li><a href="user/password.do"><spring:message
 								code="master.page.password" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message
