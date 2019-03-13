@@ -75,6 +75,10 @@
 					<li class="arrow"></li>
 					<li><a href="actor/profile.do"><spring:message
 								code="master.page.profile" /></a></li>
+					<li><a href="messaging/message.do"><spring:message
+								code="master.page.profile.sendmessage" /></a></li>
+					<li><a href="messaging/view.do"><spring:message
+								code="master.page.profile.messaging" /></a></li>
 					<li><a href="user/settings/edit.do"><spring:message
 								code="master.page.preferences" /></a></li>
 					<li><a href="user/password.do"><spring:message

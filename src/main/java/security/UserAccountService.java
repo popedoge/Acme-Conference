@@ -70,4 +70,8 @@ public class UserAccountService {
 		user.getAuthorities().add(auth);
 		return user;
 	}
+
+	public User findByUsername(final String username) {
+		return this.userAccountRepository.findByUsername(username);
+	}
 }

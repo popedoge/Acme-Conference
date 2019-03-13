@@ -154,5 +154,154 @@
 		<property name="messageSignature" value="" />
 	</bean>
 	
+	<!-- Message Boxes -->
+
+	<bean id="admin1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="admin1RootBox" />
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent" ref="admin1RootBox" />
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent" ref="admin1RootBox" />
+		<property name="owner" ref="admin1" />
+	</bean>
+
+	<bean id="admin1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="admin1RootBox" />
+		<property name="owner" ref="admin1" />
+	</bean>
+	
+	<bean id="member1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="member1" />
+	</bean>
+
+	<bean id="member1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="member1RootBox" />
+		<property name="owner" ref="member1" />
+	</bean>
+
+	<bean id="member1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent" ref="member1RootBox" />
+		<property name="owner" ref="member1" />
+	</bean>
+
+	<bean id="member1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent" ref="member1RootBox" />
+		<property name="owner" ref="member1" />
+	</bean>
+
+	<bean id="member1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="member1RootBox" />
+		<property name="owner" ref="member1" />
+	</bean>
+	
+	<bean id="member2RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="member2" />
+	</bean>
+
+	<bean id="member2Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="member2RootBox" />
+		<property name="owner" ref="member2" />
+	</bean>
+
+	<bean id="member2Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent" ref="member2RootBox" />
+		<property name="owner" ref="member2" />
+	</bean>
+
+	<bean id="member2Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent" ref="member2RootBox" />
+		<property name="owner" ref="member2" />
+	</bean>
+
+	<bean id="member2Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="member2RootBox" />
+		<property name="owner" ref="member2" />
+	</bean>
+	
+	<bean id="member3RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="member3" />
+	</bean>
+
+	<bean id="member3Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="member3RootBox" />
+		<property name="owner" ref="member3" />
+	</bean>
+
+	<bean id="member3Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent" ref="member3RootBox" />
+		<property name="owner" ref="member3" />
+	</bean>
+
+	<bean id="member3Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent" ref="member3RootBox" />
+		<property name="owner" ref="member3" />
+	</bean>
+
+	<bean id="member3Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="member3RootBox" />
+		<property name="owner" ref="member3" />
+	</bean>
 
 </beans>

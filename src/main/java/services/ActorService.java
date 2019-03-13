@@ -213,4 +213,19 @@ public class ActorService {
 		return res;
 	}
 
+	public Actor findByUsername(final String username) {
+		Actor res = null;
+		try {
+			final User user = this.userAccountService.findByUsername(username);
+			res = this.findByUser(user);
+		} catch (final Exception e) {
+
+		}
+		return res;
+	}
+
+	public Actor findByUser(final User user) {
+		return this.actorRepository.findByUser(user.getId());
+	}
+
 }
