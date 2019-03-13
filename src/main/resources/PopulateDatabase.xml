@@ -109,14 +109,14 @@
 		<property name="user" ref="userAccount4" />
 	</bean>
 	<!-- SITE CONFIG -->
-	
+
 	<bean id="siteConfig" class="domain.SiteConfig">
 		<property name="siteName" value="Acme Madruga" />
 		<property name="bannerUrl" value=" https://tinyurl.com/acme-madruga" />
 		<property name="welcomeMessage" value="Welcome vro..." />
 		<property name="countryCode" value="34" />
 	</bean>
-	
+
 	<!-- ACTOR PREFERENCES -->
 	<bean id="preferences1" class="domain.ActorPreferences">
 		<property name="owner" ref="admin1" />
@@ -126,7 +126,7 @@
 		<property name="displayEmail" value="true" />
 		<property name="messageSignature" value="- ADMIN" />
 	</bean>
-	
+
 	<bean id="preferences2" class="domain.ActorPreferences">
 		<property name="owner" ref="member1" />
 		<property name="displayRealName" value="true" />
@@ -135,7 +135,7 @@
 		<property name="displayEmail" value="true" />
 		<property name="messageSignature" value="" />
 	</bean>
-	
+
 	<bean id="preferences3" class="domain.ActorPreferences">
 		<property name="owner" ref="member2" />
 		<property name="displayRealName" value="true" />
@@ -144,7 +144,7 @@
 		<property name="displayEmail" value="true" />
 		<property name="messageSignature" value="" />
 	</bean>
-	
+
 	<bean id="preferences4" class="domain.ActorPreferences">
 		<property name="owner" ref="member3" />
 		<property name="displayRealName" value="true" />
@@ -153,7 +153,7 @@
 		<property name="displayEmail" value="true" />
 		<property name="messageSignature" value="" />
 	</bean>
-	
+
 	<!-- Message Boxes -->
 
 	<bean id="admin1RootBox" class="domain.MessageBox">
@@ -192,7 +192,14 @@
 		<property name="parent" ref="admin1RootBox" />
 		<property name="owner" ref="admin1" />
 	</bean>
-	
+
+	<bean id="admin1Notif" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="NOTIF" />
+		<property name="parent" ref="admin1RootBox" />
+		<property name="owner" ref="admin1" />
+	</bean>
+
 	<bean id="member1RootBox" class="domain.MessageBox">
 		<property name="name" value="Mail" />
 		<property name="category" value="ROOT" />
@@ -229,7 +236,14 @@
 		<property name="parent" ref="member1RootBox" />
 		<property name="owner" ref="member1" />
 	</bean>
-	
+
+	<bean id="member1Notif" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="NOTIF" />
+		<property name="parent" ref="member1RootBox" />
+		<property name="owner" ref="member1" />
+	</bean>
+
 	<bean id="member2RootBox" class="domain.MessageBox">
 		<property name="name" value="Mail" />
 		<property name="category" value="ROOT" />
@@ -266,7 +280,14 @@
 		<property name="parent" ref="member2RootBox" />
 		<property name="owner" ref="member2" />
 	</bean>
-	
+
+	<bean id="member2Notif" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="NOTIF" />
+		<property name="parent" ref="member2RootBox" />
+		<property name="owner" ref="member2" />
+	</bean>
+
 	<bean id="member3RootBox" class="domain.MessageBox">
 		<property name="name" value="Mail" />
 		<property name="category" value="ROOT" />
@@ -302,6 +323,28 @@
 		<property name="category" value="SPAMBOX" />
 		<property name="parent" ref="member3RootBox" />
 		<property name="owner" ref="member3" />
+	</bean>
+
+	<bean id="member3Notif" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="NOTIF" />
+		<property name="parent" ref="member3RootBox" />
+		<property name="owner" ref="member3" />
+	</bean>
+
+	<!-- messages -->
+
+	<bean id="message1" class="domain.Message">
+		<property name="sender">
+			<null/>
+		</property>
+		<property name="senderAlias" value="" />
+		<property name="container" ref="admin1Notif" />
+		<property name="deliveryDate" value="03/12/2019 13:20" />
+		<property name="subject" value="notif test" />
+		<property name="body" value="vro wat" />
+		<property name="priority" value="HIGH" />
+		<property name="tick" value="false" />
 	</bean>
 
 </beans>

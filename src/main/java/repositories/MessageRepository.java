@@ -15,4 +15,6 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m inner join m.container c where c.id = ?1")
 	List<Message> findByMessageBox(int messageBoxId);
 
+	@Query("select m from Message m inner join m.container c where c.category='NOTIF' and m.tick='false'")
+	List<Message> findUnreadNotifications(int actorId);
 }
