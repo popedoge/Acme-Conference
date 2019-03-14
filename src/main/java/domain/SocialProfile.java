@@ -1,11 +1,16 @@
 
 package domain;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class SocialProfile extends DomainEntity {
 
 	private Actor			owner;
@@ -13,7 +18,7 @@ public class SocialProfile extends DomainEntity {
 	private String			url;
 
 
-	@NotNull
+	@ManyToOne(optional = false)
 	public Actor getOwner() {
 		return this.owner;
 	}
@@ -22,7 +27,7 @@ public class SocialProfile extends DomainEntity {
 		this.owner = owner;
 	}
 
-	@NotNull
+	@ManyToOne(optional = false)
 	public SocialNetwork getNetwork() {
 		return this.network;
 	}

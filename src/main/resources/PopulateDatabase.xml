@@ -336,7 +336,7 @@
 
 	<bean id="message1" class="domain.Message">
 		<property name="sender">
-			<null/>
+			<null />
 		</property>
 		<property name="senderAlias" value="" />
 		<property name="container" ref="admin1Notif" />
@@ -346,5 +346,19 @@
 		<property name="priority" value="HIGH" />
 		<property name="tick" value="false" />
 	</bean>
+
+	<!-- social network -->
+
+	<bean id="socialNetwork1" class="domain.SocialNetwork">
+		<property name="name" value="Facebook" />
+		<property name="icon" value="https://image.flaticon.com/icons/png/512/33/33702.png" />
+	</bean>
+	
+	<bean id="socialNetwork2" class="domain.SocialNetwork">
+		<property name="name" value="VK" />
+		<property name="icon" value="https://image.flaticon.com/icons/png/512/25/25684.png" />
+	</bean>
+	
+	<!-- social profile -->
 
 </beans>

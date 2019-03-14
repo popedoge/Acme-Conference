@@ -2,6 +2,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -19,8 +20,10 @@ import services.ActorPreferencesService;
 import services.ActorService;
 import services.AdminService;
 import services.MemberService;
+import services.SocialProfileService;
 import domain.Actor;
 import domain.ActorPreferences;
+import domain.SocialProfile;
 import forms.ActorForm;
 import forms.RegisterForm;
 
@@ -36,6 +39,8 @@ public class ActorController extends AbstractController {
 	private AdminService			adminService;
 	@Autowired
 	private ActorPreferencesService	preferencesService;
+	@Autowired
+	private SocialProfileService	socialProfService;
 
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
@@ -45,16 +50,20 @@ public class ActorController extends AbstractController {
 		Actor actor;
 		ActorForm form;
 		ActorPreferences preferences;
+
 		if (id == null || id == 0) {
 			actor = this.actorService.findPrincipal();
 			preferences = this.preferencesService.findByPrincipal();
 			form = this.actorService.formatForm(actor, preferences);
+			res.addObject("owner", true);
 		} else {
 			actor = this.actorService.findOne(id);
 			Assert.notNull(actor);
 			preferences = this.preferencesService.findByActor(actor);
 			form = this.actorService.formatForm(actor, preferences);
 		}
+		final List<SocialProfile> profiles = this.socialProfService.findByActor(actor);
+		res.addObject("profiles", profiles);
 		res.addObject("actor", form);
 		return res;
 	}
