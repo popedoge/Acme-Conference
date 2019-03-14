@@ -24,7 +24,7 @@
 <%-- Attributes --%>
 
 <%@ attribute name="path" required="true"%>
-<%@ attribute name="code" required="true"%>
+<%@ attribute name="code" required="false"%>
 <%@ attribute name="items" required="true" type="java.util.Collection"%>
 <%@ attribute name="itemLabel" required="false"%>
 <%@ attribute name="itemsAsCodes" required="false"%>
@@ -42,9 +42,11 @@
 <%-- Definition --%>
 
 <div>
-	<form:label path="${path}">
-		<spring:message code="${code}" />
-	</form:label>
+	<jstl:if test="${not empty code}">
+		<form:label path="${path}">
+			<spring:message code="${code}" />
+		</form:label>
+	</jstl:if>
 	<form:select id="${id}" path="${path}" onchange="${onchange}">
 		<!-- object list -->
 		<jstl:if test="${itemLabel!=null}">
@@ -59,7 +61,7 @@
 		<jstl:if test="${itemLabel==null && itemsAsCodes!=null}">
 			<jstl:forEach items="${items}" var="item">
 				<form:option value="${item}">
-					<spring:message code="${item}"/>
+					<spring:message code="${item}" />
 				</form:option>
 			</jstl:forEach>
 		</jstl:if>

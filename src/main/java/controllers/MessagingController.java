@@ -23,6 +23,7 @@ import domain.Actor;
 import domain.Message;
 import domain.MessageBox;
 import forms.MessageForm;
+import forms.MoveMessageForm;
 
 @Controller
 @RequestMapping(value = "/messaging")
@@ -39,26 +40,25 @@ public class MessagingController {
 	@RequestMapping(value = "/message", method = RequestMethod.GET)
 	public ModelAndView message() {
 		ModelAndView res;
-		MessageForm mail = new MessageForm();
+		final MessageForm mail = new MessageForm();
 		mail.setLock(false);
 		res = this.createMessageEditModelAndView(mail);
 		return res;
 	}
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	public ModelAndView send(MessageForm mail, BindingResult binding) {
+	public ModelAndView send(final MessageForm mail, final BindingResult binding) {
 		ModelAndView res;
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			res = this.createMessageEditModelAndView(mail);
-
-		} else {
+		else
 			try {
-				Message message = this.messageService.create();
-				String[] ids = mail.getRecipients().split(",");
+				final Message message = this.messageService.create();
+				final String[] ids = mail.getRecipients().split(",");
 				for (int i = 0; i < ids.length; i++) {
-					List<Actor> recipients = message.getRecipients();
-					Actor newActor = this.actorService.findById(Integer.valueOf(ids[i].trim()));
+					final List<Actor> recipients = message.getRecipients();
+					final Actor newActor = this.actorService.findById(Integer.valueOf(ids[i].trim()));
 					recipients.add(newActor);
 					message.setRecipients(recipients);
 				}
@@ -67,46 +67,44 @@ public class MessagingController {
 				message.setPriority(mail.getPriority());
 				this.messageService.send(message);
 				res = new ModelAndView("redirect:view.do");
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				res = this.createMessageEditModelAndView(mail, "message.commit.error");
 			}
-		}
 		return res;
 	}
 
 	@RequestMapping(value = "/fetch", produces = "application/json")
 	public @ResponseBody
-	Integer findActor(@RequestParam String username) {
+	Integer findActor(@RequestParam final String username) {
 		Integer res = 0;
 		if (!username.isEmpty()) {
-			Actor actor = this.actorService.findByUsername(username);
-			if (actor != null) {
+			final Actor actor = this.actorService.findByUsername(username);
+			if (actor != null)
 				res = actor.getId();
-			}
 		}
 		return res;
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
-	public ModelAndView removeMessage(@RequestParam int messageId, @RequestParam int boxId) {
+	public ModelAndView removeMessage(@RequestParam final int messageId, @RequestParam final int boxId) {
 		ModelAndView res;
 		res = new ModelAndView("redirect:view.do?" + boxId);
 		try {
-			Message message = this.messageService.findById(messageId);
-			MessageBox messageBox = this.messageBoxService.findById(boxId);
+			final Message message = this.messageService.findById(messageId);
+			final MessageBox messageBox = this.messageBoxService.findById(boxId);
 
 			this.messageService.remove(message, messageBox);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			res.addObject("message", "messageBox.delete.error");
 		}
 		return res;
 	}
 
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
-	public ModelAndView reply(@RequestParam int id) {
+	public ModelAndView reply(@RequestParam final int id) {
 		ModelAndView res;
-		MessageForm mail = new MessageForm();
-		Message message = this.messageService.findById(id);
+		final MessageForm mail = new MessageForm();
+		final Message message = this.messageService.findById(id);
 		mail.setRecipients(String.valueOf(message.getSender().getId()));
 		mail.setLock(true);
 		mail.setSubject("Re: " + message.getSubject());
@@ -119,9 +117,9 @@ public class MessagingController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam(required = false) final Integer id) {
 		ModelAndView res;
-		MessageBox messageBox = this.messageBoxService.create();
+		final MessageBox messageBox = this.messageBoxService.create();
 		if (id != null) {
-			MessageBox parent = this.messageBoxService.findById(id);
+			final MessageBox parent = this.messageBoxService.findById(id);
 			messageBox.setParent(parent);
 		}
 		res = this.createEditModelAndView(messageBox);
@@ -133,9 +131,9 @@ public class MessagingController {
 		ModelAndView res;
 		res = new ModelAndView("redirect:view.do");
 		try {
-			MessageBox messageBox = this.messageBoxService.findById(id);
+			final MessageBox messageBox = this.messageBoxService.findById(id);
 			this.messageBoxService.deleteAll(messageBox);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			res.addObject("message", "messageBox.delete.error");
 		}
 		return res;
@@ -144,34 +142,32 @@ public class MessagingController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int id) {
 		ModelAndView res;
-		MessageBox messageBox = this.messageBoxService.findById(id);
+		final MessageBox messageBox = this.messageBoxService.findById(id);
 		Assert.notNull(messageBox);
 		res = this.createEditModelAndView(messageBox);
 		return res;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid MessageBox messageBox, BindingResult binding) {
+	public ModelAndView save(@Valid final MessageBox messageBox, final BindingResult binding) {
 		ModelAndView res;
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			res = this.createEditModelAndView(messageBox);
-
-		} else {
+		else
 			try {
 				this.messageBoxService.save(messageBox);
 				res = new ModelAndView("redirect:view.do");
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				res = this.createEditModelAndView(messageBox, "messagebox.commit.error");
 			}
-		}
 		return res;
 	}
 
 	@RequestMapping(value = "/viewmessage", method = RequestMethod.GET)
 	public ModelAndView viewMessage(@RequestParam final Integer id, @RequestParam final Integer box) {
 		ModelAndView res;
-		MessageBox container = this.messageBoxService.findById(box);
-		Message message = this.messageService.findById(id);
+		final MessageBox container = this.messageBoxService.findById(box);
+		final Message message = this.messageService.findById(id);
 		Assert.isTrue(message.getContainer().contains(container), "Message could be loaded: bad request");
 		res = new ModelAndView("messaging/message");
 		res.addObject("mail", message);
@@ -202,15 +198,34 @@ public class MessagingController {
 		return res;
 	}
 
-	protected ModelAndView createEditModelAndView(MessageBox messageBox) {
+	@RequestMapping(value = "/move", headers = "Accept=*/*", method = RequestMethod.GET)
+	public @ResponseBody
+	ModelAndView moveMessageBox(@RequestParam final int messageId, @RequestParam final int messageBoxId) {
+		final ModelAndView res;
+		final Message message = this.messageService.findById(messageId);
+		final MessageBox messageBox = this.messageBoxService.findById(messageBoxId);
+		Assert.notNull(message);
+		Assert.notNull(messageBox);
+		Assert.isTrue(message.getContainer().contains(messageBox));
+		final MoveMessageForm form = new MoveMessageForm();
+		form.setMessage(messageId);
+		form.setMoveFrom(messageBoxId);
+		res = new ModelAndView("messaging/move");
+		final List<MessageBox> boxes = this.messageBoxService.findByPrincipal();
+		res.addObject("form", form);
+		res.addObject("boxes", boxes);
+		return res;
+	}
+
+	protected ModelAndView createEditModelAndView(final MessageBox messageBox) {
 		ModelAndView res;
 		res = this.createEditModelAndView(messageBox, null);
 		return res;
 	}
 
-	protected ModelAndView createEditModelAndView(MessageBox messageBox, String messageCode) {
+	protected ModelAndView createEditModelAndView(final MessageBox messageBox, final String messageCode) {
 		ModelAndView res;
-		List<MessageBox> boxes = this.messageBoxService.findByPrincipal();
+		final List<MessageBox> boxes = this.messageBoxService.findByPrincipal();
 
 		res = new ModelAndView("messaging/edit");
 		res.addObject("messageBoxes", boxes);
@@ -219,15 +234,15 @@ public class MessagingController {
 		return res;
 	}
 
-	protected ModelAndView createMessageEditModelAndView(MessageForm mail) {
+	protected ModelAndView createMessageEditModelAndView(final MessageForm mail) {
 		ModelAndView res;
 		res = this.createMessageEditModelAndView(mail, null);
 		return res;
 	}
 
-	protected ModelAndView createMessageEditModelAndView(MessageForm mail, String messageCode) {
+	protected ModelAndView createMessageEditModelAndView(final MessageForm mail, final String messageCode) {
 		ModelAndView res;
-		List<String> priorities = new ArrayList<>();
+		final List<String> priorities = new ArrayList<>();
 		priorities.add("HIGH");
 		priorities.add("NEUTRAL");
 		priorities.add("LOW");

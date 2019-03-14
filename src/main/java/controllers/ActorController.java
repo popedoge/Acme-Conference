@@ -82,18 +82,6 @@ public class ActorController extends AbstractController {
 		return res;
 	}
 
-	@RequestMapping(value = "/preferences", method = RequestMethod.POST)
-	public ModelAndView setPreferences() {
-		final ModelAndView res = null;
-		return res;
-	}
-
-	@RequestMapping(value = "/social", method = RequestMethod.POST)
-	public ModelAndView setSocialProfile() {
-		final ModelAndView res = null;
-		return res;
-	}
-
 	//AUX
 	protected ModelAndView createEditModelAndView(final RegisterForm registerForm) {
 		return this.createEditModelAndView(registerForm, null);
