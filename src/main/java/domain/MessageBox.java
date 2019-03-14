@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -13,11 +14,18 @@ import org.hibernate.validator.constraints.NotBlank;
 public class MessageBox extends DomainEntity {
 
 	//relation
-	public Actor		owner;
-	public MessageBox	parent;
+	public Actor				owner;
+	public MessageBox			parent;
 	//attributes
-	public String		name;
-	public String		category;
+	public String				name;
+	public String				category;
+
+	public static final String	ROOT		= "ROOT";
+	public static final String	NOTIF		= "NOTIF";
+	public static final String	INBOX		= "INBOX";
+	public static final String	OUTBOX		= "OUTBOX";
+	public static final String	TRASHBOX	= "TRASHBOX";
+	public static final String	SPAMBOX		= "SPAMBOX";
 
 
 	@ManyToOne(optional = false)
@@ -49,6 +57,7 @@ public class MessageBox extends DomainEntity {
 	}
 
 	@NotBlank
+	@Pattern(regexp = "^" + MessageBox.ROOT + "|" + MessageBox.NOTIF + "|" + MessageBox.INBOX + "|" + MessageBox.OUTBOX + "|" + MessageBox.SPAMBOX + "|" + MessageBox.TRASHBOX + "$")
 	public String getCategory() {
 		return this.category;
 	}

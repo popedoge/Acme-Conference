@@ -31,17 +31,26 @@ public class Message extends DomainEntity {
 	public Date				deliveryDate;
 	public String			body;
 	public String			priority;
+	public boolean			tick;
 
+
+	public boolean getTick() {
+		return this.tick;
+	}
+
+	public void setTick(final boolean tick) {
+		this.tick = tick;
+	}
 
 	public String getSenderAlias() {
 		return this.senderAlias;
 	}
 
-	public void setSenderAlias(String senderAlias) {
+	public void setSenderAlias(final String senderAlias) {
 		this.senderAlias = senderAlias;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Actor getSender() {
 		return this.sender;
 	}
