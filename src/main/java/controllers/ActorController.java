@@ -20,12 +20,15 @@ import services.ActorPreferencesService;
 import services.ActorService;
 import services.AdminService;
 import services.MemberService;
+import services.SocialNetworkService;
 import services.SocialProfileService;
 import domain.Actor;
 import domain.ActorPreferences;
+import domain.SocialNetwork;
 import domain.SocialProfile;
 import forms.ActorForm;
 import forms.RegisterForm;
+import forms.SocialProfileForm;
 
 @Controller
 @RequestMapping("/actor")
@@ -41,8 +44,11 @@ public class ActorController extends AbstractController {
 	private ActorPreferencesService	preferencesService;
 	@Autowired
 	private SocialProfileService	socialProfService;
+	@Autowired
+	private SocialNetworkService	socialNetService;
 
 
+	//load actor profile
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView userProfile(@RequestParam(required = false) final Integer id) {
 		ModelAndView res;
@@ -50,7 +56,7 @@ public class ActorController extends AbstractController {
 		Actor actor;
 		ActorForm form;
 		ActorPreferences preferences;
-
+		//if id==0 load principal's profile and give owner options
 		if (id == null || id == 0) {
 			actor = this.actorService.findPrincipal();
 			preferences = this.preferencesService.findByPrincipal();
@@ -68,6 +74,7 @@ public class ActorController extends AbstractController {
 		return res;
 	}
 
+	//edit actor information
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView res;
@@ -75,8 +82,8 @@ public class ActorController extends AbstractController {
 		res = this.createActorEditModelAndView(actorForm);
 		return res;
 	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	//save actor information
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView commit(@ModelAttribute("actorForm") @Valid final ActorForm actorForm, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
@@ -91,7 +98,59 @@ public class ActorController extends AbstractController {
 		return res;
 	}
 
+	//edit/create social profile
+	@RequestMapping(value = "/social/edit", method = RequestMethod.GET)
+	public ModelAndView editSocialProfile(@RequestParam(required = false) final Integer id) {
+		ModelAndView res;
+		SocialProfile profile;
+		if (id != null)
+			profile = this.socialProfService.findById(id);
+		else
+			profile = this.socialProfService.create();
+		final SocialProfileForm form = this.socialProfService.formatForm(profile);
+		res = this.createSocialProfileEditModelAndView(form);
+		return res;
+	}
+
+	@RequestMapping(value = "/social/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveSocialProfile(@ModelAttribute("form") @Valid final SocialProfileForm form, final BindingResult binding) {
+		ModelAndView res;
+		if (binding.hasErrors())
+			res = this.createSocialProfileEditModelAndView(form);
+		else
+			try {
+				final SocialProfile saved = this.socialProfService.save(this.socialProfService.parseForm(form));
+				res = new ModelAndView("redirect:/profile.do");
+			} catch (final Exception e) {
+				res = this.createSocialProfileEditModelAndView(form, "socialprofile.error");
+			}
+		return res;
+	}
+
+	//delete social profile
+	@RequestMapping(value = "/social/delete", method = RequestMethod.GET)
+	public ModelAndView deleteSocialProfile(@RequestParam final int id) {
+		this.socialProfService.delete(id);
+		return new ModelAndView("redirect:/profile.do");
+	}
+
 	//AUX
+	//social profile
+	protected ModelAndView createSocialProfileEditModelAndView(final SocialProfileForm form) {
+		return this.createSocialProfileEditModelAndView(form, null);
+	}
+
+	protected ModelAndView createSocialProfileEditModelAndView(final SocialProfileForm form, final String messageCode) {
+		ModelAndView res;
+		final List<SocialNetwork> networks = this.socialNetService.findAll();
+		res = new ModelAndView("actor/social/edit");
+		res.addObject("networks", networks);
+		res.addObject("form", form);
+		res.addObject("message", messageCode);
+		return res;
+	}
+
+	//register
 	protected ModelAndView createEditModelAndView(final RegisterForm registerForm) {
 		return this.createEditModelAndView(registerForm, null);
 	}
@@ -109,6 +168,7 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
+	//actor information
 	protected ModelAndView createActorEditModelAndView(final ActorForm actorForm) {
 		return this.createActorEditModelAndView(actorForm, null);
 	}

@@ -24,6 +24,16 @@ public class SocialProfileService {
 	private SocialNetworkService	socialNetService;
 
 
+	public SocialProfile create() {
+		final SocialProfile res = new SocialProfile();
+		res.setOwner(this.actorService.findPrincipal());
+		return res;
+	}
+
+	public SocialProfile findById(final int id) {
+		return this.socialProfRepo.findOne(id);
+	}
+
 	public SocialProfileForm formatForm(final SocialProfile profile) {
 		final SocialProfileForm res = new SocialProfileForm();
 		res.setNetwork(profile.getNetwork().getId());

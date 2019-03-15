@@ -23,20 +23,18 @@
 
 <jstl:if test="${owner}">
 	<div class="inline-container">
-		<a href="preferences/edit.do" style="text-decoration: none;">
+		<a href="user/settings/edit.do" style="text-decoration: none;">
 			<div class="inline">
 				<i class="fa fa-cog" aria-hidden="true"></i>
-				<spring:message code="settings"/>
+				<spring:message code="settings" />
 			</div>
 		</a> <a href="actor/edit.do" style="text-decoration: none;">
 			<div class="inline">
 				<i class="fa fa-pencil" aria-hidden="true"></i>
-				<spring:message code="information"/>
+				<spring:message code="information" />
 			</div>
 		</a>
 	</div>
-	<br/>
-	<br/>
 </jstl:if>
 
 <div>
@@ -72,4 +70,35 @@
 		</div>
 	</jstl:if>
 </div>
+<br />
+<jstl:if test="${not empty profiles}">
+	<div>
+		<jstl:forEach items="${profiles}" var="profile">
+
+			<div class="inline-outer" style="length: 200px;">
+				<a href="${profile.url}" targer="_blank"
+					style="text-decoration: none;">
+					<div class="inline icon"
+						style="background-image:url('${profile.network.icon}');"></div>
+					<div class="inline" style="vertical-align: initial;">
+						<jstl:out value="${profile.network.name}" />
+					</div>
+				</a>
+				<jstl:if test="${owner}">
+					<a href="actor/social/edit.do?id=${profile.id}" style="text-decoration: none;">
+						<div class="inline">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</div>
+					</a>
+					<a href="actor/social/delete.do?id=${profile.id}" style="text-decoration: none;">
+						<div class="inline">
+							<i class="fa fa-times" aria-hidden="true"></i>
+						</div>
+					</a>
+				</jstl:if>
+			</div>
+
+		</jstl:forEach>
+	</div>
+</jstl:if>
 <br />

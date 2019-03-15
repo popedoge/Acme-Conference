@@ -351,14 +351,23 @@
 
 	<bean id="socialNetwork1" class="domain.SocialNetwork">
 		<property name="name" value="Facebook" />
-		<property name="icon" value="https://image.flaticon.com/icons/png/512/33/33702.png" />
+		<property name="icon"
+			value="https://image.flaticon.com/icons/png/512/33/33702.png" />
 	</bean>
-	
+
 	<bean id="socialNetwork2" class="domain.SocialNetwork">
 		<property name="name" value="VK" />
-		<property name="icon" value="https://image.flaticon.com/icons/png/512/25/25684.png" />
+		<property name="icon"
+			value="https://image.flaticon.com/icons/png/512/25/25684.png" />
 	</bean>
-	
+
 	<!-- social profile -->
+
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="network" ref="socialNetwork1" />
+		<property name="owner" ref="admin1" />
+		<property name="url" value="http://slither.io/" />
+	</bean>
+
 
 </beans>
