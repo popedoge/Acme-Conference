@@ -38,6 +38,16 @@
 	margin:10px 10px 10px 10px;
 }
 
+.icon {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 40px;
+	width: 40px;
+	display:inline-block;
+	margin:10px 10px 10px 10px;
+}
+
 .attachment {
 	background-position: center;
 	background-repeat: no-repeat;

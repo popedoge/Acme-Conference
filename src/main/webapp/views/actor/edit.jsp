@@ -32,19 +32,10 @@
 		<acme:textbox code="actor.email" path="email" />
 		<acme:textbox code="actor.address" path="address" />
 		<acme:textbox code="actor.photo" path="photo" />
-		<!--  phone number -->
-		<form:hidden path="countryCode" id="hidden-cc" />
-		<form:hidden path="areaCode" id="hidden-ac" />
-		<form:hidden path="phoneNumber" id="hidden-pn" />
-		<!-- /phone number -->
-		<div>
-			<spring:message code="actor.phonenumber" />
-			<input type="text" placeholder="+XX (XX) XXXX" id="phoneinput" />
-		</div>
+		<acme:textbox code="actor.phonenumber" path="phoneNumber"
+			placeholder="+XX (XX) XXXX" />
 	</div>
 	<div>
 		<acme:submit name="save" code="save" />
 	</div>
 </form:form>
-
-<script type="text/javascript" src="scripts/phonenum.js"></script>

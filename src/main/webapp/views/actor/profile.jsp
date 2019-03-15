@@ -21,14 +21,31 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<jstl:if test="${owner}">
+	<div class="inline-container">
+		<a href="preferences/edit.do" style="text-decoration: none;">
+			<div class="inline">
+				<i class="fa fa-cog" aria-hidden="true"></i>
+				<spring:message code="settings"/>
+			</div>
+		</a> <a href="actor/edit.do" style="text-decoration: none;">
+			<div class="inline">
+				<i class="fa fa-pencil" aria-hidden="true"></i>
+				<spring:message code="information"/>
+			</div>
+		</a>
+	</div>
+	<br/>
+	<br/>
+</jstl:if>
+
 <div>
 	<div class="inline-outer">
 		<div class="thumb inline"
 			style="background-image:url('${actor.photo}')"></div>
 		<div class="inline">
 			<div>
-				<b><security:authentication
-						property="principal.username" /></b>
+				<b><security:authentication property="principal.username" /></b>
 			</div>
 			<div>
 				<jstl:out value="${actor.firstName}" />
@@ -56,23 +73,3 @@
 	</jstl:if>
 </div>
 <br />
-<jstl:if test="${owner==true}">
-	<div>
-		<a href="actor/edit.do"><spring:message code="edit" /></a>
-	</div>
-</jstl:if>
-<jstl:if test="${role=='BROTHERHOOD'}">
-	<div>
-		<a href="brotherhood/brother/members.do?id=${actor.id}"><spring:message
-				code="brotherhood.members" /></a>
-	</div>
-	<div>
-		<a href="procession/brother/list.do?id=${actor.id}"><spring:message
-				code="brotherhood.processions" /></a>
-	</div>
-
-	<div>
-		<a href="bfloat/brother/list.do?id=${actor.id}"><spring:message
-				code="brotherhood.floats" /></a>
-	</div>
-</jstl:if>
