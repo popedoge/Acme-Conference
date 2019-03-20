@@ -3,7 +3,7 @@ package forms;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 public class SocialProfileForm {
 
@@ -30,7 +30,7 @@ public class SocialProfileForm {
 		this.network = network;
 	}
 
-	@NotBlank
+	@URL
 	public String getUrl() {
 		return this.url;
 	}

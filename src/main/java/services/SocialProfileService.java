@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import repositories.SocialProfileRepository;
 import domain.Actor;
+import domain.SocialNetwork;
 import domain.SocialProfile;
 import forms.SocialProfileForm;
 
@@ -27,6 +28,7 @@ public class SocialProfileService {
 	public SocialProfile create() {
 		final SocialProfile res = new SocialProfile();
 		res.setOwner(this.actorService.findPrincipal());
+		res.setNetwork(new SocialNetwork());
 		return res;
 	}
 
@@ -36,6 +38,7 @@ public class SocialProfileService {
 
 	public SocialProfileForm formatForm(final SocialProfile profile) {
 		final SocialProfileForm res = new SocialProfileForm();
+		res.setId(profile.getId());
 		res.setNetwork(profile.getNetwork().getId());
 		res.setUrl(profile.getUrl());
 		return res;
@@ -49,6 +52,7 @@ public class SocialProfileService {
 			res = this.socialProfRepo.findOne(form.getId());
 		res.setOwner(this.actorService.findPrincipal());
 		res.setNetwork(this.socialNetService.findById(form.getNetwork()));
+		res.setUrl(form.getUrl());
 		return res;
 	}
 

@@ -71,6 +71,12 @@
 	</jstl:if>
 </div>
 <br />
+<jstl:if test="${owner}">
+	<div>
+		<a href="actor/social/edit.do"> <spring:message code="social.new" />
+		</a>
+	</div>
+</jstl:if>
 <jstl:if test="${not empty profiles}">
 	<div>
 		<jstl:forEach items="${profiles}" var="profile">
@@ -85,12 +91,14 @@
 					</div>
 				</a>
 				<jstl:if test="${owner}">
-					<a href="actor/social/edit.do?id=${profile.id}" style="text-decoration: none;">
+					<a href="actor/social/edit.do?id=${profile.id}"
+						style="text-decoration: none;">
 						<div class="inline">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 						</div>
 					</a>
-					<a href="actor/social/delete.do?id=${profile.id}" style="text-decoration: none;">
+					<a href="actor/social/delete.do?id=${profile.id}"
+						style="text-decoration: none;">
 						<div class="inline">
 							<i class="fa fa-times" aria-hidden="true"></i>
 						</div>

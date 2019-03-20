@@ -120,7 +120,7 @@ public class ActorController extends AbstractController {
 		else
 			try {
 				final SocialProfile saved = this.socialProfService.save(this.socialProfService.parseForm(form));
-				res = new ModelAndView("redirect:/profile.do");
+				res = new ModelAndView("redirect:/actor/profile.do");
 			} catch (final Exception e) {
 				res = this.createSocialProfileEditModelAndView(form, "socialprofile.error");
 			}
@@ -131,7 +131,7 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/social/delete", method = RequestMethod.GET)
 	public ModelAndView deleteSocialProfile(@RequestParam final int id) {
 		this.socialProfService.delete(id);
-		return new ModelAndView("redirect:/profile.do");
+		return new ModelAndView("redirect:/actor/profile.do");
 	}
 
 	//AUX
