@@ -75,5 +75,5 @@
 		<acme:submit name="save" code="actor.register" />
 	</div>
 </form:form>
-
+<script type="text/javascript" src="scripts/phonenum.js"></script>
 <script type="text/javascript" src="scripts/password.js"></script>

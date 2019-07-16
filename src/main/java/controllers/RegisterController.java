@@ -42,7 +42,10 @@ public class RegisterController {
 			return this.createActorEditModelAndView(form);
 		else
 			try {
-				this.actorService.register(form);
+				switch (form.getRole()) {
+				case "MEMBER":
+					this.memberService.register(form);
+				}
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (final Exception e) {
 				res = this.createActorEditModelAndView(form, "register.error");

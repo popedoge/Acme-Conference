@@ -16,6 +16,14 @@ public class RegisterForm {
 	private Boolean		acceptTerms;
 
 
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(final String username) {
+		this.username = username;
+	}
+
 	@AssertTrue(message = "terms.error")
 	public Boolean getAcceptTerms() {
 		return this.acceptTerms;

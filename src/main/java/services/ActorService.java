@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -27,7 +26,6 @@ import security.UserAccountService;
 import domain.Actor;
 import domain.ActorPreferences;
 import forms.ActorForm;
-import forms.RegisterForm;
 
 @Service
 @Transactional
@@ -103,32 +101,6 @@ public class ActorService {
 		res.setUsername(actor.getSurname());
 		res.setPhoto(actor.getPhoto());
 		return res;
-	}
-
-	public Actor register(final RegisterForm form) {
-		Actor res = null;
-		switch (form.getRole()) {
-		case "MEMBER":
-			res = this.memberService.create();
-		case "ADMIN":
-
-		}
-		if (res != null) {
-			res.setAddress(form.getForm().getAddress());
-			res.setEmail(form.getForm().getEmail());
-			res.setPhoneNumber(form.getForm().getPhoneNumber());
-			if (form.getForm().getPhoto() != "")
-				res.setPhoto(form.getForm().getPhoto());
-			res.getUser().setUsername(form.getForm().getUsername());
-			res.setName(form.getForm().getFirstName());
-			res.setSurname(form.getForm().getLastName());
-
-			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			res.getUser().setPassword(encoder.encodePassword(form.getPassword(), null));
-		}
-		final Actor saved = this.save(res);
-
-		return saved;
 	}
 
 	public Collection<Actor> findAll() {
