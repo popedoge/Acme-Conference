@@ -16,11 +16,13 @@ import forms.RegisterForm;
 public class MemberService {
 
 	@Autowired
-	private MemberRepository	memberRepo;
+	private MemberRepository		memberRepo;
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 	@Autowired
-	private UserAccountService	userService;
+	private UserAccountService		userService;
+	@Autowired
+	private ActorPreferencesService	preferenceService;
 
 
 	public Member findById(final int id) {
@@ -37,20 +39,21 @@ public class MemberService {
 		final Member res = this.create();
 
 		if (res != null) {
+			//actor
 			res.setAddress(form.getForm().getAddress());
 			res.setEmail(form.getForm().getEmail());
 			res.setPhoneNumber(form.getForm().getPhoneNumber());
 			if (form.getForm().getPhoto() != "")
 				res.setPhoto(form.getForm().getPhoto());
-			res.getUser().setUsername(form.getForm().getUsername());
 			res.setName(form.getForm().getFirstName());
 			res.setSurname(form.getForm().getLastName());
-
+			//user
+			res.getUser().setUsername(form.getForm().getUsername());
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			res.getUser().setPassword(encoder.encodePassword(form.getPassword(), null));
 		}
 		final Member saved = this.save(res);
-
+		this.preferenceService.create(saved);
 		return saved;
 	}
 

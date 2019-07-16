@@ -11,18 +11,9 @@ public class RegisterForm {
 
 	private ActorForm	form;
 	private String		password;
-	private String		username;
 	private String		role;
 	private Boolean		acceptTerms;
 
-
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(final String username) {
-		this.username = username;
-	}
 
 	@AssertTrue(message = "terms.error")
 	public Boolean getAcceptTerms() {

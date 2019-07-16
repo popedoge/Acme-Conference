@@ -30,7 +30,7 @@
 		<div>
 			<b><spring:message code="actor.account" /></b>
 		</div>
-		<acme:textbox code="actor.displayname" path="username" />
+		<acme:textbox code="actor.displayname" path="form.username" />
 		<acme:password code="actor.password" path="password" id="password"
 			tooltip="actor.password.tooltip" />
 		<div>

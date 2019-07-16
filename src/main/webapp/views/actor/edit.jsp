@@ -27,7 +27,7 @@
 			<b><spring:message code="actor.personalinfo" /></b>
 		</div>
 		<acme:textbox code="actor.firstname" path="firstName" />
-		<acme:textbox code="actor.middlename" path="middleName" />
+<%-- 		<acme:textbox code="actor.middlename" path="middleName" /> --%>
 		<acme:textbox code="actor.lastname" path="lastName" />
 		<acme:textbox code="actor.email" path="email" />
 		<acme:textbox code="actor.address" path="address" />
