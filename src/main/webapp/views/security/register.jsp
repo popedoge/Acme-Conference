@@ -45,6 +45,7 @@
 		</div>
 		<form:hidden path="form.id" />
 		<form:hidden path="role" />
+		<form:hidden path="form.cc" id="cc"/>
 		<acme:textbox code="actor.firstname" path="form.firstName" />
 		<acme:textbox code="actor.lastname" path="form.lastName" />
 		<acme:textbox code="actor.email" path="form.email" />
