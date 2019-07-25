@@ -1,4 +1,3 @@
-
 package services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import repositories.MemberRepository;
 import security.UserAccountService;
+import domain.ActorPreferences;
 import domain.Member;
 import forms.RegisterForm;
 
@@ -16,14 +16,13 @@ import forms.RegisterForm;
 public class MemberService {
 
 	@Autowired
-	private MemberRepository		memberRepo;
+	private MemberRepository memberRepo;
 	@Autowired
-	private ActorService			actorService;
+	private ActorService actorService;
 	@Autowired
-	private UserAccountService		userService;
+	private UserAccountService userService;
 	@Autowired
-	private ActorPreferencesService	preferenceService;
-
+	private ActorPreferencesService preferenceService;
 
 	public Member findById(final int id) {
 		return this.memberRepo.findOne(id);
@@ -39,7 +38,7 @@ public class MemberService {
 		final Member res = this.create();
 
 		if (res != null) {
-			//actor
+			// actor
 			res.setAddress(form.getForm().getAddress());
 			res.setEmail(form.getForm().getEmail());
 			res.setPhoneNumber(form.getForm().getPhoneNumber());
@@ -47,13 +46,16 @@ public class MemberService {
 				res.setPhoto(form.getForm().getPhoto());
 			res.setName(form.getForm().getFirstName());
 			res.setSurname(form.getForm().getLastName());
-			//user
+			// user
 			res.getUser().setUsername(form.getForm().getUsername());
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			res.getUser().setPassword(encoder.encodePassword(form.getPassword(), null));
+			res.getUser().setPassword(
+					encoder.encodePassword(form.getPassword(), null));
 		}
 		final Member saved = this.save(res);
-		this.preferenceService.create(saved);
+		// TODO: FIX THIS
+		ActorPreferences preferences = this.preferenceService.create(saved);
+		this.preferenceService.save(preferences);
 		return saved;
 	}
 
@@ -68,7 +70,8 @@ public class MemberService {
 	}
 
 	public Member save(final Member member) {
-		// if it's saved for the first time (created), assign a proper make given his name
+		// if it's saved for the first time (created), assign a proper make
+		// given his name
 		final Member res = this.memberRepo.save(member);
 		return res;
 	}
