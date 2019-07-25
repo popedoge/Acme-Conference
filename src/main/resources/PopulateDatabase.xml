@@ -30,7 +30,7 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="MEMBER" />
+					<property name="authority" value="AUTHOR" />
 				</bean>
 			</list>
 		</property>
@@ -42,7 +42,7 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="MEMBER" />
+					<property name="authority" value="AUTHOR" />
 				</bean>
 			</list>
 		</property>
@@ -54,7 +54,7 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="MEMBER" />
+					<property name="authority" value="AUTHOR" />
 				</bean>
 			</list>
 		</property>
@@ -76,7 +76,7 @@
 
 	<!-- members -->
 
-	<bean id="member1" class="domain.Member">
+	<bean id="member1" class="domain.Author">
 		<property name="name" value="Mem" />
 		<property name="surname" value="1" />
 		<property name="email" value="member1@mail.com" />
@@ -87,7 +87,7 @@
 		<property name="user" ref="userAccount2" />
 	</bean>
 
-	<bean id="member2" class="domain.Member">
+	<bean id="member2" class="domain.Author">
 		<property name="name" value="Mem" />
 		<property name="surname" value="2" />
 		<property name="email" value="member2@mail.com" />
@@ -98,7 +98,7 @@
 		<property name="user" ref="userAccount3" />
 	</bean>
 
-	<bean id="member3" class="domain.Member">
+	<bean id="member3" class="domain.Author">
 		<property name="name" value="Mem" />
 		<property name="surname" value="3" />
 		<property name="email" value="member1@mail.com" />

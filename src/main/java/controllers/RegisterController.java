@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
-import services.MemberService;
-import domain.Member;
+import services.AuthorService;
+import domain.Author;
 import forms.RegisterForm;
 
 @Controller
@@ -21,14 +21,14 @@ import forms.RegisterForm;
 public class RegisterController {
 
 	@Autowired
-	private MemberService	memberService;
+	private AuthorService	authorService;
 	@Autowired
 	private ActorService	actorService;
 
 
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public ModelAndView createUser() {
-		final Member member = this.memberService.create();
+		final Author member = this.authorService.create();
 		final RegisterForm regForm = new RegisterForm();
 		regForm.setRole("MEMBER");
 		regForm.setForm(this.actorService.formatForm(member));
@@ -44,7 +44,7 @@ public class RegisterController {
 			try {
 				switch (form.getRole()) {
 				case "MEMBER":
-					this.memberService.register(form);
+					this.authorService.register(form);
 				}
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (final Exception e) {

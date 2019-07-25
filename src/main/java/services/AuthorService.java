@@ -5,18 +5,18 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.MemberRepository;
+import repositories.AuthorRepository;
 import security.UserAccountService;
 import domain.ActorPreferences;
-import domain.Member;
+import domain.Author;
 import forms.RegisterForm;
 
 @Service
 @Transactional
-public class MemberService {
+public class AuthorService {
 
 	@Autowired
-	private MemberRepository memberRepo;
+	private AuthorRepository authorRepo;
 	@Autowired
 	private ActorService actorService;
 	@Autowired
@@ -24,18 +24,18 @@ public class MemberService {
 	@Autowired
 	private ActorPreferencesService preferenceService;
 
-	public Member findById(final int id) {
-		return this.memberRepo.findOne(id);
+	public Author findById(final int id) {
+		return this.authorRepo.findOne(id);
 	}
 
-	public Member create() {
-		Member member = new Member();
-		member = (Member) this.actorService.initialize(member, "MEMBER");
+	public Author create() {
+		Author member = new Author();
+		member = (Author) this.actorService.initialize(member, "MEMBER");
 		return member;
 	}
 
-	public Member register(final RegisterForm form) {
-		final Member res = this.create();
+	public Author register(final RegisterForm form) {
+		final Author res = this.create();
 
 		if (res != null) {
 			// actor
@@ -52,27 +52,27 @@ public class MemberService {
 			res.getUser().setPassword(
 					encoder.encodePassword(form.getPassword(), null));
 		}
-		final Member saved = this.save(res);
-		// TODO: FIX THIS
+		final Author saved = this.save(res);
+
 		ActorPreferences preferences = this.preferenceService.create(saved);
 		this.preferenceService.save(preferences);
 		return saved;
 	}
 
-	public Member setAuthority(final Member member) {
+	public Author setAuthority(final Author member) {
 		member.setUser(this.userService.addAuthority(member.getUser(), "MEMBER"));
 		return member;
 	}
 
-	public Member findPrincipal() {
+	public Author findPrincipal() {
 		this.actorService.assertPrincipalAuthority("MEMBER");
-		return (Member) this.actorService.findPrincipal();
+		return (Author) this.actorService.findPrincipal();
 	}
 
-	public Member save(final Member member) {
+	public Author save(final Author member) {
 		// if it's saved for the first time (created), assign a proper make
 		// given his name
-		final Member res = this.memberRepo.save(member);
+		final Author res = this.authorRepo.save(member);
 		return res;
 	}
 
