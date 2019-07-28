@@ -1,4 +1,3 @@
-
 package controllers;
 
 import javax.validation.Valid;
@@ -21,30 +20,31 @@ import forms.RegisterForm;
 public class RegisterController {
 
 	@Autowired
-	private AuthorService	authorService;
+	private AuthorService authorService;
 	@Autowired
-	private ActorService	actorService;
-
+	private ActorService actorService;
 
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public ModelAndView createUser() {
 		final Author member = this.authorService.create();
 		final RegisterForm regForm = new RegisterForm();
-		regForm.setRole("MEMBER");
+		regForm.setRole("AUTHOR");
 		regForm.setForm(this.actorService.formatForm(member));
 		return this.createActorEditModelAndView(regForm);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveUser(@ModelAttribute("regForm") @Valid final RegisterForm form, final BindingResult binding) {
+	public ModelAndView saveUser(
+			@ModelAttribute("regForm") @Valid final RegisterForm form,
+			final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
 			return this.createActorEditModelAndView(form);
 		else
 			try {
 				switch (form.getRole()) {
-				case "MEMBER":
-					this.authorService.register(form);
+					case "AUTHOR" :
+						this.authorService.register(form);
 				}
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (final Exception e) {
@@ -52,12 +52,14 @@ public class RegisterController {
 			}
 		return res;
 	}
-	//AUX // ============================================ //
-	protected ModelAndView createActorEditModelAndView(final RegisterForm regForm) {
+	// AUX // ============================================ //
+	protected ModelAndView createActorEditModelAndView(
+			final RegisterForm regForm) {
 		return this.createActorEditModelAndView(regForm, null);
 	}
 
-	protected ModelAndView createActorEditModelAndView(final RegisterForm regForm, final String messageCode) {
+	protected ModelAndView createActorEditModelAndView(
+			final RegisterForm regForm, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("security/register");

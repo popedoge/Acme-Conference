@@ -29,9 +29,9 @@ public class AuthorService {
 	}
 
 	public Author create() {
-		Author member = new Author();
-		member = (Author) this.actorService.initialize(member, "MEMBER");
-		return member;
+		Author author = new Author();
+		author = (Author) this.actorService.initialize(author, "AUTHOR");
+		return author;
 	}
 
 	public Author register(final RegisterForm form) {
@@ -59,20 +59,20 @@ public class AuthorService {
 		return saved;
 	}
 
-	public Author setAuthority(final Author member) {
-		member.setUser(this.userService.addAuthority(member.getUser(), "MEMBER"));
-		return member;
+	public Author setAuthority(final Author author) {
+		author.setUser(this.userService.addAuthority(author.getUser(), "AUTHOR"));
+		return author;
 	}
 
 	public Author findPrincipal() {
-		this.actorService.assertPrincipalAuthority("MEMBER");
+		this.actorService.assertPrincipalAuthority("AUTHOR");
 		return (Author) this.actorService.findPrincipal();
 	}
 
-	public Author save(final Author member) {
+	public Author save(final Author author) {
 		// if it's saved for the first time (created), assign a proper make
 		// given his name
-		final Author res = this.authorRepo.save(member);
+		final Author res = this.authorRepo.save(author);
 		return res;
 	}
 
