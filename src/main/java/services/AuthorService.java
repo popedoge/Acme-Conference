@@ -1,5 +1,7 @@
 package services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ public class AuthorService {
 
 	public Author findById(final int id) {
 		return this.authorRepo.findOne(id);
+	}
+
+	public List<Author> findAll() {
+		return this.authorRepo.findAll();
 	}
 
 	public Author create() {
