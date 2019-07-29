@@ -28,6 +28,8 @@
 		<value>/views/config/messages</value>
 		<value>/views/terms/messages</value>
 		<value>/views/messaging/messages</value>
+		<value>/views/conference/messages</value>
+		
 	</util:list>
 
 </beans>

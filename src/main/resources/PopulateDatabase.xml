@@ -368,6 +368,24 @@
 		<property name="owner" ref="admin1" />
 		<property name="url" value="http://slither.io/" />
 	</bean>
+	
+		<!-- conference -->
+
+	<bean id="conference1" class="domain.Conference">
+		<property name="title" value="title1" />
+		<property name="acronym" value="acronym1" />
+		<property name="venue" value="venue1" />
+		<property name="summary" value="summary1" />
+		<property name="fee" value="1" />
+		<property name="submissionDL" value="03/12/2019 13:20" />
+		<property name="notificationDL" value="03/12/2019 13:20" />
+		<property name="cameraDL" value="03/12/2019 13:20" />
+		<property name="startDate" value="03/12/2019 13:20" />
+		<property name="endDate" value="03/12/2019 13:20" />
+		
+		
+		
+	</bean>
 
 
 </beans>

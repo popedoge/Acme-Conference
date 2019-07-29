@@ -46,6 +46,13 @@
 		<security:intercept-url pattern="/actor/**" access="permitAll" /> 
 		<security:intercept-url pattern="/misc/**" access="permitAll" /> 
 		<security:intercept-url pattern="/user/**" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/user/**" access="isAuthenticated()" /> 
+		
+		<!-- <security:intercept-url pattern="/conference/handyworker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/conference/customer/**" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/conference/view.do" access="hasAnyRole('CUSTOMER','HANDYWORKER')" />
+		<security:intercept-url pattern="/conference/addcomment.do" access="hasAnyRole('CUSTOMER','HANDYWORKER')" /> -->
+		<security:intercept-url pattern="/conference/**" access="permitAll" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
