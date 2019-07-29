@@ -1,6 +1,6 @@
 var phoneinput = document.getElementById("phone-input");
 var form = document.getElementById("regForm");
-var regex = new RegExp("^(\\+\\d{1,3})?\\s?(\\(\\d{1,3}\\))?\\d{4,}$");
+var regex = new RegExp("^(\\+\\d{1,3})?\\s?(\\(\\d{1,3}\\))?\\s?\\d{4,}$");
 
 if (form.addEventListener) {
 	form.addEventListener("submit", function(evt) {
@@ -25,6 +25,7 @@ function checkPhone() {
 	var res = regex.test(phoneinput.value);
 	if (!res) {
 		if (confirm('Are you sure you want to save with this phone format?')) {
+
 			res = true;
 		}
 	}

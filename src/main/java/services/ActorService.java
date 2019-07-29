@@ -41,7 +41,7 @@ public class ActorService {
 	@Autowired
 	private UserAccountService	userAccountService;
 	@Autowired
-	private MemberService		memberService;
+	private AuthorService		authorService;
 	@Autowired
 	private AdminService		adminService;
 	@Autowired

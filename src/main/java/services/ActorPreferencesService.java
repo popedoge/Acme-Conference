@@ -1,4 +1,3 @@
-
 package services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,9 @@ import forms.PreferencesForm;
 public class ActorPreferencesService {
 
 	@Autowired
-	private ActorPreferencesRepository	preferencesRepo;
+	private ActorPreferencesRepository preferencesRepo;
 	@Autowired
-	private ActorService				actorService;
-
+	private ActorService actorService;
 
 	public ActorPreferences findById(final int id) {
 		return this.preferencesRepo.findOne(id);
@@ -62,10 +60,12 @@ public class ActorPreferencesService {
 
 	public ActorPreferences create(final Actor actor) {
 		final ActorPreferences preferences = new ActorPreferences();
+		preferences.setOwner(actor);
 		preferences.setDisplayAddress(true);
 		preferences.setDisplayEmail(true);
 		preferences.setDisplayRealName(true);
-		preferences.setMessageSignature("- " + actor.getName() + " " + actor.getSurname());
+		preferences.setMessageSignature("- " + actor.getName() + " "
+				+ actor.getSurname());
 		return preferences;
 	}
 }

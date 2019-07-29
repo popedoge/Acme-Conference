@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorPreferencesService;
 import services.ActorService;
 import services.AdminService;
-import services.MemberService;
+import services.AuthorService;
 import services.SocialNetworkService;
 import services.SocialProfileService;
 import domain.Actor;
@@ -35,7 +35,7 @@ import forms.SocialProfileForm;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private MemberService			memberService;
+	private AuthorService			authorService;
 	@Autowired
 	private ActorService			actorService;
 	@Autowired
