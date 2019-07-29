@@ -25,6 +25,8 @@ public class AuthorService {
 	private UserAccountService userService;
 	@Autowired
 	private ActorPreferencesService preferenceService;
+	@Autowired
+	private SiteConfigurationService siteConfigService;
 
 	public Author findById(final int id) {
 		return this.authorRepo.findOne(id);
@@ -78,6 +80,13 @@ public class AuthorService {
 	public Author save(final Author author) {
 		// if it's saved for the first time (created), assign a proper make
 		// given his name
+
+		if (author.getPhoneNumber().matches("^\\d{4,}$")) {
+			String phonenum = "+"
+					+ String.valueOf(this.siteConfigService.find()
+							.getCountryCode()) + " " + author.getPhoneNumber();
+			author.setPhoneNumber(phonenum);
+		}
 		final Author res = this.authorRepo.save(author);
 		return res;
 	}
