@@ -35,6 +35,11 @@
 			</div>
 		</a>
 	</div>
+	<div>
+		<a href="user/review.do">
+			<spring:message code="reviewer"/>
+		</a>
+	</div>
 </jstl:if>
 
 <div>
