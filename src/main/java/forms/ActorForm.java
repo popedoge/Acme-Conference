@@ -1,4 +1,3 @@
-
 package forms;
 
 import javax.validation.constraints.Pattern;
@@ -10,15 +9,23 @@ import org.hibernate.validator.constraints.URL;
 
 public class ActorForm {
 
-	private Integer	id;
-	private String	firstName;
-	private String	username;
-	private String	lastName;
-	private String	phoneNumber;
-	private String	email;
-	private String	address;
-	private String	photo;
+	private Integer id;
+	private String role;
+	private String firstName;
+	private String username;
+	private String lastName;
+	private String phoneNumber;
+	private String email;
+	private String address;
+	private String photo;
 
+	public String getRole() {
+		return this.role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	@Size(min = 4, max = 32, message = "Username must have 4 to 32 characters")
 	@Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "Characters must be alphanumeric")

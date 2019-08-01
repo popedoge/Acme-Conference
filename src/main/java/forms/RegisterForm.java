@@ -1,4 +1,3 @@
-
 package forms;
 
 import javax.validation.Valid;
@@ -9,11 +8,10 @@ import javax.validation.constraints.Size;
 
 public class RegisterForm {
 
-	private ActorForm	form;
-	private String		password;
-	private String		role;
-	private Boolean		acceptTerms;
+	private ActorForm form;
+	private String password;
 
+	private Boolean acceptTerms;
 
 	@AssertTrue(message = "terms.error")
 	public Boolean getAcceptTerms() {
@@ -22,14 +20,6 @@ public class RegisterForm {
 
 	public void setAcceptTerms(final Boolean acceptTerms) {
 		this.acceptTerms = acceptTerms;
-	}
-
-	public String getRole() {
-		return this.role;
-	}
-
-	public void setRole(final String role) {
-		this.role = role;
 	}
 
 	@Valid

@@ -34,19 +34,18 @@ public class ActorService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private ActorRepository		actorRepository;
+	private ActorRepository actorRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private UserAccountService	userAccountService;
+	private UserAccountService userAccountService;
 	@Autowired
-	private AuthorService		authorService;
+	private AuthorService authorService;
 	@Autowired
-	private AdminService		adminService;
+	private AdminService adminService;
 	@Autowired
-	private LoginService		loginService;
-
+	private LoginService loginService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -70,6 +69,21 @@ public class ActorService {
 		res.setPhoneNumber(actor.getPhoneNumber());
 		res.setId(actor.getId());
 		res.setUsername(actor.getUser().getUsername());
+
+		Authority authorAuth = new Authority();
+		authorAuth.setAuthority("AUTHOR");
+		Authority reviewerAuth = new Authority();
+		authorAuth.setAuthority("REVIEWER");
+		Authority adminAuth = new Authority();
+		authorAuth.setAuthority("ADMIN");
+
+		if (actor.getUser().getAuthorities().contains(authorAuth)) {
+			res.setRole("AUTHOR");
+		} else if (actor.getUser().getAuthorities().contains(reviewerAuth)) {
+			res.setRole("REVIEWER");
+		} else if (actor.getUser().getAuthorities().contains(adminAuth)) {
+			res.setRole("ADMIN");
+		}
 		return res;
 	}
 
@@ -86,7 +100,8 @@ public class ActorService {
 		return res;
 	}
 
-	public ActorForm formatForm(final Actor actor, final ActorPreferences preferences) {
+	public ActorForm formatForm(final Actor actor,
+			final ActorPreferences preferences) {
 		final ActorForm res = new ActorForm();
 		if (preferences.getDisplayAddress())
 			res.setAddress(actor.getAddress());
@@ -161,16 +176,19 @@ public class ActorService {
 	}
 
 	public void assertPrincipalAuthority(final String auth) {
-		Assert.isTrue(this.getPrincipalAuthority().contains(auth), "The user logged does not have authority to do this action.");
+		Assert.isTrue(this.getPrincipalAuthority().contains(auth),
+				"The user logged does not have authority to do this action.");
 
 	}
 
 	public Actor findPrincipal() {
-		return this.actorRepository.findByUser(LoginService.getPrincipal().getId());
+		return this.actorRepository.findByUser(LoginService.getPrincipal()
+				.getId());
 	}
 
 	public Collection<String> getPrincipalAuthority() {
-		final Collection<Authority> auth = this.findPrincipal().getUser().getAuthorities();
+		final Collection<Authority> auth = this.findPrincipal().getUser()
+				.getAuthorities();
 		final Collection<String> res = new HashSet<>();
 		for (final Authority a : auth)
 			res.add(a.getAuthority());

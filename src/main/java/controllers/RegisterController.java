@@ -28,8 +28,8 @@ public class RegisterController {
 	public ModelAndView createUser() {
 		final Author member = this.authorService.create();
 		final RegisterForm regForm = new RegisterForm();
-		regForm.setRole("AUTHOR");
 		regForm.setForm(this.actorService.formatForm(member));
+		regForm.getForm().setRole("AUTHOR");
 		return this.createActorEditModelAndView(regForm);
 	}
 
@@ -42,7 +42,7 @@ public class RegisterController {
 			return this.createActorEditModelAndView(form);
 		else
 			try {
-				switch (form.getRole()) {
+				switch (form.getForm().getRole()) {
 					case "AUTHOR" :
 						this.authorService.register(form);
 				}

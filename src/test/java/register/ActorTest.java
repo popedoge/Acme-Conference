@@ -42,7 +42,7 @@ public class ActorTest extends AbstractTest {
 		// datos
 		regForm.setAcceptTerms(true);
 		regForm.setPassword("test");
-		regForm.setRole("AUTHOR");
+
 		actForm.setAddress("test");
 		actForm.setEmail("test@acme.com");
 		actForm.setFirstName("test");
@@ -51,7 +51,7 @@ public class ActorTest extends AbstractTest {
 		actForm.setPhoto("https://66.media.tumblr.com/403952a5f76181fa94b78d6318dadff8/cb88b6bbf0ceb7e8-5a/s540x810/1872472fefbf14f611326c0d1ce8e9d86ceb9040.jpg");
 		actForm.setUsername("test55");
 		regForm.setForm(actForm);
-
+		regForm.getForm().setRole("AUTHOR");
 		saved = this.authorService.register(regForm);
 
 		authors = this.authorService.findAll();
@@ -67,7 +67,7 @@ public class ActorTest extends AbstractTest {
 		// datos
 		regForm.setAcceptTerms(true);
 		regForm.setPassword("test");
-		regForm.setRole("AUTHOR");
+
 		actForm.setAddress("test");
 		actForm.setEmail("test@acme.com");
 		actForm.setFirstName("test");
@@ -76,6 +76,7 @@ public class ActorTest extends AbstractTest {
 		actForm.setPhoto("https://66.media.tumblr.com/403952a5f76181fa94b78d6318dadff8/cb88b6bbf0ceb7e8-5a/s540x810/1872472fefbf14f611326c0d1ce8e9d86ceb9040.jpg");
 		actForm.setUsername("test55");
 		regForm.setForm(actForm);
+		regForm.getForm().setRole("AUTHOR");
 
 		saved = this.authorService.register(regForm);
 		String cc = "+"
@@ -94,7 +95,7 @@ public class ActorTest extends AbstractTest {
 		// datos
 		regForm.setAcceptTerms(true);
 		regForm.setPassword("test");
-		regForm.setRole("AUTHOR");
+
 		actForm.setAddress("test");
 		actForm.setEmail("test@acme.com");
 		actForm.setFirstName("test");
@@ -103,6 +104,7 @@ public class ActorTest extends AbstractTest {
 		actForm.setPhoto("https://66.media.tumblr.com/403952a5f76181fa94b78d6318dadff8/cb88b6bbf0ceb7e8-5a/s540x810/1872472fefbf14f611326c0d1ce8e9d86ceb9040.jpg");
 		actForm.setUsername("test55");
 		regForm.setForm(actForm);
+		regForm.getForm().setRole("AUTHOR");
 
 		saved = this.authorService.register(regForm);
 

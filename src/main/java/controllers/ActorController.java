@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.util.ArrayList;
@@ -35,28 +34,36 @@ import forms.SocialProfileForm;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private AuthorService			authorService;
+	private AuthorService authorService;
 	@Autowired
-	private ActorService			actorService;
+	private ActorService actorService;
 	@Autowired
-	private AdminService			adminService;
+	private AdminService adminService;
 	@Autowired
-	private ActorPreferencesService	preferencesService;
+	private ActorPreferencesService preferencesService;
 	@Autowired
-	private SocialProfileService	socialProfService;
+	private SocialProfileService socialProfService;
 	@Autowired
-	private SocialNetworkService	socialNetService;
+	private SocialNetworkService socialNetService;
 
+	// become a reviewer
+	@RequestMapping(value = "/become-reviewer", method = RequestMethod.GET)
+	public ModelAndView becomeReviewer() {
+		ModelAndView res;
+		res = new ModelAndView("actor/profile");
+		return res;
+	}
 
-	//load actor profile
+	// load actor profile
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public ModelAndView userProfile(@RequestParam(required = false) final Integer id) {
+	public ModelAndView userProfile(
+			@RequestParam(required = false) final Integer id) {
 		ModelAndView res;
 		res = new ModelAndView("actor/profile");
 		Actor actor;
 		ActorForm form;
 		ActorPreferences preferences;
-		//if id==0 load principal's profile and give owner options
+		// if id==0 load principal's profile and give owner options
 		if (id == null || id == 0) {
 			actor = this.actorService.findPrincipal();
 			preferences = this.preferencesService.findByPrincipal();
@@ -68,23 +75,27 @@ public class ActorController extends AbstractController {
 			preferences = this.preferencesService.findByActor(actor);
 			form = this.actorService.formatForm(actor, preferences);
 		}
-		final List<SocialProfile> profiles = this.socialProfService.findByActor(actor);
+		final List<SocialProfile> profiles = this.socialProfService
+				.findByActor(actor);
 		res.addObject("profiles", profiles);
 		res.addObject("actor", form);
 		return res;
 	}
 
-	//edit actor information
+	// edit actor information
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView res;
-		final ActorForm actorForm = this.actorService.formatForm(this.actorService.findPrincipal());
+		final ActorForm actorForm = this.actorService
+				.formatForm(this.actorService.findPrincipal());
 		res = this.createActorEditModelAndView(actorForm);
 		return res;
 	}
-	//save actor information
+	// save actor information
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView commit(@ModelAttribute("actorForm") @Valid final ActorForm actorForm, final BindingResult binding) {
+	public ModelAndView commit(
+			@ModelAttribute("actorForm") @Valid final ActorForm actorForm,
+			final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
 			res = this.createActorEditModelAndView(actorForm);
@@ -93,54 +104,63 @@ public class ActorController extends AbstractController {
 				this.actorService.save(this.actorService.parseForm(actorForm));
 				res = new ModelAndView("redirect:profile.do");
 			} catch (final Exception e) {
-				res = this.createActorEditModelAndView(actorForm, "actor.commit.error");
+				res = this.createActorEditModelAndView(actorForm,
+						"actor.commit.error");
 			}
 		return res;
 	}
 
-	//edit/create social profile
+	// edit/create social profile
 	@RequestMapping(value = "/social/edit", method = RequestMethod.GET)
-	public ModelAndView editSocialProfile(@RequestParam(required = false) final Integer id) {
+	public ModelAndView editSocialProfile(
+			@RequestParam(required = false) final Integer id) {
 		ModelAndView res;
 		SocialProfile profile;
 		if (id != null)
 			profile = this.socialProfService.findById(id);
 		else
 			profile = this.socialProfService.create();
-		final SocialProfileForm form = this.socialProfService.formatForm(profile);
+		final SocialProfileForm form = this.socialProfService
+				.formatForm(profile);
 		res = this.createSocialProfileEditModelAndView(form);
 		return res;
 	}
 
 	@RequestMapping(value = "/social/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveSocialProfile(@ModelAttribute("form") @Valid final SocialProfileForm form, final BindingResult binding) {
+	public ModelAndView saveSocialProfile(
+			@ModelAttribute("form") @Valid final SocialProfileForm form,
+			final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
 			res = this.createSocialProfileEditModelAndView(form);
 		else
 			try {
-				final SocialProfile saved = this.socialProfService.save(this.socialProfService.parseForm(form));
+				final SocialProfile saved = this.socialProfService
+						.save(this.socialProfService.parseForm(form));
 				res = new ModelAndView("redirect:/actor/profile.do");
 			} catch (final Exception e) {
-				res = this.createSocialProfileEditModelAndView(form, "socialprofile.error");
+				res = this.createSocialProfileEditModelAndView(form,
+						"socialprofile.error");
 			}
 		return res;
 	}
 
-	//delete social profile
+	// delete social profile
 	@RequestMapping(value = "/social/delete", method = RequestMethod.GET)
 	public ModelAndView deleteSocialProfile(@RequestParam final int id) {
 		this.socialProfService.delete(id);
 		return new ModelAndView("redirect:/actor/profile.do");
 	}
 
-	//AUX
-	//social profile
-	protected ModelAndView createSocialProfileEditModelAndView(final SocialProfileForm form) {
+	// AUX
+	// social profile
+	protected ModelAndView createSocialProfileEditModelAndView(
+			final SocialProfileForm form) {
 		return this.createSocialProfileEditModelAndView(form, null);
 	}
 
-	protected ModelAndView createSocialProfileEditModelAndView(final SocialProfileForm form, final String messageCode) {
+	protected ModelAndView createSocialProfileEditModelAndView(
+			final SocialProfileForm form, final String messageCode) {
 		ModelAndView res;
 		final List<SocialNetwork> networks = this.socialNetService.findAll();
 		res = new ModelAndView("actor/social/edit");
@@ -150,12 +170,14 @@ public class ActorController extends AbstractController {
 		return res;
 	}
 
-	//register
-	protected ModelAndView createEditModelAndView(final RegisterForm registerForm) {
+	// register
+	protected ModelAndView createEditModelAndView(
+			final RegisterForm registerForm) {
 		return this.createEditModelAndView(registerForm, null);
 	}
 
-	protected ModelAndView createEditModelAndView(final RegisterForm registerForm, final String messageCode) {
+	protected ModelAndView createEditModelAndView(
+			final RegisterForm registerForm, final String messageCode) {
 		ModelAndView result;
 		final ArrayList<String> roles = new ArrayList<>();
 		roles.add("MEMBER");
@@ -168,12 +190,13 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	//actor information
+	// actor information
 	protected ModelAndView createActorEditModelAndView(final ActorForm actorForm) {
 		return this.createActorEditModelAndView(actorForm, null);
 	}
 
-	protected ModelAndView createActorEditModelAndView(final ActorForm actorForm, final String messageCode) {
+	protected ModelAndView createActorEditModelAndView(
+			final ActorForm actorForm, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");

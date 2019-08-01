@@ -22,6 +22,16 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jstl:if test="${owner}">
+	<jstl:if test="${actor.role=='AUTHOR'}">
+		<div class="inline-container">
+			<a href="user/become-reviewer.do">
+				<div class="inline">
+					<i class="fa fa-address-card" aria-hidden="true"></i>
+					<spring:message code="reviewer" />
+				</div>
+			</a>
+		</div>
+	</jstl:if>
 	<div class="inline-container">
 		<a href="user/settings/edit.do" style="text-decoration: none;">
 			<div class="inline">
@@ -36,8 +46,7 @@
 		</a>
 	</div>
 	<div>
-		<a href="user/review.do">
-			<spring:message code="reviewer"/>
+		<a href="user/review.do"> <spring:message code="reviewer" />
 		</a>
 	</div>
 </jstl:if>
