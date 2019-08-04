@@ -54,6 +54,17 @@
 		<acme:textbox code="actor.phonenumber" path="form.phoneNumber"
 			id="phone-input" />
 	</div>
+	<!-- load reviewer section if reviewer field enabled -->
+	<form:hidden path="isReviewer"/>
+	<jstl:if test="${reviewer}">
+		<div class="box">
+			<div>
+				<b><spring:message code="actor.reviewer" /></b>
+			</div>
+			<acme:textbox code="actor.expertise" path="form.firstName" />
+			<message code="actor.expertise.instructions"/>
+		</div>
+	</jstl:if>
 	<div>
 		<div>
 			<form:checkbox path="acceptTerms" />
@@ -71,6 +82,7 @@
 			</jstl:if>
 		</div>
 	</div>
+	
 	<div>
 		<acme:submit name="save" code="actor.register" />
 	</div>

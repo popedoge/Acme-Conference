@@ -18,6 +18,15 @@ public class ActorForm {
 	private String email;
 	private String address;
 	private String photo;
+	private String expertise;
+
+	public String getExpertise() {
+		return this.expertise;
+	}
+
+	public void setExpertise(String expertise) {
+		this.expertise = expertise;
+	}
 
 	public String getRole() {
 		return this.role;

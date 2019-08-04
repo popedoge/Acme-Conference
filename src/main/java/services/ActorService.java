@@ -25,6 +25,7 @@ import security.User;
 import security.UserAccountService;
 import domain.Actor;
 import domain.ActorPreferences;
+import domain.Reviewer;
 import forms.ActorForm;
 
 @Service
@@ -46,6 +47,8 @@ public class ActorService {
 	private AdminService adminService;
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private ReviewerService reviewerService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -112,6 +115,10 @@ public class ActorService {
 		if (preferences.getDisplayRealName()) {
 			res.setFirstName(actor.getName());
 			res.setLastName(actor.getSurname());
+		}
+		if (actor.getUser().getAuthorities().contains(Authority.REVIEWER)) {
+			Reviewer reviewer = this.reviewerService.findById(actor.getId());
+			res.setExpertise(reviewer.getExpertise());
 		}
 		res.setUsername(actor.getSurname());
 		res.setPhoto(actor.getPhoto());

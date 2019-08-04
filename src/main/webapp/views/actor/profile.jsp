@@ -83,6 +83,12 @@
 			<jstl:out value="${actor.address}" />
 		</div>
 	</jstl:if>
+	<jstl:if test="${not empty actor.expertise}">
+		<div>
+			<b><spring:message code="actor.expertise" /></message></b>&nbsp;
+			<jstl:out value="${actor.expertise}" />
+		</div>
+	</jstl:if>
 </div>
 <br />
 <jstl:if test="${owner}">

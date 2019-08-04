@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AuthorService;
+import services.ReviewerService;
 import domain.Author;
 import forms.RegisterForm;
 
@@ -23,6 +24,8 @@ public class RegisterController {
 	private AuthorService authorService;
 	@Autowired
 	private ActorService actorService;
+	@Autowired
+	private ReviewerService reviewerService;
 
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public ModelAndView createUser() {
@@ -30,6 +33,17 @@ public class RegisterController {
 		final RegisterForm regForm = new RegisterForm();
 		regForm.setForm(this.actorService.formatForm(member));
 		regForm.getForm().setRole("AUTHOR");
+		regForm.setIsReviewer(false);
+		return this.createActorEditModelAndView(regForm);
+	}
+
+	@RequestMapping(value = "/reviewer/init", method = RequestMethod.GET)
+	public ModelAndView createReviewer() {
+		final Author member = this.authorService.create();
+		final RegisterForm regForm = new RegisterForm();
+		regForm.setForm(this.actorService.formatForm(member));
+		regForm.getForm().setRole("REVIEWER");
+		regForm.setIsReviewer(true);
 		return this.createActorEditModelAndView(regForm);
 	}
 
@@ -45,6 +59,8 @@ public class RegisterController {
 				switch (form.getForm().getRole()) {
 					case "AUTHOR" :
 						this.authorService.register(form);
+					case "REVIEWER" :
+						this.reviewerService.register(form);
 				}
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (final Exception e) {

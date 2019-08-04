@@ -47,12 +47,12 @@ public class ActorController extends AbstractController {
 	private SocialNetworkService socialNetService;
 
 	// become a reviewer
-	@RequestMapping(value = "/become-reviewer", method = RequestMethod.GET)
-	public ModelAndView becomeReviewer() {
-		ModelAndView res;
-		res = new ModelAndView("actor/profile");
-		return res;
-	}
+	// @RequestMapping(value = "/become-reviewer", method = RequestMethod.GET)
+	// public ModelAndView becomeReviewer() {
+	// ModelAndView res;
+	// res = new ModelAndView("actor/profile");
+	// return res;
+	// }
 
 	// load actor profile
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)

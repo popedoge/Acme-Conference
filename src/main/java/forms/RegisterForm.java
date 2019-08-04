@@ -10,8 +10,16 @@ public class RegisterForm {
 
 	private ActorForm form;
 	private String password;
-
+	private Boolean isReviewer;
 	private Boolean acceptTerms;
+
+	public Boolean getIsReviewer() {
+		return this.isReviewer;
+	}
+
+	public void setIsReviewer(Boolean isReviewer) {
+		this.isReviewer = isReviewer;
+	}
 
 	@AssertTrue(message = "terms.error")
 	public Boolean getAcceptTerms() {

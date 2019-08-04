@@ -64,20 +64,22 @@
 						code="master.page.login" /></a></li>
 			<li><a class="fNiv" href="register/init.do"><spring:message
 						code="master.page.register" /></a></li>
+			<li><a class="fNiv" href="register/reviewer/init.do"><spring:message
+						code="master.page.register.reviewer" /></a></li>
 		</security:authorize>
 
-<%-- 		<security:authorize access="isAuthenticated()"> --%>
-<%-- 			<sql:query dataSource="${snapshot}" var="notifs"> --%>
-<!--          		SELECT * FROM message INNER JOIN message_box ON message_box.category='NOTIF' AND message.tick='false'; -->
-<%--       		</sql:query> --%>
-<!-- 			<li><a class="fNiv">NOTIF</a> -->
-<!-- 				<ul> -->
-<!-- 					<li class="arrow"></li> -->
-<%-- 					<jstl:forEach items="${notifs.rows[0]}" var="notif-row"> --%>
-<%-- 						<li><jstl:out value="${notif-row}" /></li> --%>
-<%-- 					</jstl:forEach> --%>
-<!-- 				</ul></li> -->
-<%-- 		</security:authorize> --%>
+		<%-- 		<security:authorize access="isAuthenticated()"> --%>
+		<%-- 			<sql:query dataSource="${snapshot}" var="notifs"> --%>
+		<!--          		SELECT * FROM message INNER JOIN message_box ON message_box.category='NOTIF' AND message.tick='false'; -->
+		<%--       		</sql:query> --%>
+		<!-- 			<li><a class="fNiv">NOTIF</a> -->
+		<!-- 				<ul> -->
+		<!-- 					<li class="arrow"></li> -->
+		<%-- 					<jstl:forEach items="${notifs.rows[0]}" var="notif-row"> --%>
+		<%-- 						<li><jstl:out value="${notif-row}" /></li> --%>
+		<%-- 					</jstl:forEach> --%>
+		<!-- 				</ul></li> -->
+		<%-- 		</security:authorize> --%>
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message
