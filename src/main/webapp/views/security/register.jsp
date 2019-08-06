@@ -44,7 +44,7 @@
 			<b><spring:message code="actor.personalinfo" /></b>
 		</div>
 		<form:hidden path="form.id" />
-		<form:hidden path="role" />
+		<form:hidden path="form.role" />
 		<acme:textbox code="actor.firstname" path="form.firstName" />
 		<acme:textbox code="actor.lastname" path="form.lastName" />
 		<acme:textbox code="actor.email" path="form.email" />
@@ -56,7 +56,7 @@
 	</div>
 	<!-- load reviewer section if reviewer field enabled -->
 	<form:hidden path="isReviewer"/>
-	<jstl:if test="${reviewer}">
+	<jstl:if test="${regForm.form.role == 'REVIEWER'}">
 		<div class="box">
 			<div>
 				<b><spring:message code="actor.reviewer" /></b>

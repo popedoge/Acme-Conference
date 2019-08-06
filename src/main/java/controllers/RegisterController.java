@@ -37,7 +37,7 @@ public class RegisterController {
 		return this.createActorEditModelAndView(regForm);
 	}
 
-	@RequestMapping(value = "/reviewer/init", method = RequestMethod.GET)
+	@RequestMapping(value = "/init-reviewer", method = RequestMethod.GET)
 	public ModelAndView createReviewer() {
 		final Author member = this.authorService.create();
 		final RegisterForm regForm = new RegisterForm();

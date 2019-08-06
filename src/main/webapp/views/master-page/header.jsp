@@ -63,8 +63,8 @@
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
 			<li><a class="fNiv" href="register/init.do"><spring:message
-						code="master.page.register" /></a></li>
-			<li><a class="fNiv" href="register/reviewer/init.do"><spring:message
+						code="master.page.register.author" /></a></li>
+			<li><a class="fNiv" href="register/init-reviewer.do"><spring:message
 						code="master.page.register.reviewer" /></a></li>
 		</security:authorize>
 

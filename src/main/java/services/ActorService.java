@@ -73,18 +73,12 @@ public class ActorService {
 		res.setId(actor.getId());
 		res.setUsername(actor.getUser().getUsername());
 
-		Authority authorAuth = new Authority();
-		authorAuth.setAuthority("AUTHOR");
-		Authority reviewerAuth = new Authority();
-		authorAuth.setAuthority("REVIEWER");
-		Authority adminAuth = new Authority();
-		authorAuth.setAuthority("ADMIN");
-
-		if (actor.getUser().getAuthorities().contains(authorAuth)) {
+		if (actor.getUser().getAuthorities().contains(Authority.AUTHOR)) {
 			res.setRole("AUTHOR");
-		} else if (actor.getUser().getAuthorities().contains(reviewerAuth)) {
+		} else if (actor.getUser().getAuthorities()
+				.contains(Authority.REVIEWER)) {
 			res.setRole("REVIEWER");
-		} else if (actor.getUser().getAuthorities().contains(adminAuth)) {
+		} else if (actor.getUser().getAuthorities().contains(Authority.ADMIN)) {
 			res.setRole("ADMIN");
 		}
 		return res;
