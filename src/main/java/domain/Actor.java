@@ -1,4 +1,3 @@
-
 package domain;
 
 import javax.persistence.CascadeType;
@@ -9,7 +8,6 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
@@ -25,18 +23,16 @@ public abstract class Actor extends DomainEntity {
 		super();
 	}
 
-
 	// Attributes -------------------------------------------------------------
 
-	private String	name;
-	private String	surname;
-	private String	email;
-	//for phone number
-	private String	phoneNumber;
+	private String name;
+	private String surname;
+	private String email;
+	// for phone number
+	private String phoneNumber;
 	//
-	private String	photo;
-	private String	address;
-
+	private String photo;
+	private String address;
 
 	@URL
 	public String getPhoto() {
@@ -57,7 +53,6 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@NotBlank
-	@Email
 	public String getEmail() {
 		return this.email;
 	}
@@ -91,11 +86,9 @@ public abstract class Actor extends DomainEntity {
 		this.address = address;
 	}
 
-
 	// Relationships ----------------------------------------------------------
 
-	private User	user;
-
+	private User user;
 
 	@NotNull
 	@Valid

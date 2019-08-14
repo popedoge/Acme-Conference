@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.AuthorRepository;
+import security.Authority;
 import security.UserAccountService;
 import domain.ActorPreferences;
 import domain.Author;
@@ -38,7 +39,8 @@ public class AuthorService {
 
 	public Author create() {
 		Author author = new Author();
-		author = (Author) this.actorService.initialize(author, "AUTHOR");
+		author = (Author) this.actorService
+				.initialize(author, Authority.AUTHOR);
 		return author;
 	}
 

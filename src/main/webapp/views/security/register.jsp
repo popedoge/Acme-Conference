@@ -62,7 +62,7 @@
 				<b><spring:message code="actor.reviewer" /></b>
 			</div>
 			<acme:textbox code="actor.expertise" path="form.firstName" />
-			<message code="actor.expertise.instructions"/>
+			<spring:message code="actor.expertise.instructions"/>
 		</div>
 	</jstl:if>
 	<div>

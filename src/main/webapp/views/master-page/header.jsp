@@ -57,8 +57,18 @@
 					<li><a href="position/admin/list.do"><spring:message
 								code="master.page.admin.position" /></a></li>
 				</ul></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.conference" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="conference/list.do"><spring:message
+								code="master.page.conference.list" /></a></li>
+					<li><a href="conference/admin/edit.do"><spring:message
+								code="master.page.conference.create" /></a></li>
+				</ul></li>
 		</security:authorize>
 
+		<!-- anon -->
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>

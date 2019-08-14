@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -26,7 +25,6 @@ import domain.ActorPreferences;
 import domain.SocialNetwork;
 import domain.SocialProfile;
 import forms.ActorForm;
-import forms.RegisterForm;
 import forms.SocialProfileForm;
 
 @Controller
@@ -45,14 +43,6 @@ public class ActorController extends AbstractController {
 	private SocialProfileService socialProfService;
 	@Autowired
 	private SocialNetworkService socialNetService;
-
-	// become a reviewer
-	// @RequestMapping(value = "/become-reviewer", method = RequestMethod.GET)
-	// public ModelAndView becomeReviewer() {
-	// ModelAndView res;
-	// res = new ModelAndView("actor/profile");
-	// return res;
-	// }
 
 	// load actor profile
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
@@ -135,8 +125,8 @@ public class ActorController extends AbstractController {
 			res = this.createSocialProfileEditModelAndView(form);
 		else
 			try {
-				final SocialProfile saved = this.socialProfService
-						.save(this.socialProfService.parseForm(form));
+				this.socialProfService.save(this.socialProfService
+						.parseForm(form));
 				res = new ModelAndView("redirect:/actor/profile.do");
 			} catch (final Exception e) {
 				res = this.createSocialProfileEditModelAndView(form,
@@ -168,26 +158,6 @@ public class ActorController extends AbstractController {
 		res.addObject("form", form);
 		res.addObject("message", messageCode);
 		return res;
-	}
-
-	// register
-	protected ModelAndView createEditModelAndView(
-			final RegisterForm registerForm) {
-		return this.createEditModelAndView(registerForm, null);
-	}
-
-	protected ModelAndView createEditModelAndView(
-			final RegisterForm registerForm, final String messageCode) {
-		ModelAndView result;
-		final ArrayList<String> roles = new ArrayList<>();
-		roles.add("MEMBER");
-		roles.add("ADMIN");
-
-		result = new ModelAndView("security/register");
-		result.addObject("regForm", registerForm);
-		result.addObject("roles", roles);
-		result.addObject("message", messageCode);
-		return result;
 	}
 
 	// actor information

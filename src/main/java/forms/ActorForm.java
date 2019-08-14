@@ -3,9 +3,10 @@ package forms;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
+
+import validators.EmailConstraint;
 
 public class ActorForm {
 
@@ -81,7 +82,7 @@ public class ActorForm {
 	}
 
 	@NotBlank
-	@Email
+	@EmailConstraint
 	public String getEmail() {
 		return this.email;
 	}

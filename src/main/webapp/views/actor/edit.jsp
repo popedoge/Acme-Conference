@@ -26,6 +26,9 @@
 		<div>
 			<b><spring:message code="actor.personalinfo" /></b>
 		</div>
+		<form:hidden path="id"/>
+		<form:hidden path="username"/>
+		<form:hidden path="expertise"/>
 		<acme:textbox code="actor.firstname" path="firstName" />
 <%-- 		<acme:textbox code="actor.middlename" path="middleName" /> --%>
 		<acme:textbox code="actor.lastname" path="lastName" />

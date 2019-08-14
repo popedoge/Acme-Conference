@@ -32,15 +32,12 @@ import domain.DomainEntity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(uniqueConstraints = {
-	@UniqueConstraint(columnNames = "username")
-})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
 public class User extends DomainEntity implements UserDetails {
 
 	// Constructors -----------------------------------------------------------
 
-	private static final long	serialVersionUID	= 7254823034213841482L;
-
+	private static final long serialVersionUID = 7254823034213841482L;
 
 	public User() {
 		super();
@@ -48,22 +45,21 @@ public class User extends DomainEntity implements UserDetails {
 		this.authorities = new ArrayList<Authority>();
 	}
 
-
 	// Attributes -------------------------------------------------------------
 
 	// UserDetails interface --------------------------------------------------
 
-	private String					username;
-	private String					password;
-	private Collection<Authority>	authorities;
-
+	private String username;
+	private String password;
+	private Collection<Authority> authorities;
 
 	@Override
 	@NotEmpty
 	@Valid
 	@ElementCollection
 	public Collection<Authority> getAuthorities() {
-		// WARNING: Should return an unmodifiable copy, but it's not possible with hibernate!
+		// WARNING: Should return an unmodifiable copy, but it's not possible
+		// with hibernate!
 		return this.authorities;
 	}
 
@@ -121,6 +117,17 @@ public class User extends DomainEntity implements UserDetails {
 		Assert.isTrue(!this.authorities.contains(authority));
 
 		this.authorities.add(authority);
+	}
+
+	public boolean checkAuthority(final String authority) {
+		boolean res = false;
+		for (Authority a : this.getAuthorities()) {
+			if (a.getAuthority().equalsIgnoreCase(authority)) {
+				res = true;
+				break;
+			}
+		}
+		return res;
 	}
 
 	public void removeAuthority(final Authority authority) {

@@ -4,12 +4,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
 import services.AuthorService;
 import services.ReviewerService;
@@ -32,7 +34,7 @@ public class RegisterController {
 		final Author member = this.authorService.create();
 		final RegisterForm regForm = new RegisterForm();
 		regForm.setForm(this.actorService.formatForm(member));
-		regForm.getForm().setRole("AUTHOR");
+		regForm.getForm().setRole(Authority.AUTHOR);
 		regForm.setIsReviewer(false);
 		return this.createActorEditModelAndView(regForm);
 	}
@@ -42,7 +44,7 @@ public class RegisterController {
 		final Author member = this.authorService.create();
 		final RegisterForm regForm = new RegisterForm();
 		regForm.setForm(this.actorService.formatForm(member));
-		regForm.getForm().setRole("REVIEWER");
+		regForm.getForm().setRole(Authority.REVIEWER);
 		regForm.setIsReviewer(true);
 		return this.createActorEditModelAndView(regForm);
 	}
@@ -56,10 +58,13 @@ public class RegisterController {
 			return this.createActorEditModelAndView(form);
 		else
 			try {
+				Assert.isTrue(form.getForm().getRole() != null
+						&& form.getForm().getRole() != "",
+						"Error registering: no role specified");
 				switch (form.getForm().getRole()) {
-					case "AUTHOR" :
+					case Authority.AUTHOR :
 						this.authorService.register(form);
-					case "REVIEWER" :
+					case Authority.REVIEWER :
 						this.reviewerService.register(form);
 				}
 				res = new ModelAndView("redirect:../security/login.do");

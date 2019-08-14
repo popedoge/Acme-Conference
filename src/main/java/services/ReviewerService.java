@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.ReviewerRepository;
+import security.Authority;
 import security.UserAccountService;
 import domain.ActorPreferences;
 import domain.Reviewer;
@@ -38,8 +39,8 @@ public class ReviewerService {
 
 	public Reviewer create() {
 		Reviewer Reviewer = new Reviewer();
-		Reviewer = (Reviewer) this.actorService
-				.initialize(Reviewer, "REVIEWER");
+		Reviewer = (Reviewer) this.actorService.initialize(Reviewer,
+				Authority.REVIEWER);
 		return Reviewer;
 	}
 

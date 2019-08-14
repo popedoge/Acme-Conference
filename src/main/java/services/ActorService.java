@@ -42,12 +42,6 @@ public class ActorService {
 	@Autowired
 	private UserAccountService userAccountService;
 	@Autowired
-	private AuthorService authorService;
-	@Autowired
-	private AdminService adminService;
-	@Autowired
-	private LoginService loginService;
-	@Autowired
 	private ReviewerService reviewerService;
 
 	// Constructors -----------------------------------------------------------
@@ -73,17 +67,15 @@ public class ActorService {
 		res.setId(actor.getId());
 		res.setUsername(actor.getUser().getUsername());
 
-		if (actor.getUser().getAuthorities().contains(Authority.AUTHOR)) {
+		if (actor.getUser().checkAuthority(Authority.AUTHOR)) {
 			res.setRole("AUTHOR");
-		} else if (actor.getUser().getAuthorities()
-				.contains(Authority.REVIEWER)) {
+		} else if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
 			res.setRole("REVIEWER");
-		} else if (actor.getUser().getAuthorities().contains(Authority.ADMIN)) {
+		} else if (actor.getUser().checkAuthority(Authority.ADMIN)) {
 			res.setRole("ADMIN");
 		}
 		return res;
 	}
-
 	public Actor parseForm(final ActorForm form) {
 		final Actor res;
 		res = this.findById(form.getId());
@@ -93,7 +85,9 @@ public class ActorService {
 		res.setPhoto(form.getPhoto());
 		res.setName(form.getFirstName());
 		res.setSurname(form.getLastName());
-		res.getUser().setUsername(form.getUsername());
+		if (form.getUsername() != null && form.getUsername() != "") {
+			res.getUser().setUsername(form.getUsername());
+		}
 		return res;
 	}
 
@@ -110,11 +104,11 @@ public class ActorService {
 			res.setFirstName(actor.getName());
 			res.setLastName(actor.getSurname());
 		}
-		if (actor.getUser().getAuthorities().contains(Authority.REVIEWER)) {
+		if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
 			Reviewer reviewer = this.reviewerService.findById(actor.getId());
 			res.setExpertise(reviewer.getExpertise());
 		}
-		res.setUsername(actor.getSurname());
+		res.setUsername(actor.getUser().getUsername());
 		res.setPhoto(actor.getPhoto());
 		return res;
 	}
