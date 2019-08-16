@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.AuthorRepository;
-import security.Authority;
+import security.User;
 import security.UserAccountService;
 import domain.ActorPreferences;
 import domain.Author;
@@ -28,6 +28,8 @@ public class AuthorService {
 	private ActorPreferencesService preferenceService;
 	@Autowired
 	private SiteConfigurationService siteConfigService;
+	@Autowired
+	private UserAccountService userAccountService;
 
 	public Author findById(final int id) {
 		return this.authorRepo.findOne(id);
@@ -37,35 +39,35 @@ public class AuthorService {
 		return this.authorRepo.findAll();
 	}
 
-	public Author create() {
+	public Author create(User user) {
 		Author author = new Author();
-		author = (Author) this.actorService
-				.initialize(author, Authority.AUTHOR);
+		author.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
+		author.setUser(user);
 		return author;
 	}
 
 	public Author register(final RegisterForm form) {
-		final Author res = this.create();
 
-		if (res != null) {
-			// actor
-			res.setAddress(form.getForm().getAddress());
-			res.setEmail(form.getForm().getEmail());
-			res.setPhoneNumber(form.getForm().getPhoneNumber());
-			if (form.getForm().getPhoto() != "")
-				res.setPhoto(form.getForm().getPhoto());
-			res.setName(form.getForm().getFirstName());
-			res.setSurname(form.getForm().getLastName());
-			// user
-			res.getUser().setUsername(form.getForm().getUsername());
-			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			res.getUser().setPassword(
-					encoder.encodePassword(form.getPassword(), null));
-		}
+		// create user
+		User user = this.userAccountService
+				.createUser(form.getForm().getRole());
+		user.setUsername(form.getForm().getUsername());
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		user.setPassword(encoder.encodePassword(form.getPassword(), null));
+		Author res = this.create(user);
+		// actor
+		res.setAddress(form.getForm().getAddress());
+		res.setEmail(form.getForm().getEmail());
+		res.setPhoneNumber(form.getForm().getPhoneNumber());
+		if (form.getForm().getPhoto() != "")
+			res.setPhoto(form.getForm().getPhoto());
+		res.setName(form.getForm().getFirstName());
+		res.setSurname(form.getForm().getLastName());
 		final Author saved = this.save(res);
-
+		// preferences
 		ActorPreferences preferences = this.preferenceService.create(saved);
 		this.preferenceService.save(preferences);
+
 		return saved;
 	}
 
@@ -89,8 +91,7 @@ public class AuthorService {
 							.getCountryCode()) + " " + author.getPhoneNumber();
 			author.setPhoneNumber(phonenum);
 		}
-		final Author res = this.authorRepo.save(author);
-		return res;
+		return this.authorRepo.save(author);
 	}
 
 }

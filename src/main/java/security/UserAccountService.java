@@ -10,9 +10,6 @@
 
 package security;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +24,7 @@ public class UserAccountService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private UserAccountRepository	userAccountRepository;
-
+	private UserAccountRepository userAccountRepository;
 
 	// Supporting services ----------------------------------------------------
 
@@ -52,13 +48,9 @@ public class UserAccountService {
 
 	public User createUser(final String authority) {
 		final User user = new User();
-
-		final Collection<Authority> auths = new HashSet<>();
 		final Authority auth = new Authority();
 		auth.setAuthority(authority);
-		auths.add(auth);
-
-		user.setAuthorities(auths);
+		user.addAuthority(auth);
 		return user;
 	}
 

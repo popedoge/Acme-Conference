@@ -163,13 +163,6 @@ public class ActorService {
 		return result;
 	}
 
-	public Actor initialize(final Actor actor, final String authority) {
-		actor.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
-		actor.setUser(this.userAccountService.createUser(authority));
-
-		return actor;
-	}
-
 	public void assertPrincipalAuthority(final String auth) {
 		Assert.isTrue(this.getPrincipalAuthority().contains(auth),
 				"The user logged does not have authority to do this action.");

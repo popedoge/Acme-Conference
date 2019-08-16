@@ -67,9 +67,9 @@ public class User extends DomainEntity implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	@Size(min = 5, max = 32)
-	@Column(unique = true)
 	@Override
+	@Size(min = 4, max = 32)
+	@Column(unique = true)
 	public String getUsername() {
 		return this.username;
 	}
@@ -78,8 +78,8 @@ public class User extends DomainEntity implements UserDetails {
 		this.username = username;
 	}
 
-	@Size(min = 5, max = 32)
 	@Override
+	@Size(min = 4, max = 32)
 	public String getPassword() {
 		return this.password;
 	}

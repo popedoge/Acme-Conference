@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
+import security.UserAccountService;
 import services.ActorService;
 import services.AuthorService;
 import services.ReviewerService;
 import domain.Author;
+import domain.Reviewer;
 import forms.RegisterForm;
 
 @Controller
@@ -28,12 +30,15 @@ public class RegisterController {
 	private ActorService actorService;
 	@Autowired
 	private ReviewerService reviewerService;
+	@Autowired
+	private UserAccountService userAccountService;
 
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public ModelAndView createUser() {
-		final Author member = this.authorService.create();
+		final Author author = this.authorService.create(this.userAccountService
+				.createUser(Authority.AUTHOR));
 		final RegisterForm regForm = new RegisterForm();
-		regForm.setForm(this.actorService.formatForm(member));
+		regForm.setForm(this.actorService.formatForm(author));
 		regForm.getForm().setRole(Authority.AUTHOR);
 		regForm.setIsReviewer(false);
 		return this.createActorEditModelAndView(regForm);
@@ -41,9 +46,9 @@ public class RegisterController {
 
 	@RequestMapping(value = "/init-reviewer", method = RequestMethod.GET)
 	public ModelAndView createReviewer() {
-		final Author member = this.authorService.create();
+		final Reviewer reviewer = this.reviewerService.create();
 		final RegisterForm regForm = new RegisterForm();
-		regForm.setForm(this.actorService.formatForm(member));
+		regForm.setForm(this.actorService.formatForm(reviewer));
 		regForm.getForm().setRole(Authority.REVIEWER);
 		regForm.setIsReviewer(true);
 		return this.createActorEditModelAndView(regForm);
@@ -61,12 +66,12 @@ public class RegisterController {
 				Assert.isTrue(form.getForm().getRole() != null
 						&& form.getForm().getRole() != "",
 						"Error registering: no role specified");
-				switch (form.getForm().getRole()) {
-					case Authority.AUTHOR :
-						this.authorService.register(form);
-					case Authority.REVIEWER :
-						this.reviewerService.register(form);
-				}
+				// switch (form.getForm().getRole()) {
+				// case Authority.AUTHOR :
+				this.authorService.register(form);
+				// case Authority.REVIEWER :
+				// this.reviewerService.register(form);
+				// }
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (final Exception e) {
 				res = this.createActorEditModelAndView(form, "register.error");
