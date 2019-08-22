@@ -343,9 +343,17 @@
 		<property name="deliveryDate" value="03/12/2019 13:20" />
 		<property name="subject" value="notif test" />
 		<property name="body" value="vro wat" />
-		<property name="priority" value="HIGH" />
+		<property name="topic" ref="topic1" />
 		<property name="tick" value="false" />
 	</bean>
+
+	<!-- topic -->
+
+	<bean id="topic1" class="domain.Topic">
+		<property name="title" value="INQUIRY" />
+		<property name="spanish" value="INVESTIGACION" />
+	</bean>
+
 
 	<!-- social network -->
 
@@ -368,8 +376,8 @@
 		<property name="owner" ref="admin1" />
 		<property name="url" value="http://slither.io/" />
 	</bean>
-	
-		<!-- conference -->
+
+	<!-- conference -->
 
 	<bean id="conference1" class="domain.Conference">
 		<property name="title" value="title1" />
@@ -382,9 +390,9 @@
 		<property name="cameraDL" value="03/12/2019 13:20" />
 		<property name="startDate" value="03/12/2019 13:20" />
 		<property name="endDate" value="03/12/2019 13:20" />
-		
-		
-		
+
+
+
 	</bean>
 
 

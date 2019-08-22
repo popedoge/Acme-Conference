@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.ReviewerRepository;
-import security.Authority;
+import security.User;
 import security.UserAccountService;
 import domain.ActorPreferences;
 import domain.Reviewer;
@@ -37,35 +37,35 @@ public class ReviewerService {
 		return this.ReviewerRepo.findAll();
 	}
 
-	public Reviewer create() {
-		Reviewer Reviewer = new Reviewer();
-		Reviewer = (Reviewer) this.actorService.initialize(Reviewer,
-				Authority.REVIEWER);
-		return Reviewer;
+	public Reviewer create(User user) {
+		Reviewer reviewer = new Reviewer();
+		reviewer.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
+		reviewer.setUser(user);
+		return reviewer;
 	}
 
 	public Reviewer register(final RegisterForm form) {
-		final Reviewer res = this.create();
 
-		if (res != null) {
-			// actor
-			res.setAddress(form.getForm().getAddress());
-			res.setEmail(form.getForm().getEmail());
-			res.setPhoneNumber(form.getForm().getPhoneNumber());
-			if (form.getForm().getPhoto() != "")
-				res.setPhoto(form.getForm().getPhoto());
-			res.setName(form.getForm().getFirstName());
-			res.setSurname(form.getForm().getLastName());
-			// user
-			res.getUser().setUsername(form.getForm().getUsername());
-			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			res.getUser().setPassword(
-					encoder.encodePassword(form.getPassword(), null));
-		}
+		// create user
+		User user = this.userService.createUser(form.getForm().getRole());
+		user.setUsername(form.getForm().getUsername());
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		user.setPassword(encoder.encodePassword(form.getPassword(), null));
+		Reviewer res = this.create(user);
+		// actor
+		res.setAddress(form.getForm().getAddress());
+		res.setEmail(form.getForm().getEmail());
+		res.setPhoneNumber(form.getForm().getPhoneNumber());
+		if (form.getForm().getPhoto() != "")
+			res.setPhoto(form.getForm().getPhoto());
+		res.setName(form.getForm().getFirstName());
+		res.setSurname(form.getForm().getLastName());
+		res.setExpertise(form.getForm().getExpertise());
 		final Reviewer saved = this.save(res);
-
+		// preferences
 		ActorPreferences preferences = this.preferenceService.create(saved);
 		this.preferenceService.save(preferences);
+
 		return saved;
 	}
 

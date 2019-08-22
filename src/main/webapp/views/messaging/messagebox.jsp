@@ -69,26 +69,26 @@
 <jstl:if test="${not empty messages}">
 	<display:table name="messages" id="row"
 		requestURI="${messageRequestURI}" pagesize="10" class="displaytag">
-		<display:column titleKey="message.priority">
-			<div role="group" aria-labelledby="${row.priority}">
-				<jstl:choose>
-					<jstl:when test="${row.priority == 'HIGH'}">
-						<i class="fa fa-envelope" aria-hidden="true"
-							style="color: #D52121"></i>
-						<i class="fa fa-exclamation" aria-hidden="true"
-							style="color: #D52121"></i>
-					</jstl:when>
-					<jstl:when test="${row.priority == 'LOW'}">
-						<i class="fa fa-envelope" aria-hidden="true"
-							style="color: #6885D9"></i>
-					</jstl:when>
-					<jstl:when test="${row.priority == 'NEUTRAL'}">
-						<i class="fa fa-envelope" aria-hidden="true"
-							style="color: #A7A7A7"></i>
-					</jstl:when>
+		<display:column titleKey="message.topic" property="topic.title">
+<%-- 			<div role="group" aria-labelledby="${row.priority}"> --%>
+<%-- 				<jstl:choose> --%>
+<%-- 					<jstl:when test="${row.priority == 'HIGH'}"> --%>
+<!-- 						<i class="fa fa-envelope" aria-hidden="true" -->
+<!-- 							style="color: #D52121"></i> -->
+<!-- 						<i class="fa fa-exclamation" aria-hidden="true" -->
+<!-- 							style="color: #D52121"></i> -->
+<%-- 					</jstl:when> --%>
+<%-- 					<jstl:when test="${row.priority == 'LOW'}"> --%>
+<!-- 						<i class="fa fa-envelope" aria-hidden="true" -->
+<!-- 							style="color: #6885D9"></i> -->
+<%-- 					</jstl:when> --%>
+<%-- 					<jstl:when test="${row.priority == 'NEUTRAL'}"> --%>
+<!-- 						<i class="fa fa-envelope" aria-hidden="true" -->
+<!-- 							style="color: #A7A7A7"></i> -->
+<%-- 					</jstl:when> --%>
 
-				</jstl:choose>
-			</div>
+<%-- 				</jstl:choose> --%>
+<!-- 			</div> -->
 		</display:column>
 		<!-- name of message is link to open message -->
 		<display:column titleKey="message.subject">

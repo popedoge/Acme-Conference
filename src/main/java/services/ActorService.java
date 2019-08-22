@@ -43,6 +43,8 @@ public class ActorService {
 	private UserAccountService userAccountService;
 	@Autowired
 	private ReviewerService reviewerService;
+	@Autowired
+	private SiteConfigurationService siteConfigService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -104,9 +106,14 @@ public class ActorService {
 			res.setFirstName(actor.getName());
 			res.setLastName(actor.getSurname());
 		}
-		if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
+		if (actor.getUser().checkAuthority(Authority.ADMIN)) {
+			res.setRole(Authority.ADMIN);
+		} else if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
 			Reviewer reviewer = this.reviewerService.findById(actor.getId());
 			res.setExpertise(reviewer.getExpertise());
+			res.setRole(Authority.REVIEWER);
+		} else if (actor.getUser().checkAuthority(Authority.AUTHOR)) {
+			res.setRole(Authority.AUTHOR);
 		}
 		res.setUsername(actor.getUser().getUsername());
 		res.setPhoto(actor.getPhoto());
@@ -134,13 +141,14 @@ public class ActorService {
 	}
 
 	public Actor save(final Actor actor) {
-		Assert.notNull(actor);
 
-		Actor result;
-
-		result = this.actorRepository.save(actor);
-
-		return result;
+		if (actor.getPhoneNumber().matches("^\\d{4,}$")) {
+			String phonenum = "+"
+					+ String.valueOf(this.siteConfigService.find()
+							.getCountryCode()) + " " + actor.getPhoneNumber();
+			actor.setPhoneNumber(phonenum);
+		}
+		return this.actorRepository.save(actor);
 	}
 
 	public void delete(final Actor actor) {

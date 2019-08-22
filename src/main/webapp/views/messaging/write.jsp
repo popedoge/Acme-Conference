@@ -46,8 +46,8 @@
 		<form:errors cssClass="error" path="body" />
 	</div>
 	<div>
-		<form:select id="priority" path="priority">
-			<form:options items="${priorities}" />
+		<form:select id="topic" path="topic">
+			<form:options items="${topics}" itemLabel="title" itemValue="id" />
 			<form:option value="0" label="----" />
 		</form:select>
 	</div>

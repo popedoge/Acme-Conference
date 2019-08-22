@@ -1,4 +1,3 @@
-
 package repositories;
 
 import java.util.List;
@@ -17,4 +16,8 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
 	@Query("select m from Message m inner join m.container c where c.category='NOTIF' and m.tick='false'")
 	List<Message> findUnreadNotifications(int actorId);
+
+	// acme-conference
+	@Query("select m from Message m where m.topic.id= ?1")
+	List<Message> findByTopic(int topicId);
 }

@@ -22,16 +22,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jstl:if test="${owner}">
-	<jstl:if test="${actor.role=='AUTHOR'}">
-		<div class="inline-container">
-			<a href="user/become-reviewer.do">
-				<div class="inline">
-					<i class="fa fa-address-card" aria-hidden="true"></i>
-					<spring:message code="reviewer" />
-				</div>
-			</a>
-		</div>
-	</jstl:if>
 	<div class="inline-container">
 		<a href="user/settings/edit.do" style="text-decoration: none;">
 			<div class="inline">
@@ -45,12 +35,18 @@
 			</div>
 		</a>
 	</div>
-	<div>
-		<a href="user/review.do"> <spring:message code="reviewer" />
-		</a>
-	</div>
+	<!-- 	<div> -->
+	<%-- 		<a href="user/review.do"> <spring:message code="reviewer" /> --%>
+	<!-- 		</a> -->
+	<!-- 	</div> -->
 </jstl:if>
 
+<jstl:if test="${actor.role == 'REVIEWER'}">
+	<div>
+		<h3><spring:message code="reviewer" /></h3>
+		<spring:message code="expertise"/>:&nbsp;<jstl:out value="${actor.expertise}"/>
+	</div>
+</jstl:if>
 <div>
 	<div class="inline-outer">
 		<div class="thumb inline"
@@ -81,12 +77,6 @@
 		<div>
 			<i class="fa fa-home" aria-hidden="true"></i>&nbsp;
 			<jstl:out value="${actor.address}" />
-		</div>
-	</jstl:if>
-	<jstl:if test="${not empty actor.expertise}">
-		<div>
-			<b><spring:message code="actor.expertise" /></message></b>&nbsp;
-			<jstl:out value="${actor.expertise}" />
 		</div>
 	</jstl:if>
 </div>

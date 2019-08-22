@@ -46,7 +46,8 @@ public class RegisterController {
 
 	@RequestMapping(value = "/init-reviewer", method = RequestMethod.GET)
 	public ModelAndView createReviewer() {
-		final Reviewer reviewer = this.reviewerService.create();
+		final Reviewer reviewer = this.reviewerService
+				.create(this.userAccountService.createUser(Authority.REVIEWER));
 		final RegisterForm regForm = new RegisterForm();
 		regForm.setForm(this.actorService.formatForm(reviewer));
 		regForm.getForm().setRole(Authority.REVIEWER);
@@ -66,12 +67,12 @@ public class RegisterController {
 				Assert.isTrue(form.getForm().getRole() != null
 						&& form.getForm().getRole() != "",
 						"Error registering: no role specified");
-				// switch (form.getForm().getRole()) {
-				// case Authority.AUTHOR :
-				this.authorService.register(form);
-				// case Authority.REVIEWER :
-				// this.reviewerService.register(form);
-				// }
+				switch (form.getForm().getRole()) {
+					case Authority.AUTHOR :
+						this.authorService.register(form);
+					case Authority.REVIEWER :
+						this.reviewerService.register(form);
+				}
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (final Exception e) {
 				res = this.createActorEditModelAndView(form, "register.error");

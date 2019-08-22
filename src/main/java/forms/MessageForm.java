@@ -1,14 +1,12 @@
-
 package forms;
 
 public class MessageForm {
 
-	public String	recipients;
-	public String	subject;
-	public String	body;
-	public String	priority;
-	public Boolean	lock;
-
+	public String recipients;
+	public String subject;
+	public String body;
+	public Integer topic;
+	public Boolean lock;
 
 	public Boolean getLock() {
 		return this.lock;
@@ -42,12 +40,12 @@ public class MessageForm {
 		this.body = body;
 	}
 
-	public String getPriority() {
-		return this.priority;
+	public Integer getTopic() {
+		return this.topic;
 	}
 
-	public void setPriority(String priority) {
-		this.priority = priority;
+	public void setTopic(Integer topic) {
+		this.topic = topic;
 	}
 
 }

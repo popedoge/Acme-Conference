@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Date;
@@ -14,25 +13,23 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Message extends DomainEntity {
 
-	//relations
-	public Actor			sender;
-	public String			senderAlias;
-	public List<Actor>		recipients;
-	public List<MessageBox>	container;
-	//attributes
-	public String			subject;
-	public Date				deliveryDate;
-	public String			body;
-	public String			priority;
-	public boolean			tick;
-
+	// relations
+	public Actor sender;
+	public String senderAlias;
+	public List<Actor> recipients;
+	public List<MessageBox> container;
+	// attributes
+	public String subject;
+	public Date deliveryDate;
+	public String body;
+	public Topic topic;
+	public boolean tick;
 
 	public boolean getTick() {
 		return this.tick;
@@ -106,12 +103,13 @@ public class Message extends DomainEntity {
 		this.body = body;
 	}
 
-	@NotBlank
-	public String getPriority() {
-		return this.priority;
+	@ManyToOne(optional = false)
+	public Topic getTopic() {
+		return this.topic;
 	}
 
-	public void setPriority(final String priority) {
-		this.priority = priority;
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
+
 }
