@@ -18,45 +18,37 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jstl:set var="df">
-	<spring:message code="lorem.pattern" />
-</jstl:set>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+<script type="text/javascript" src="scripts/bootstrap-datetimepicker.js"></script>
+<link rel="stylesheet" href="styles/bootstrap-datetimepicker.css"
+	type="text/css">
+
+
 <div>
 	<button type="button" name="back" onclick="history.back()">
 		<spring:message code="back" />
 	</button>
 </div>
-<form:form modelAttribute="lorem" action="lorem/customer/edit.do">
-	<form:hidden path="id" />	
-	<form:hidden path="version" />
-	<form:hidden path="fixupTask" value="${lorem.fixupTask.id}"/>
-	<form:hidden path="author" value="${lorem.author.id}"/>
-	<form:hidden path="ticker" />
-	<form:hidden path="publishDate" />
-	<form:hidden path="locked" />
-	
-	<form:errors cssClass="error" path="id" />
-	<form:errors cssClass="error" path="version" />
-	<form:errors cssClass="error" path="fixupTask" />
-	<form:errors cssClass="error" path="author" />
-	<form:errors cssClass="error" path="ticker" />
-	<form:errors cssClass="error" path="publishDate" />
-	<form:errors cssClass="error" path="locked" />
-	
-	<div>
-		<form:label path="body">
-			<spring:message code="lorem.body" />
-		</form:label>
-		<form:input path="body" />
-		<form:errors cssClass="error" path="body" />
-	</div>
-	<div>
-		<form:label path="imgURL">
-			<spring:message code="lorem.url" />
-		</form:label>
-		<form:input path="imgURL" />
-		<form:errors cssClass="error" path="imgURL" />
-	</div>
+<form:form modelAttribute="conference" action="conference/admin/edit.do">
+	<form:hidden path="id"/>
+	<form:hidden path="version"/>
+	<form:hidden path="owner" value="${conference.owner.id}"/>
+	<acme:textbox code="conference.title" path="title" />
+	<acme:textbox code="conference.acronym" path="acronym" />
+	<acme:textbox code="conference.venue" path="venue" />
+	<acme:textarea code="conference.summary" path="summary" />
+	<acme:textbox code="conference.fee" path="fee" />
+
+	<acme:datepicker code="conference.start" path="startDate" />
+	<acme:datepicker code="conference.end" path="endDate" />
+
+	<acme:datepicker code="conference.submission" path="submissionDL" />
+	<acme:datepicker code="conference.notification" path="notificationDL" />
+	<acme:datepicker code="conference.camera" path="cameraDL" />
+
+
+
 	<div>
 		<input type="submit" name="save" value="<spring:message code="save"/>" />
 	</div>
