@@ -19,16 +19,29 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jstl:set var="df">
-	<spring:message code="dateformat" />
+	<spring:message code="lorem.pattern" />
 </jstl:set>
 <div>
-	<!-- TODO: back to list -->
+	<button type="button" name="back" onclick="history.back()">
+		<spring:message code="back" />
+	</button>
 </div>
 <br/>
 <div>
-	<h3>
-		<jstl:out value="${conference.title}" />
-	</h3>
-	<span style="color:gray;"><fmt:formatDate  value="${conference.startDate}" pattern="${df}" />&nbsp;-&nbsp;<span style="color:gray;"><fmt:formatDate  value="${conference.endDate}" pattern="${df}" /></span>
+	<img src="${lorem.imgURL}" />
 </div>
-<!-- TODO: finish display (remember activities) -->
+<div>
+	<h3>
+		<jstl:out value="${lorem.ticker}" />
+	</h3>
+	<span style="color:gray;"><fmt:formatDate  value="${lorem.publishDate}" pattern="${df}" /></span>
+</div>
+<br/>
+<div>
+	<a href="fixuptask/view.do?id=${lorem.fixupTask.id}"><jstl:out value="${lorem.fixupTask.ticker}" /></a> <br /> <span>By:&nbsp;<jstl:out
+			value="${lorem.author.name} ${lorem.author.surname}" /></span>
+</div>
+<br/>
+<div>
+	<jstl:out value="${lorem.body}"/>
+</div>

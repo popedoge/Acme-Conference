@@ -18,21 +18,56 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jstl:set var="df"><spring:message code="dateformat"/></jstl:set>
+<jstl:set var="df">
+	<spring:message code="dateformat" />
+</jstl:set>
 
-<button type="button" name="back" onclick="history.back()"><spring:message code="back"/></button>
+<button type="button" name="back" onclick="history.back()">
+	<spring:message code="back" />
+</button>
 
 <display:table name="conferences" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
-	<display:column titleKey="conference.title" property="title"/>
-	<display:column titleKey="conference.acronym" property="acronym"/>
-	<display:column titleKey="conference.summary" property="summary"/>
-	<display:column titleKey="conference.fee" property="fee"/>
+	<display:column titleKey="conference.title" property="title" />
+	<display:column titleKey="conference.acronym" property="acronym" />
+	<display:column titleKey="conference.summary" property="summary" />
+	<display:column titleKey="conference.fee" property="fee" />
 	<display:column class="date" titleKey="conference.start">
-		<fmt:formatDate  value="${row.startDate}" pattern="${df}" />
+		<fmt:formatDate value="${row.startDate}" pattern="${df}" />
 	</display:column>
 	<display:column class="date" titleKey="conference.end">
 		<fmt:formatDate value="${row.endDate}" pattern="${df}" />
 	</display:column>
-	
+	<display:column>
+		<!-- edit -->
+		<a href="conference/admin/edit.do?=${row.id}">
+			<i class="fa fa-pencil" aria-hidden="true"></i>
+		</a>
+	</display:column>
+	<display:column>
+		<!-- delete -->
+		<a href="conference/admin/delete.do?=${row.id}">
+			<i class="fa fa-times" aria-hidden="true"></i>
+		</a>
+	</display:column>
+	<display:column>
+		<!-- view -->
+		<a href="conference/view.do?=${row.id}">
+			<i class="fa fa-eye" aria-hidden="true"></i>
+		</a>
+	</display:column>
+	<display:column>
+		<!-- make submission -->
+		<a href="submission/author/edit.do">
+			<i></i>
+		</a>
+	</display:column>
+	<display:column>
+		<!-- register -->
+		<security:authorize access="hasRole('AUTHOR')">
+			<a href="conference/author/register.do"> 
+				<spring:message code=""/>
+			</a>
+		</security:authorize>
+	</display:column>
 </display:table>

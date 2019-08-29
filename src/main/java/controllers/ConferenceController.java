@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.AdminService;
 import services.ConferenceService;
+import services.RegistrationService;
 import domain.Conference;
+import domain.Registration;
 
 @Controller
 @RequestMapping("/conference")
@@ -22,7 +26,25 @@ public class ConferenceController extends AbstractController {
 
 	@Autowired
 	private ConferenceService conferenceService;
-
+	@Autowired
+	private ActorService actorService;
+	@Autowired
+	private AdminService adminService;
+	@Autowired
+	private RegistrationService registrationService;
+	// TODO: /view
+	// TODO: tiles
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public ModelAndView view(@RequestParam(required = false) final Integer id) {
+		ModelAndView res;
+		Conference conference = this.conferenceService.findById(id);
+		List<Registration> attendees = this.registrationService
+				.findByConference(id);
+		res = new ModelAndView("conference/view");
+		res.addObject("conference", conference);
+		res.addObject("attendees", attendees);
+		return res;
+	}
 	// lists all or list all created by id
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listAll(@RequestParam(required = false) final Integer id) {
@@ -59,6 +81,15 @@ public class ConferenceController extends AbstractController {
 				res = this.createEditModelAndView(conference,
 						"preferences.error");
 			}
+		return res;
+	}
+
+	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final Integer id) {
+		ModelAndView res;
+		this.adminService.findPrincipal();
+		this.conferenceService.delete(id);
+		res = new ModelAndView("redirect:list.do");
 		return res;
 	}
 

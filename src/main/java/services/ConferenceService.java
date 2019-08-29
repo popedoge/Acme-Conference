@@ -9,7 +9,6 @@ import org.springframework.util.Assert;
 
 import repositories.ConferenceRepository;
 import security.Authority;
-import security.LoginService;
 import domain.Actor;
 import domain.Conference;
 
@@ -26,8 +25,6 @@ public class ConferenceService {
 
 	@Autowired
 	private ActorService actorService;
-	@Autowired
-	private AdminService adminService;
 
 	public Conference findById(int id) {
 		return this.conferenceRepository.findOne(id);

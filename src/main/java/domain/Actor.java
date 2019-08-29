@@ -27,12 +27,21 @@ public abstract class Actor extends DomainEntity {
 
 	private String name;
 	private String surname;
+	public String middleName;
 	private String email;
 	// for phone number
 	private String phoneNumber;
 	//
 	private String photo;
 	private String address;
+
+	public String getMiddleName() {
+		return this.middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
 
 	@URL
 	public String getPhoto() {

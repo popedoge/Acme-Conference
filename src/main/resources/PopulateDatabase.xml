@@ -385,12 +385,37 @@
 		<property name="venue" value="venue1" />
 		<property name="summary" value="summary1" />
 		<property name="fee" value="1" />
-		<property name="submissionDL" value="03/12/2019 13:20" />
-		<property name="notificationDL" value="03/12/2019 13:20" />
-		<property name="cameraDL" value="03/12/2019 13:20" />
-		<property name="startDate" value="03/12/2019 13:20" />
-		<property name="endDate" value="03/12/2019 13:20" />
+		<property name="submissionDL" value="03/12/2020 13:20" />
+		<property name="notificationDL" value="03/12/2020 13:20" />
+		<property name="cameraDL" value="03/12/2020 13:20" />
+		<property name="startDate" value="03/12/2020 13:20" />
+		<property name="endDate" value="03/12/2020 13:20" />
 	</bean>
 
+	<!-- submissions -->
+	<bean id="submission1" class="domain.Submission">
+		<property name="owner" ref="admin1" />
+		<property name="conference" ref="conference1" />
+		<property name="ticker" value="ABC-1234" />
+		<property name="status" value="submission.pending" />
+		<property name="paper" ref="paper1" />
+		<property name="cameraPaper" ref="paper2" />
+	</bean>
+
+	<!-- papers -->
+	<bean id="paper1" class="domain.Paper">
+		<property name="title" value="The Frog and the Shark" />
+		<property name="author" value="Doggie McDoge" />
+		<property name="summary" value="The frog ate the shark" />
+		<property name="URL" value="http://www.google.com" />
+	</bean>
+	
+	<bean id="paper2" class="domain.Paper">
+		<property name="title" value="La Yoni" />
+		<property name="author" value="Manoperros y Meji" />
+		<property name="summary" value="Se murio la yoni" />
+		<property name="URL" value="http://www.google.com" />
+	</bean>
+	
 
 </beans>

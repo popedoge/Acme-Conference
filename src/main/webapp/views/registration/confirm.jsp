@@ -21,14 +21,6 @@
 <jstl:set var="df">
 	<spring:message code="dateformat" />
 </jstl:set>
-<div>
-	<!-- TODO: back to list -->
-</div>
-<br/>
-<div>
-	<h3>
-		<jstl:out value="${conference.title}" />
-	</h3>
-	<span style="color:gray;"><fmt:formatDate  value="${conference.startDate}" pattern="${df}" />&nbsp;-&nbsp;<span style="color:gray;"><fmt:formatDate  value="${conference.endDate}" pattern="${df}" /></span>
-</div>
-<!-- TODO: finish display (remember activities) -->
+
+<spring:message code="card.confirm"/>&nbsp;<jstl:out value="${card}"/>?
+<!-- TODO: messages & options -->

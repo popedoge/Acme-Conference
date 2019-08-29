@@ -1,10 +1,12 @@
 package domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,10 +32,18 @@ public class Conference extends DomainEntity {
 	public Date submissionDL;
 	public Date notificationDL;
 	public Date cameraDL;
-
 	public Date startDate;
 	public Date endDate;
 
+	public List<Activity> activities;
+
+	@ManyToMany
+	public List<Activity> getActivities() {
+		return this.activities;
+	}
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
+	}
 	@ManyToOne
 	public Actor getOwner() {
 		return this.owner;
