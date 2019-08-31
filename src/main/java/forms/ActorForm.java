@@ -1,3 +1,4 @@
+
 package forms;
 
 import javax.validation.constraints.Pattern;
@@ -6,34 +7,46 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import security.Authority;
 import validators.EmailConstraint;
 
 public class ActorForm {
 
-	private Integer id;
-	private String role;
-	private String firstName;
-	private String username;
-	private String lastName;
-	private String phoneNumber;
-	private String email;
-	private String address;
-	private String photo;
-	private String expertise;
+	private Integer	id;
+	private String	role;
+	private String	firstName;
+	private String	middleName;
+	private String	username;
+	private String	lastName;
+	private String	phoneNumber;
+	private String	email;
+	private String	address;
+	private String	photo;
+	private String	expertise;
+
+
+	public String getMiddleName() {
+		return this.middleName;
+	}
+
+	public void setMiddleName(final String middleName) {
+		this.middleName = middleName;
+	}
 
 	public String getExpertise() {
 		return this.expertise;
 	}
 
-	public void setExpertise(String expertise) {
+	public void setExpertise(final String expertise) {
 		this.expertise = expertise;
 	}
 
+	@Pattern(regexp = "^" + Authority.ADMIN + "|" + Authority.AUTHOR + "|" + Authority.REVIEWER + "$")
 	public String getRole() {
 		return this.role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(final String role) {
 		this.role = role;
 	}
 

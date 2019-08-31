@@ -57,14 +57,19 @@
 					<li><a href="position/admin/list.do"><spring:message
 								code="master.page.admin.position" /></a></li>
 				</ul></li>
+		</security:authorize>
+		<!-- conference -->
+		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"><spring:message
 						code="master.page.conference" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="conference/list.do"><spring:message
 								code="master.page.conference.list" /></a></li>
-					<li><a href="conference/admin/edit.do"><spring:message
-								code="master.page.conference.create" /></a></li>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="conference/admin/edit.do"><spring:message
+									code="master.page.conference.create" /></a></li>
+					</security:authorize>
 				</ul></li>
 		</security:authorize>
 

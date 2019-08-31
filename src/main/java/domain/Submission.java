@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -15,16 +16,17 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Submission extends DomainEntity {
 
-	public Actor owner;
-	public Conference conference;
-	public String ticker;
-	public String status;
-	public Paper paper;
-	public Paper cameraPaper;
+	private Actor				owner;
+	private Conference			conference;
+	private String				ticker;
+	private String				status;
+	private Paper				paper;
+	private Paper				cameraPaper;
 
-	public static final String PENDING = "submission.pending";
-	public static final String ACCEPTED = "submission.accepted";
-	public static final String REJECTED = "submission.rejected";
+	public static final String	PENDING		= "submission.pending";
+	public static final String	ACCEPTED	= "submission.accepted";
+	public static final String	REJECTED	= "submission.rejected";
+
 
 	@NotNull
 	@ManyToOne
@@ -32,7 +34,7 @@ public class Submission extends DomainEntity {
 		return this.owner;
 	}
 
-	public void setOwner(Actor owner) {
+	public void setOwner(final Actor owner) {
 		this.owner = owner;
 	}
 	@NotNull
@@ -41,7 +43,7 @@ public class Submission extends DomainEntity {
 		return this.conference;
 	}
 
-	public void setConference(Conference conference) {
+	public void setConference(final Conference conference) {
 		this.conference = conference;
 	}
 	@NotBlank
@@ -49,16 +51,15 @@ public class Submission extends DomainEntity {
 	public String getTicker() {
 		return this.ticker;
 	}
-	public void setTicker(String ticker) {
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
 	@NotBlank
-	@Pattern(regexp = "^" + Submission.PENDING + "|" + Submission.ACCEPTED
-			+ "|" + Submission.REJECTED + "$")
+	@Pattern(regexp = "^" + Submission.PENDING + "|" + Submission.ACCEPTED + "|" + Submission.REJECTED + "$")
 	public String getStatus() {
 		return this.status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 
@@ -66,7 +67,7 @@ public class Submission extends DomainEntity {
 	public Paper getPaper() {
 		return this.paper;
 	}
-	public void setPaper(Paper paper) {
+	public void setPaper(final Paper paper) {
 		this.paper = paper;
 	}
 
@@ -74,7 +75,7 @@ public class Submission extends DomainEntity {
 	public Paper getCameraPaper() {
 		return this.cameraPaper;
 	}
-	public void setCameraPaper(Paper cameraPaper) {
+	public void setCameraPaper(final Paper cameraPaper) {
 		this.cameraPaper = cameraPaper;
 	}
 

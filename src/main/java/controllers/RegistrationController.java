@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.validation.Valid;
@@ -20,28 +21,27 @@ import domain.Registration;
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController extends AbstractController {
+
 	// TODO: MAKES CREDITCARDS EMBEDABBLE
 	// TODO: views
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 	@Autowired
-	private RegistrationService registrationService;
+	private RegistrationService	registrationService;
 	@Autowired
-	private ConferenceService conferenceService;
+	private ConferenceService	conferenceService;
+
 
 	// TODO: finish edit -> has to save to registration
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam(required = false) final Integer id) {
-		Conference conference = this.conferenceService.findById(id);
-		Registration reg = this.registrationService.create();
-		reg.setConference(conference);
+		final Conference conference = this.conferenceService.findById(id);
+		final Registration reg = this.registrationService.create(conference);
 		return this.createEditModelAndView(reg);
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save(
-			@ModelAttribute("registration") @Valid final Registration reg,
-			final BindingResult binding) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@ModelAttribute("registration") @Valid final Registration reg, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(reg);
@@ -60,8 +60,7 @@ public class RegistrationController extends AbstractController {
 		return this.createEditModelAndView(reg, null);
 	}
 
-	protected ModelAndView createEditModelAndView(final Registration reg,
-			final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Registration reg, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("card/edit");

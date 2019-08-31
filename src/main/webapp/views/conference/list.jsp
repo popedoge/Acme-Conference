@@ -40,33 +40,36 @@
 	</display:column>
 	<display:column>
 		<!-- edit -->
-		<a href="conference/admin/edit.do?=${row.id}">
-			<i class="fa fa-pencil" aria-hidden="true"></i>
+		<security:authorize access="hasRole('ADMIN')">
+		<a href="conference/admin/edit.do?id=${row.id}"> <i
+			class="fa fa-pencil" aria-hidden="true"></i>
 		</a>
+		</security:authorize>
 	</display:column>
 	<display:column>
 		<!-- delete -->
-		<a href="conference/admin/delete.do?=${row.id}">
-			<i class="fa fa-times" aria-hidden="true"></i>
-		</a>
+		<security:authorize access="hasRole('ADMIN')">
+			<a href="conference/admin/delete.do?id=${row.id}"> <i
+				class="fa fa-times" aria-hidden="true"></i>
+			</a>
+		</security:authorize>
 	</display:column>
 	<display:column>
 		<!-- view -->
-		<a href="conference/view.do?=${row.id}">
-			<i class="fa fa-eye" aria-hidden="true"></i>
+		<a href="conference/view.do?id=${row.id}"> <i class="fa fa-eye"
+			aria-hidden="true"></i>
 		</a>
 	</display:column>
 	<display:column>
 		<!-- make submission -->
-		<a href="submission/author/edit.do">
-			<i></i>
+		<a href="submission/author/edit.do"> <i></i>
 		</a>
 	</display:column>
 	<display:column>
 		<!-- register -->
 		<security:authorize access="hasRole('AUTHOR')">
-			<a href="conference/author/register.do"> 
-				<spring:message code=""/>
+			<a href="registration/edit.do?id=${row.id}"> <spring:message
+					code="conference.register" />
 			</a>
 		</security:authorize>
 	</display:column>

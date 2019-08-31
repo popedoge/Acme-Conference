@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.validation.Valid;
@@ -25,18 +26,18 @@ import forms.RegisterForm;
 public class RegisterController {
 
 	@Autowired
-	private AuthorService authorService;
+	private AuthorService		authorService;
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 	@Autowired
-	private ReviewerService reviewerService;
+	private ReviewerService		reviewerService;
 	@Autowired
-	private UserAccountService userAccountService;
+	private UserAccountService	userAccountService;
+
 
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public ModelAndView createUser() {
-		final Author author = this.authorService.create(this.userAccountService
-				.createUser(Authority.AUTHOR));
+		final Author author = this.authorService.create(this.userAccountService.createUser(Authority.AUTHOR));
 		final RegisterForm regForm = new RegisterForm();
 		regForm.setForm(this.actorService.formatForm(author));
 		regForm.getForm().setRole(Authority.AUTHOR);
@@ -46,8 +47,7 @@ public class RegisterController {
 
 	@RequestMapping(value = "/init-reviewer", method = RequestMethod.GET)
 	public ModelAndView createReviewer() {
-		final Reviewer reviewer = this.reviewerService
-				.create(this.userAccountService.createUser(Authority.REVIEWER));
+		final Reviewer reviewer = this.reviewerService.create(this.userAccountService.createUser(Authority.REVIEWER));
 		final RegisterForm regForm = new RegisterForm();
 		regForm.setForm(this.actorService.formatForm(reviewer));
 		regForm.getForm().setRole(Authority.REVIEWER);
@@ -55,23 +55,19 @@ public class RegisterController {
 		return this.createActorEditModelAndView(regForm);
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveUser(
-			@ModelAttribute("regForm") @Valid final RegisterForm form,
-			final BindingResult binding) {
+	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveUser(@ModelAttribute("regForm") @Valid final RegisterForm form, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
 			return this.createActorEditModelAndView(form);
 		else
 			try {
-				Assert.isTrue(form.getForm().getRole() != null
-						&& form.getForm().getRole() != "",
-						"Error registering: no role specified");
+				Assert.isTrue(form.getForm().getRole() != null && form.getForm().getRole() != "", "Error registering: no role specified");
 				switch (form.getForm().getRole()) {
-					case Authority.AUTHOR :
-						this.authorService.register(form);
-					case Authority.REVIEWER :
-						this.reviewerService.register(form);
+				case Authority.AUTHOR:
+					this.authorService.register(form);
+				case Authority.REVIEWER:
+					this.reviewerService.register(form);
 				}
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (final Exception e) {
@@ -79,14 +75,13 @@ public class RegisterController {
 			}
 		return res;
 	}
+	
 	// AUX // ============================================ //
-	protected ModelAndView createActorEditModelAndView(
-			final RegisterForm regForm) {
+	protected ModelAndView createActorEditModelAndView(final RegisterForm regForm) {
 		return this.createActorEditModelAndView(regForm, null);
 	}
 
-	protected ModelAndView createActorEditModelAndView(
-			final RegisterForm regForm, final String messageCode) {
+	protected ModelAndView createActorEditModelAndView(final RegisterForm regForm, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("security/register");

@@ -35,16 +35,17 @@ public class ActorService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private ActorRepository actorRepository;
+	private ActorRepository				actorRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private UserAccountService userAccountService;
+	private UserAccountService			userAccountService;
 	@Autowired
-	private ReviewerService reviewerService;
+	private ReviewerService				reviewerService;
 	@Autowired
-	private SiteConfigurationService siteConfigService;
+	private SiteConfigurationService	siteConfigService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -69,32 +70,35 @@ public class ActorService {
 		res.setId(actor.getId());
 		res.setUsername(actor.getUser().getUsername());
 
-		if (actor.getUser().checkAuthority(Authority.AUTHOR)) {
+		if (actor.getUser().checkAuthority(Authority.AUTHOR))
 			res.setRole("AUTHOR");
-		} else if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
-			res.setRole("REVIEWER");
-		} else if (actor.getUser().checkAuthority(Authority.ADMIN)) {
+		else if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
+			final Reviewer reviewer = this.reviewerService.findById(actor.getId());
+			if (reviewer != null) {
+				res.setExpertise(reviewer.getExpertise());
+				res.setRole(Authority.REVIEWER);
+			}
+		} else if (actor.getUser().checkAuthority(Authority.ADMIN))
 			res.setRole("ADMIN");
-		}
 		return res;
 	}
 	public Actor parseForm(final ActorForm form) {
 		final Actor res;
+
 		res = this.findById(form.getId());
 		res.setAddress(form.getAddress());
 		res.setEmail(form.getEmail());
 		res.setPhoneNumber(form.getPhoneNumber());
 		res.setPhoto(form.getPhoto());
+		res.setMiddleName(form.getMiddleName());
 		res.setName(form.getFirstName());
 		res.setSurname(form.getLastName());
-		if (form.getUsername() != null && form.getUsername() != "") {
+		if (form.getUsername() != null && form.getUsername() != "")
 			res.getUser().setUsername(form.getUsername());
-		}
 		return res;
 	}
 
-	public ActorForm formatForm(final Actor actor,
-			final ActorPreferences preferences) {
+	public ActorForm formatForm(final Actor actor, final ActorPreferences preferences) {
 		final ActorForm res = new ActorForm();
 		if (preferences.getDisplayAddress())
 			res.setAddress(actor.getAddress());
@@ -105,16 +109,19 @@ public class ActorService {
 		if (preferences.getDisplayRealName()) {
 			res.setFirstName(actor.getName());
 			res.setLastName(actor.getSurname());
+			res.setMiddleName(actor.getMiddleName());
 		}
-		if (actor.getUser().checkAuthority(Authority.ADMIN)) {
+		if (actor.getUser().checkAuthority(Authority.ADMIN))
 			res.setRole(Authority.ADMIN);
-		} else if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
-			Reviewer reviewer = this.reviewerService.findById(actor.getId());
-			res.setExpertise(reviewer.getExpertise());
-			res.setRole(Authority.REVIEWER);
-		} else if (actor.getUser().checkAuthority(Authority.AUTHOR)) {
+		else if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
+			final Reviewer reviewer = this.reviewerService.findById(actor.getId());
+			if (reviewer != null) {
+				res.setExpertise(reviewer.getExpertise());
+				res.setRole(Authority.REVIEWER);
+			}
+
+		} else if (actor.getUser().checkAuthority(Authority.AUTHOR))
 			res.setRole(Authority.AUTHOR);
-		}
 		res.setUsername(actor.getUser().getUsername());
 		res.setPhoto(actor.getPhoto());
 		return res;
@@ -143,9 +150,7 @@ public class ActorService {
 	public Actor save(final Actor actor) {
 
 		if (actor.getPhoneNumber().matches("^\\d{4,}$")) {
-			String phonenum = "+"
-					+ String.valueOf(this.siteConfigService.find()
-							.getCountryCode()) + " " + actor.getPhoneNumber();
+			final String phonenum = "+" + String.valueOf(this.siteConfigService.find().getCountryCode()) + " " + actor.getPhoneNumber();
 			actor.setPhoneNumber(phonenum);
 		}
 		return this.actorRepository.save(actor);
@@ -172,19 +177,16 @@ public class ActorService {
 	}
 
 	public void assertPrincipalAuthority(final String auth) {
-		Assert.isTrue(this.getPrincipalAuthority().contains(auth),
-				"The user logged does not have authority to do this action.");
+		Assert.isTrue(this.getPrincipalAuthority().contains(auth), "The user logged does not have authority to do this action.");
 
 	}
 
 	public Actor findPrincipal() {
-		return this.actorRepository.findByUser(LoginService.getPrincipal()
-				.getId());
+		return this.actorRepository.findByUser(LoginService.getPrincipal().getId());
 	}
 
 	public Collection<String> getPrincipalAuthority() {
-		final Collection<Authority> auth = this.findPrincipal().getUser()
-				.getAuthorities();
+		final Collection<Authority> auth = this.findPrincipal().getUser().getAuthorities();
 		final Collection<String> res = new HashSet<>();
 		for (final Authority a : auth)
 			res.add(a.getAuthority());

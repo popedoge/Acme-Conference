@@ -1,23 +1,37 @@
+
 package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Registration extends DomainEntity {
-	public Actor owner;
-	public Conference conference;
 
+	private Actor		owner;
+	private Conference	conference;
+	private CreditCard	creditCard;
+
+
+	@Valid
+	@NotNull
+	public CreditCard getCreditCard() {
+		return this.creditCard;
+	}
+
+	public void setCreditCard(final CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
 	@NotNull
 	@ManyToOne
 	public Conference getConference() {
 		return this.conference;
 	}
-	public void setConference(Conference conference) {
+	public void setConference(final Conference conference) {
 		this.conference = conference;
 	}
 	@NotNull
@@ -25,7 +39,7 @@ public class Registration extends DomainEntity {
 	public Actor getOwner() {
 		return this.owner;
 	}
-	public void setOwner(Actor owner) {
+	public void setOwner(final Actor owner) {
 		this.owner = owner;
 	}
 

@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -20,70 +21,71 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Conference extends DomainEntity {
 
-	public Actor owner;
-	public String title;
-	public String acronym;
-	public String venue;
-	public String summary;
-	public Integer fee;
+	private Actor			owner;
+	private String			title;
+	private String			acronym;
+	private String			venue;
+	private String			summary;
+	private Integer			fee;
 
 	// DL= DeadLine
 
-	public Date submissionDL;
-	public Date notificationDL;
-	public Date cameraDL;
-	public Date startDate;
-	public Date endDate;
+	private Date			submissionDL;
+	private Date			notificationDL;
+	private Date			cameraDL;
+	private Date			startDate;
+	private Date			endDate;
 
-	public List<Activity> activities;
+	private List<Activity>	activities;
+
 
 	@ManyToMany
 	public List<Activity> getActivities() {
 		return this.activities;
 	}
-	public void setActivities(List<Activity> activities) {
+	public void setActivities(final List<Activity> activities) {
 		this.activities = activities;
 	}
 	@ManyToOne
 	public Actor getOwner() {
 		return this.owner;
 	}
-	public void setOwner(Actor owner) {
+	public void setOwner(final Actor owner) {
 		this.owner = owner;
 	}
 	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 	@NotBlank
 	public String getAcronym() {
 		return this.acronym;
 	}
-	public void setAcronym(String acronym) {
+	public void setAcronym(final String acronym) {
 		this.acronym = acronym;
 	}
 	@NotBlank
 	public String getVenue() {
 		return this.venue;
 	}
-	public void setVenue(String venue) {
+	public void setVenue(final String venue) {
 		this.venue = venue;
 	}
 	@NotBlank
 	public String getSummary() {
 		return this.summary;
 	}
-	public void setSummary(String summary) {
+	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
 	@NotNull
 	public Integer getFee() {
 		return this.fee;
 	}
-	public void setFee(Integer fee) {
+	public void setFee(final Integer fee) {
 		this.fee = fee;
 	}
 
@@ -93,7 +95,7 @@ public class Conference extends DomainEntity {
 	public Date getSubmissionDL() {
 		return this.submissionDL;
 	}
-	public void setSubmissionDL(Date submissionDL) {
+	public void setSubmissionDL(final Date submissionDL) {
 		this.submissionDL = submissionDL;
 	}
 
@@ -104,7 +106,7 @@ public class Conference extends DomainEntity {
 		return this.notificationDL;
 	}
 
-	public void setNotificationDL(Date notificationDL) {
+	public void setNotificationDL(final Date notificationDL) {
 		this.notificationDL = notificationDL;
 	}
 
@@ -115,7 +117,7 @@ public class Conference extends DomainEntity {
 		return this.cameraDL;
 	}
 
-	public void setCameraDL(Date cameraDL) {
+	public void setCameraDL(final Date cameraDL) {
 		this.cameraDL = cameraDL;
 	}
 
@@ -126,7 +128,7 @@ public class Conference extends DomainEntity {
 		return this.startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(final Date startDate) {
 		this.startDate = startDate;
 	}
 
@@ -136,7 +138,7 @@ public class Conference extends DomainEntity {
 	public Date getEndDate() {
 		return this.endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(final Date endDate) {
 		this.endDate = endDate;
 	}
 

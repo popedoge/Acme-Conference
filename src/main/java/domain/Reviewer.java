@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -8,13 +9,14 @@ import javax.persistence.Entity;
 @Access(AccessType.PROPERTY)
 public class Reviewer extends Actor {
 
-	public String expertise;
+	private String	expertise;
+
 
 	public String getExpertise() {
 		return this.expertise;
 	}
 
-	public void setExpertise(String expertise) {
+	public void setExpertise(final String expertise) {
 		this.expertise = expertise;
 	}
 }

@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -10,30 +11,31 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Paper extends DomainEntity {
 
-	public String title;
-	public String author;
-	public String summary;
-	public String URL;
+	private String	title;
+	private String	author;
+	private String	summary;
+	private String	URL;
+
 
 	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 	@NotBlank
 	public String getAuthor() {
 		return this.author;
 	}
-	public void setAuthor(String author) {
+	public void setAuthor(final String author) {
 		this.author = author;
 	}
 	@NotBlank
 	public String getSummary() {
 		return this.summary;
 	}
-	public void setSummary(String summary) {
+	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
 	@org.hibernate.validator.constraints.URL
@@ -41,7 +43,7 @@ public class Paper extends DomainEntity {
 	public String getURL() {
 		return this.URL;
 	}
-	public void setURL(String uRL) {
+	public void setURL(final String uRL) {
 		this.URL = uRL;
 	}
 

@@ -14,11 +14,11 @@ import org.hibernate.validator.constraints.NotBlank;
 public class MessageBox extends DomainEntity {
 
 	//relation
-	public Actor				owner;
-	public MessageBox			parent;
+	private Actor				owner;
+	private MessageBox			parent;
 	//attributes
-	public String				name;
-	public String				category;
+	private String				name;
+	private String				category;
 
 	public static final String	ROOT		= "ROOT";
 	public static final String	NOTIF		= "NOTIF";

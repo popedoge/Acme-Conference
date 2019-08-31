@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -20,16 +21,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Message extends DomainEntity {
 
 	// relations
-	public Actor sender;
-	public String senderAlias;
-	public List<Actor> recipients;
-	public List<MessageBox> container;
+	private Actor				sender;
+	private String				senderAlias;
+	private List<Actor>			recipients;
+	private List<MessageBox>	container;
 	// attributes
-	public String subject;
-	public Date deliveryDate;
-	public String body;
-	public Topic topic;
-	public boolean tick;
+	private String				subject;
+	private Date				deliveryDate;
+	private String				body;
+	private Topic				topic;
+	private boolean				tick;
+
 
 	public boolean getTick() {
 		return this.tick;
@@ -108,7 +110,7 @@ public class Message extends DomainEntity {
 		return this.topic;
 	}
 
-	public void setTopic(Topic topic) {
+	public void setTopic(final Topic topic) {
 		this.topic = topic;
 	}
 

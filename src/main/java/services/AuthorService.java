@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.List;
@@ -19,17 +20,18 @@ import forms.RegisterForm;
 public class AuthorService {
 
 	@Autowired
-	private AuthorRepository authorRepo;
+	private AuthorRepository			authorRepo;
 	@Autowired
-	private ActorService actorService;
+	private ActorService				actorService;
 	@Autowired
-	private UserAccountService userService;
+	private UserAccountService			userService;
 	@Autowired
-	private ActorPreferencesService preferenceService;
+	private ActorPreferencesService		preferenceService;
 	@Autowired
-	private SiteConfigurationService siteConfigService;
+	private SiteConfigurationService	siteConfigService;
 	@Autowired
-	private UserAccountService userAccountService;
+	private UserAccountService			userAccountService;
+
 
 	public Author findById(final int id) {
 		return this.authorRepo.findOne(id);
@@ -39,8 +41,8 @@ public class AuthorService {
 		return this.authorRepo.findAll();
 	}
 
-	public Author create(User user) {
-		Author author = new Author();
+	public Author create(final User user) {
+		final Author author = new Author();
 		author.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
 		author.setUser(user);
 		return author;
@@ -49,15 +51,15 @@ public class AuthorService {
 	public Author register(final RegisterForm form) {
 
 		// create user
-		User user = this.userAccountService
-				.createUser(form.getForm().getRole());
+		final User user = this.userService.createUser(form.getForm().getRole());
 		user.setUsername(form.getForm().getUsername());
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		user.setPassword(encoder.encodePassword(form.getPassword(), null));
-		Author res = this.create(user);
+		final Author res = this.create(user);
 		// actor
 		res.setAddress(form.getForm().getAddress());
 		res.setEmail(form.getForm().getEmail());
+		res.setMiddleName(form.getForm().getMiddleName());
 		res.setPhoneNumber(form.getForm().getPhoneNumber());
 		if (form.getForm().getPhoto() != "")
 			res.setPhoto(form.getForm().getPhoto());
@@ -65,15 +67,10 @@ public class AuthorService {
 		res.setSurname(form.getForm().getLastName());
 		final Author saved = this.save(res);
 		// preferences
-		ActorPreferences preferences = this.preferenceService.create(saved);
+		final ActorPreferences preferences = this.preferenceService.create(saved);
 		this.preferenceService.save(preferences);
 
 		return saved;
-	}
-
-	public Author setAuthority(final Author author) {
-		author.setUser(this.userService.addAuthority(author.getUser(), "AUTHOR"));
-		return author;
 	}
 
 	public Author findPrincipal() {
@@ -84,11 +81,8 @@ public class AuthorService {
 	public Author save(final Author author) {
 		// if it's saved for the first time (created), assign a proper make
 		// given his name
-
 		if (author.getPhoneNumber().matches("^\\d{4,}$")) {
-			String phonenum = "+"
-					+ String.valueOf(this.siteConfigService.find()
-							.getCountryCode()) + " " + author.getPhoneNumber();
+			final String phonenum = "+" + String.valueOf(this.siteConfigService.find().getCountryCode()) + " " + author.getPhoneNumber();
 			author.setPhoneNumber(phonenum);
 		}
 		return this.authorRepo.save(author);

@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.CascadeType;
@@ -23,23 +24,25 @@ public abstract class Actor extends DomainEntity {
 		super();
 	}
 
+
 	// Attributes -------------------------------------------------------------
 
-	private String name;
-	private String surname;
-	public String middleName;
-	private String email;
+	private String	name;
+	private String	surname;
+	private String	middleName;
+	private String	email;
 	// for phone number
-	private String phoneNumber;
+	private String	phoneNumber;
 	//
-	private String photo;
-	private String address;
+	private String	photo;
+	private String	address;
+
 
 	public String getMiddleName() {
 		return this.middleName;
 	}
 
-	public void setMiddleName(String middleName) {
+	public void setMiddleName(final String middleName) {
 		this.middleName = middleName;
 	}
 
@@ -95,9 +98,11 @@ public abstract class Actor extends DomainEntity {
 		this.address = address;
 	}
 
+
 	// Relationships ----------------------------------------------------------
 
-	private User user;
+	private User	user;
+
 
 	@NotNull
 	@Valid

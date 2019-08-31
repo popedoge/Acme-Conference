@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -14,38 +15,39 @@ import org.hibernate.validator.constraints.NotBlank;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Activity extends DomainEntity {
 
-	public String title;
-	public String speakers;
-	public String location;
-	public String summary;
-	public Date startDate;
+	private String	title;
+	private String	speakers;
+	private String	location;
+	private String	summary;
+	private Date	startDate;
+
 
 	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 	@NotBlank
 	public String getSpeakers() {
 		return this.speakers;
 	}
-	public void setSpeakers(String speakers) {
+	public void setSpeakers(final String speakers) {
 		this.speakers = speakers;
 	}
 	@NotBlank
 	public String getLocation() {
 		return this.location;
 	}
-	public void setLocation(String location) {
+	public void setLocation(final String location) {
 		this.location = location;
 	}
 	@NotBlank
 	public String getSummary() {
 		return this.summary;
 	}
-	public void setSummary(String summary) {
+	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
 	@NotNull
@@ -53,7 +55,7 @@ public class Activity extends DomainEntity {
 	public Date getStartDate() {
 		return this.startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(final Date startDate) {
 		this.startDate = startDate;
 	}
 

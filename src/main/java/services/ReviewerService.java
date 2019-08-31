@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.List;
@@ -19,15 +20,16 @@ import forms.RegisterForm;
 public class ReviewerService {
 
 	@Autowired
-	private ReviewerRepository ReviewerRepo;
+	private ReviewerRepository			ReviewerRepo;
 	@Autowired
-	private ActorService actorService;
+	private ActorService				actorService;
 	@Autowired
-	private UserAccountService userService;
+	private UserAccountService			userService;
 	@Autowired
-	private ActorPreferencesService preferenceService;
+	private ActorPreferencesService		preferenceService;
 	@Autowired
-	private SiteConfigurationService siteConfigService;
+	private SiteConfigurationService	siteConfigService;
+
 
 	public Reviewer findById(final int id) {
 		return this.ReviewerRepo.findOne(id);
@@ -37,8 +39,8 @@ public class ReviewerService {
 		return this.ReviewerRepo.findAll();
 	}
 
-	public Reviewer create(User user) {
-		Reviewer reviewer = new Reviewer();
+	public Reviewer create(final User user) {
+		final Reviewer reviewer = new Reviewer();
 		reviewer.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
 		reviewer.setUser(user);
 		return reviewer;
@@ -47,12 +49,13 @@ public class ReviewerService {
 	public Reviewer register(final RegisterForm form) {
 
 		// create user
-		User user = this.userService.createUser(form.getForm().getRole());
+		final User user = this.userService.createUser(form.getForm().getRole());
 		user.setUsername(form.getForm().getUsername());
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		user.setPassword(encoder.encodePassword(form.getPassword(), null));
-		Reviewer res = this.create(user);
+		final Reviewer res = this.create(user);
 		// actor
+		res.setMiddleName(form.getForm().getMiddleName());
 		res.setAddress(form.getForm().getAddress());
 		res.setEmail(form.getForm().getEmail());
 		res.setPhoneNumber(form.getForm().getPhoneNumber());
@@ -63,16 +66,10 @@ public class ReviewerService {
 		res.setExpertise(form.getForm().getExpertise());
 		final Reviewer saved = this.save(res);
 		// preferences
-		ActorPreferences preferences = this.preferenceService.create(saved);
+		final ActorPreferences preferences = this.preferenceService.create(saved);
 		this.preferenceService.save(preferences);
 
 		return saved;
-	}
-
-	public Reviewer setReviewerity(final Reviewer Reviewer) {
-		Reviewer.setUser(this.userService.addAuthority(Reviewer.getUser(),
-				"Reviewer"));
-		return Reviewer;
 	}
 
 	public Reviewer findPrincipal() {
@@ -85,10 +82,7 @@ public class ReviewerService {
 		// given his name
 
 		if (Reviewer.getPhoneNumber().matches("^\\d{4,}$")) {
-			String phonenum = "+"
-					+ String.valueOf(this.siteConfigService.find()
-							.getCountryCode()) + " "
-					+ Reviewer.getPhoneNumber();
+			final String phonenum = "+" + String.valueOf(this.siteConfigService.find().getCountryCode()) + " " + Reviewer.getPhoneNumber();
 			Reviewer.setPhoneNumber(phonenum);
 		}
 		final Reviewer res = this.ReviewerRepo.save(Reviewer);

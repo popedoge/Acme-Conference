@@ -46,6 +46,7 @@
 		<form:hidden path="form.id" />
 		<form:hidden path="form.role" />
 		<acme:textbox code="actor.firstname" path="form.firstName" />
+		<acme:textbox code="actor.midname" path="form.middleName" />
 		<acme:textbox code="actor.lastname" path="form.lastName" />
 		<acme:textbox code="actor.email" path="form.email" />
 		<acme:textbox code="actor.address" path="form.address" />
@@ -61,7 +62,7 @@
 			<div>
 				<b><spring:message code="actor.reviewer" /></b>
 			</div>
-			<acme:textbox code="actor.expertise" path="form.firstName" />
+			<acme:textbox code="actor.expertise" path="form.expertise" />
 			<spring:message code="actor.expertise.instructions"/>
 		</div>
 	</jstl:if>
