@@ -8,12 +8,12 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.AuthorRepository;
-import security.User;
-import security.UserAccountService;
 import domain.ActorPreferences;
 import domain.Author;
 import forms.RegisterForm;
+import repositories.AuthorRepository;
+import security.User;
+import security.UserAccountService;
 
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class AuthorService {
 
 	public Author create(final User user) {
 		final Author author = new Author();
-		author.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
+		author.setPhoto("https://theresolutioncentre.co.uk/wp-content/uploads/2018/06/profile.png");
 		author.setUser(user);
 		return author;
 	}

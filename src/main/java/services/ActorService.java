@@ -1,8 +1,8 @@
 /*
  * ActorService.java
- * 
+ *
  * Copyright (C) 2019 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -12,21 +12,22 @@ package services;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.ActorPreferences;
+import domain.Reviewer;
+import forms.ActorForm;
 import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.User;
 import security.UserAccountService;
-import domain.Actor;
-import domain.ActorPreferences;
-import domain.Reviewer;
-import forms.ActorForm;
 
 @Service
 @Transactional
@@ -127,13 +128,8 @@ public class ActorService {
 		return res;
 	}
 
-	public Collection<Actor> findAll() {
-		Collection<Actor> result;
-
-		result = this.actorRepository.findAll();
-		Assert.notNull(result);
-
-		return result;
+	public List<Actor> findAll() {
+		return this.actorRepository.findAll();
 	}
 
 	public Actor findOne(final int actorId) {

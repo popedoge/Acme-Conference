@@ -41,9 +41,9 @@
 	<display:column>
 		<!-- edit -->
 		<security:authorize access="hasRole('ADMIN')">
-		<a href="conference/admin/edit.do?id=${row.id}"> <i
-			class="fa fa-pencil" aria-hidden="true"></i>
-		</a>
+			<a href="conference/admin/edit.do?id=${row.id}"> <i
+				class="fa fa-pencil" aria-hidden="true"></i>
+			</a>
 		</security:authorize>
 	</display:column>
 	<display:column>
@@ -59,18 +59,5 @@
 		<a href="conference/view.do?id=${row.id}"> <i class="fa fa-eye"
 			aria-hidden="true"></i>
 		</a>
-	</display:column>
-	<display:column>
-		<!-- make submission -->
-		<a href="submission/author/edit.do"> <i></i>
-		</a>
-	</display:column>
-	<display:column>
-		<!-- register -->
-		<security:authorize access="hasRole('AUTHOR')">
-			<a href="registration/edit.do?id=${row.id}"> <spring:message
-					code="conference.register" />
-			</a>
-		</security:authorize>
 	</display:column>
 </display:table>

@@ -31,9 +31,16 @@
 	</button>
 </div>
 <form:form modelAttribute="conference" action="conference/admin/edit.do">
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="owner" value="${conference.owner.id}"/>
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="owner" value="${conference.owner.id}" />
+	<form:errors path="owner" cssClass="error" />
+	<jstl:forEach items="${submission.activities}" var="activity"
+		varStatus="tagStatus">
+		<form:hidden path="activities[${tagStatus.index}]"
+			value="${activity.id}" />
+		<form:errors path="activities[${tagStatus.index}]" cssClass="error" />
+	</jstl:forEach>
 	<acme:textbox code="conference.title" path="title" />
 	<acme:textbox code="conference.acronym" path="acronym" />
 	<acme:textbox code="conference.venue" path="venue" />

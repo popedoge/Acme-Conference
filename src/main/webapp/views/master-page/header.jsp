@@ -23,8 +23,8 @@
 
 <div>
 	<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/Sample-Project" user="acme-user"
-		password="ACME-Us3r-P@ssw0rd" />
+		url="jdbc:mysql://localhost:3306/sample-project" user="acme-user"
+		password="abcd1234" />
 
 	<sql:query dataSource="${snapshot}" var="banner">
          SELECT * from site_config limit 1;
@@ -54,8 +54,10 @@
 					<li class="arrow"></li>
 					<li><a href="config/admin/edit.do"><spring:message
 								code="master.page.admin.config" /></a></li>
-					<li><a href="position/admin/list.do"><spring:message
-								code="master.page.admin.position" /></a></li>
+					<li><a href="messaging/admin/broadcast/actors.do"><spring:message
+								code="master.page.admin.broadcast.actors" /></a></li>
+					<li><a href="messaging/admin/broadcast/authors.do"><spring:message
+								code="master.page.admin.broadcast.authors" /></a></li>
 				</ul></li>
 		</security:authorize>
 		<!-- conference -->
@@ -69,6 +71,34 @@
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="conference/admin/edit.do"><spring:message
 									code="master.page.conference.create" /></a></li>
+					</security:authorize>
+				</ul></li>
+		</security:authorize>
+		<!-- submissions -->
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv"><spring:message
+						code="master.page.submission" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<!-- author list -->
+					<security:authorize access="hasRole('AUTHOR')">
+						<li><a href="submission/author/list.do"><spring:message
+									code="master.page.submission.list" /></a></li>
+					</security:authorize>
+					<!-- reviewer list -->
+					<security:authorize access="hasRole('REVIEWER')">
+						<li><a href="submission/reviewer/list.do"><spring:message
+									code="master.page.submission.list" /></a></li>
+					</security:authorize>
+					<!-- admin list -->
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="submission/admin/list.do"><spring:message
+									code="master.page.submission.list" /></a></li>
+					</security:authorize>
+					<!-- reviewer reports -->
+					<security:authorize access="hasRole('REVIEWER')">
+						<li><a href="report/reviewer/list.do"><spring:message
+									code="master.page.report.list" /></a></li>
 					</security:authorize>
 				</ul></li>
 		</security:authorize>

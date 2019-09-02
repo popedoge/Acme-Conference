@@ -8,12 +8,13 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ReviewerRepository;
-import security.User;
-import security.UserAccountService;
 import domain.ActorPreferences;
 import domain.Reviewer;
 import forms.RegisterForm;
+import repositories.ReviewerRepository;
+import security.Authority;
+import security.User;
+import security.UserAccountService;
 
 @Service
 @Transactional
@@ -41,7 +42,7 @@ public class ReviewerService {
 
 	public Reviewer create(final User user) {
 		final Reviewer reviewer = new Reviewer();
-		reviewer.setPhoto("https://www.qualiscare.com/wp-content/uploads/2017/08/default-user-300x300.png");
+		reviewer.setPhoto("https://theresolutioncentre.co.uk/wp-content/uploads/2018/06/profile.png");
 		reviewer.setUser(user);
 		return reviewer;
 	}
@@ -73,7 +74,7 @@ public class ReviewerService {
 	}
 
 	public Reviewer findPrincipal() {
-		this.actorService.assertPrincipalAuthority("Reviewer");
+		this.actorService.assertPrincipalAuthority(Authority.REVIEWER);
 		return (Reviewer) this.actorService.findPrincipal();
 	}
 

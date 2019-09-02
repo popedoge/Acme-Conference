@@ -30,16 +30,19 @@
 		<spring:message code="back" />
 	</button>
 </div>
-<form:form modelAttribute="card" action="conference/admin/edit.do">
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="owner" value="${card.owner.id}"/>
-	<acme:textbox code="card.holder" path="title" />
+<form:form modelAttribute="registration" action="registration/edit.do">
+	<form:hidden path="id"/><form:errors path="id" cssClass="error" />
+	<form:hidden path="version"/><form:errors path="version" cssClass="error" />
+	<form:hidden path="owner" value="${registration.owner.id}"/><form:errors path="owner" cssClass="error" />
+	<form:hidden path="conference" value="${registration.conference.id}"/><form:errors path="conference" cssClass="error" />
+	<acme:textbox code="card.holder" path="creditCard.holder" />
+	<acme:textbox code="card.number" path="creditCard.number" />
+	<acme:textbox code="card.brand" path="creditCard.brand" />
 	<div>
 		<spring:message code="card.expiration"/>
-		<acme:simpletextbox path="card.expirationMonth" size="1" maxlength="2"/>/<acme:simpletextbox path="card.expirationYear" size="1" maxlength="2"/>
+		<acme:simpletextbox path="creditCard.expirationMonth" size="1" maxlength="2" />/<acme:simpletextbox  path="creditCard.expirationYear" size="1" maxlength="2"/>
 	</div>
-	<acme:textbox code="card.cvv" path="cvv" />
+	<acme:textbox code="card.cvv" path="creditCard.cvv" />
 
 
 

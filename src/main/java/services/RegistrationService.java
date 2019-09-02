@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import repositories.RegistrationRepository;
+import domain.Actor;
 import domain.Conference;
 import domain.CreditCard;
 import domain.Registration;
+import repositories.RegistrationRepository;
 
 @Service
 @Transactional
@@ -33,10 +35,20 @@ public class RegistrationService {
 		this.authorService.findPrincipal();
 		final Registration registration = new Registration();
 		final CreditCard card = new CreditCard();
+		final Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(!this.CheckAttendance(conference, actor));
 		registration.setConference(conference);
-		registration.setOwner(this.actorService.findPrincipal());
+		registration.setOwner(actor);
 		registration.setCreditCard(card);
 		return registration;
+	}
+
+	public boolean CheckAttendance(final Conference conference, final Actor actor) {
+		boolean res = false;
+		final Registration registration = this.registrationRepo.findByConferenceAndOwner(actor.getId(), conference.getId());
+		if (registration != null)
+			res = true;
+		return res;
 	}
 
 	public Registration save(final Registration registration) {

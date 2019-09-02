@@ -6,17 +6,17 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import domain.Conference;
+import domain.Registration;
 import services.ActorService;
 import services.ConferenceService;
 import services.RegistrationService;
-import domain.Conference;
-import domain.Registration;
 
 @Controller
 @RequestMapping("/registration")
@@ -34,37 +34,45 @@ public class RegistrationController extends AbstractController {
 
 	// TODO: finish edit -> has to save to registration
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam(required = false) final Integer id) {
-		final Conference conference = this.conferenceService.findById(id);
-		final Registration reg = this.registrationService.create(conference);
-		return this.createEditModelAndView(reg);
+	public ModelAndView edit(@RequestParam(required = false) final Integer id, final RedirectAttributes attributes) {
+		ModelAndView res = new ModelAndView();
+		try {
+			final Conference conference = this.conferenceService.findById(id);
+			final Registration registration = this.registrationService.create(conference);
+			res = this.createEditModelAndView(registration);
+		} catch (final Exception e) {
+			res = new ModelAndView("redirect:/conference/view.do?id=" + id);
+			attributes.addFlashAttribute("notif", "conference.registered");
+		}
+		return res;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("registration") @Valid final Registration reg, final BindingResult binding) {
+	public ModelAndView save(@Valid final Registration registration, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(reg);
+			res = this.createEditModelAndView(registration);
 		else
 			try {
-				this.registrationService.save(reg);
-				res = new ModelAndView("redirect:list.do");
+				this.registrationService.save(registration);
+
+				res = new ModelAndView("redirect:/conference/view.do?id=" + registration.getConference().getId());
 			} catch (final Exception e) {
-				res = this.createEditModelAndView(reg, "preferences.error");
+				res = this.createEditModelAndView(registration, "preferences.error");
 			}
 		return res;
 	}
 
 	// protected
-	protected ModelAndView createEditModelAndView(final Registration reg) {
-		return this.createEditModelAndView(reg, null);
+	protected ModelAndView createEditModelAndView(final Registration registration) {
+		return this.createEditModelAndView(registration, null);
 	}
 
-	protected ModelAndView createEditModelAndView(final Registration reg, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Registration registration, final String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("card/edit");
-		result.addObject("Registration", reg);
+		result = new ModelAndView("registration/edit");
+		result.addObject("registration", registration);
 		result.addObject("message", messageCode);
 		return result;
 	}

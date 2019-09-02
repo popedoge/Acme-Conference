@@ -37,6 +37,6 @@
 
 	<form:label path="${path}">
 	</form:label>
-	<form:input id="${id}" path="${path}" placeholder="${placeholder}" size="" maxlength=""/>
+	<form:input id="${id}" path="${path}" placeholder="${placeholder}" size="${size}" maxlength="${maxlength}"/>
 	<form:errors path="${path}" cssClass="error" />
 

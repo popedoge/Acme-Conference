@@ -23,22 +23,10 @@
 		
 		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.StringToActorConverter" />
-		
-<!-- 		<bean class="converters.AdministratorToStringConverter" /> -->
-<!-- 		<bean class="converters.StringToAdministratorConverter" />	 -->
-			
-<!-- 		<bean class="converters.ProcessionToStringConverter" /> -->
-<!-- 		<bean class="converters.StringToProcessionConverter" /> -->
-		
-<!-- 		<bean class="converters.FloatPictureToStringConverter" /> -->
-<!-- 		<bean class="converters.StringToFloatPictureConverter" /> -->
-		
-<!-- 		<bean class="converters.BrotherhoodFloatToStringConverter" /> -->
-<!-- 		<bean class="converters.StringToBrotherhoodFloatConverter" /> -->
-			
-<!-- 		<bean class="converters.ProcessionToStringConverter" /> -->
-<!-- 		<bean class="converters.StringToProcessionConverter" /> -->
-		
+		<bean class="converters.StringToConferenceConverter" />
+		<bean class="converters.StringToSubmissionConverter" />		
+		<bean class="converters.StringToReviewerConverter" />		
+		<bean class="converters.StringToActivityConverter" />		
 	</util:list>
 	
 

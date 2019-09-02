@@ -18,30 +18,62 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jstl:set var="df">
-	<spring:message code="lorem.pattern" />
-</jstl:set>
+
 <div>
-	<button type="button" name="back" onclick="history.back()">
-		<spring:message code="back" />
-	</button>
-</div>
-<br/>
-<div>
-	<img src="${lorem.imgURL}" />
+	<a href="conference/view.do?id=${submission.conference.id}"><b>
+			<jstl:out value="${submission.conference.title}" />
+	</b> </a>
 </div>
 <div>
-	<h3>
-		<jstl:out value="${lorem.ticker}" />
-	</h3>
-	<span style="color:gray;"><fmt:formatDate  value="${lorem.publishDate}" pattern="${df}" /></span>
+	<span style="color: gray;"><jstl:out
+			value="${submission.ticker}"></jstl:out></span>
 </div>
-<br/>
+<br />
 <div>
-	<a href="fixuptask/view.do?id=${lorem.fixupTask.id}"><jstl:out value="${lorem.fixupTask.ticker}" /></a> <br /> <span>By:&nbsp;<jstl:out
-			value="${lorem.author.name} ${lorem.author.surname}" /></span>
+	<spring:message code="submission.status" />
+	:&nbsp;
+	<spring:message code="${submission.status}" />
 </div>
-<br/>
-<div>
-	<jstl:out value="${lorem.body}"/>
+<br />
+<!-- paper -->
+<div class="box">
+	<div>
+		<b><jstl:out value="${submission.paper.title}" /></b><span
+			style="color: gray;">&nbsp;~&nbsp;<jstl:out
+				value="${submission.paper.author}" /></span>
+	</div>
+	<div>
+		<jstl:out value="${submission.paper.summary}" />
+	</div>
+	<div>
+		<a href="${submission.paper.URL}"><jstl:out
+				value="${submission.paper.URL}" /></a>
+	</div>
 </div>
+<!-- camera paper -->
+<jstl:if test="${not empty submission.cameraPaper}">
+	<br />
+	<div class="box">
+		<div>
+			<b><jstl:out value="${submission.cameraPaper.title}" /></b><span
+				style="color: gray;">&nbsp;~&nbsp;<jstl:out
+					value="${submission.cameraPaper.author}" /></span>
+		</div>
+		<div>
+			<jstl:out value="${submission.cameraPaper.summary}" />
+		</div>
+		<div>
+			<a href="${submission.cameraPaper.URL}"><jstl:out
+					value="${submission.cameraPaper.URL}" /></a>
+		</div>
+	</div>
+</jstl:if>
+<security:authorize access="hasRole('REVIEWER')">
+	<br />
+	<div>
+		<a href="report/edit.do?id=${row.id}"> <spring:message
+				code="submission.report" />
+		</a>
+	</div>
+</security:authorize>
+<br />

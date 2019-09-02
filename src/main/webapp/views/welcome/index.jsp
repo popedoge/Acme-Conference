@@ -19,3 +19,7 @@
 <p>
 	<spring:message code="welcome.greeting" />	
 </p>
+<div>
+	<span>Passwords to <b>everything</b> is qwer1234 (yes, everything)</span>
+</div>
+<br/>

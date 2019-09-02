@@ -43,8 +43,12 @@
 
 <jstl:if test="${actor.role == 'REVIEWER'}">
 	<div>
-		<h3><spring:message code="reviewer" /></h3>
-		<spring:message code="expertise"/>:&nbsp;<jstl:out value="${actor.expertise}"/>
+		<h3>
+			<spring:message code="reviewer" />
+		</h3>
+		<spring:message code="expertise" />
+		:&nbsp;
+		<jstl:out value="${actor.expertise}" />
 	</div>
 </jstl:if>
 <div>
@@ -57,6 +61,10 @@
 			</div>
 			<div>
 				<jstl:out value="${actor.firstName}" />
+				&nbsp;
+				<jstl:if test="${not empty actor.middleName}">
+					"<jstl:out value="${actor.middleName}" />"&nbsp;
+				</jstl:if>
 				<jstl:out value="${actor.lastName}" />
 			</div>
 		</div>

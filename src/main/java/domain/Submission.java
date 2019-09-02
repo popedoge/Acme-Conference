@@ -1,10 +1,13 @@
 
 package domain;
 
+import java.util.List;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -22,11 +25,21 @@ public class Submission extends DomainEntity {
 	private String				status;
 	private Paper				paper;
 	private Paper				cameraPaper;
+	private List<Reviewer>		reviewers;
 
 	public static final String	PENDING		= "submission.pending";
 	public static final String	ACCEPTED	= "submission.accepted";
 	public static final String	REJECTED	= "submission.rejected";
 
+
+	@ManyToMany
+	public List<Reviewer> getReviewers() {
+		return this.reviewers;
+	}
+
+	public void setReviewers(final List<Reviewer> reviewers) {
+		this.reviewers = reviewers;
+	}
 
 	@NotNull
 	@ManyToOne
@@ -46,8 +59,9 @@ public class Submission extends DomainEntity {
 	public void setConference(final Conference conference) {
 		this.conference = conference;
 	}
+	//TODO: change user details so it can't have numeric name/surname
 	@NotBlank
-	@Pattern(regexp = "^[A-Z]{3,}-\\w{4,}$")
+	@Pattern(regexp = "^\\w{3,}-\\w{4,}$")
 	public String getTicker() {
 		return this.ticker;
 	}

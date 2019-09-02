@@ -24,26 +24,41 @@
 	<spring:message code="back" />
 </button>
 
-<display:table name="requests" id="row" requestURI="${requestURI}"
+<jstl:if test="${not empty submission}">
+	<div>
+		<a href="submission/view.do?id=${submission.id}"> <jstl:out
+				value="${submission.ticker}" />
+		</a>
+	</div>
+	<div>
+		<form action="submission/admin/reviewer/assign.do" method="get"
+			id="assignForm">
+			<input type="hidden" id="submissionId" name="submissionId"
+				value="${submission.id}" /> <select name="reviewerId" id="reviewerId"
+				form="assignForm">
+				<jstl:forEach items="${allReviewers}" var="reviewer">
+					<option value="${reviewer.id}">
+						<jstl:out value="${reviewer.user.username}" />
+					</option>
+				</jstl:forEach>
+			</select> <input type="submit"
+				value="<spring:message code="reviewer.assign"/>" />
+		</form>
+	</div>
+</jstl:if>
+
+<display:table name="reviewers" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
-	<display:column titleKey="reviewer.date">
-		<fmt:formatDate value="${row.moment}" pattern="dd/MM/yyyy HH:mm" />
-	</display:column>
-	<display:column titleKey="reviewer.user">
-		<a href="actor/profile?id=${row.requestee.id}">
-			<jstl:out value="${row.requestee.name}"/>
-			<jstl:out value="${row.requestee.lastname}"/>
-		</a>
-	</display:column>
-	<display:column titleKey="reviewer.status">
-		<jstl:out value="${row.status}"/>
-	</display:column>
 	<display:column>
-		<a href="">
+		<a href="actor/profile.do?id=${row.id}"> <jstl:out
+				value="${row.user.username}" />
 		</a>
 	</display:column>
 	<display:column>
-		<a href="">
-		</a>
+		<jstl:out value="${row.name}" />&nbsp;<jstl:out
+			value="${row.surname}" />
+	</display:column>
+	<display:column titleKey="reviewer.expertise" property="expertise">
+
 	</display:column>
 </display:table>

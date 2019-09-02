@@ -18,21 +18,85 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jstl:set var="df"><spring:message code="dateformat"/></jstl:set>
+<jstl:set var="df">
+	<spring:message code="dateformat" />
+</jstl:set>
+<jstl:set var="userId">
+	<security:authentication property="principal.id" />
+</jstl:set>
 
-<button type="button" name="back" onclick="history.back()"><spring:message code="back"/></button>
+<button type="button" name="back" onclick="history.back()">
+	<spring:message code="back" />
+</button>
+
+<!-- TODO: AUTO ASSIGN VIEW -->
+<!-- auto assign -->
+<security:authorize access="hasRole('ADMIN')">
+	<div>
+		<a href="submission/admin/autoassign.do"> <spring:message
+				code="autoassign" />
+		</a>
+	</div>
+	<div>
+		<jstl:if test="${not empty notif}">
+			<span class="error"><spring:message code="${notif}" /></span>
+		</jstl:if>
+	</div>
+</security:authorize>
 
 <display:table name="submissions" id="row" requestURI="${requestURI}"
 	pagesize="10" class="displaytag">
-	<display:column titleKey="submission.ticker" property="ticker"/>
-	<display:column titleKey="conference.acronym" property="acronym"/>
-	<display:column titleKey="conference.summary" property="summary"/>
-	<display:column titleKey="conference.fee" property="fee"/>
-	<display:column class="date" titleKey="conference.start">
-		<fmt:formatDate  value="${row.startDate}" pattern="${df}" />
+	<display:column property="ticker" />
+	<display:column>
+		<a href="actor/profile.do?id=${row.owner.id}"> <jstl:out
+				value="${row.owner.user.username}" />
+		</a>
 	</display:column>
-	<display:column class="date" titleKey="conference.end">
-		<fmt:formatDate value="${row.endDate}" pattern="${df}" />
+	<display:column>
+		<spring:message code="${row.status}" />
 	</display:column>
-	
+	<!-- view -->
+	<display:column>
+		<a href="submission/view.do?id=${row.id}"> <i class="fa fa-eye"
+			aria-hidden="true"></i>
+		</a>
+	</display:column>
+	<!-- edit -->
+	<display:column>
+		<security:authorize access="hasRole('AUTHOR')">
+			<jstl:if test="${row.owner.user.id==userId}">
+				<a href="submission/author/edit.do?id=${row.id}"> <i
+					class="fa fa-pencil" aria-hidden="true"></i></a>
+			</jstl:if>
+		</security:authorize>
+	</display:column>
+	<!-- create report -->
+	<display:column>
+		<security:authorize access="hasRole('REVIEWER')">
+			<jstl:if test="${row.status == 'submission.pending'}">
+				<a href="report/reviewer/edit.do?id=${row.id}"> <spring:message
+						code="submission.report" />
+				</a>
+			</jstl:if>
+		</security:authorize>
+	</display:column>
+	<!-- view reports -->
+	<display:column>
+		<security:authorize access="hasRole('AUTHOR')">
+			<jstl:if test="${row.status == 'submission.pending'}">
+				<a href="report/author/list.do?id=${row.id}"> <spring:message
+						code="submission.report.list" />
+				</a>
+			</jstl:if>
+		</security:authorize>
+	</display:column>
+	<!-- assign reviewer -->
+	<display:column>
+		<security:authorize access="hasRole('ADMIN')">
+			<a href="submission/admin/reviewer/list.do?submissionId=${row.id}">
+				<spring:message code="submission.reviewers" />
+			</a>
+		</security:authorize>
+	</display:column>
+
 </display:table>

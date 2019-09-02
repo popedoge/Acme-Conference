@@ -14,7 +14,8 @@
 
 	<bean id="userAccount1" class="security.User">
 		<property name="username" value="admin1" />
-		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="password"
+			value="5d93ceb70e2bf5daa84ec3d0cd2c731a" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -25,8 +26,9 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.User">
-		<property name="username" value="member1" />
-		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="username" value="author1" />
+		<property name="password"
+			value="5d93ceb70e2bf5daa84ec3d0cd2c731a" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -37,8 +39,9 @@
 	</bean>
 
 	<bean id="userAccount3" class="security.User">
-		<property name="username" value="member2" />
-		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="username" value="author2" />
+		<property name="password"
+			value="5d93ceb70e2bf5daa84ec3d0cd2c731a" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -49,8 +52,9 @@
 	</bean>
 
 	<bean id="userAccount4" class="security.User">
-		<property name="username" value="member3" />
-		<property name="password" value="325a2cc052914ceeb8c19016c091d2ac" />
+		<property name="username" value="author3" />
+		<property name="password"
+			value="5d93ceb70e2bf5daa84ec3d0cd2c731a" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -60,59 +64,143 @@
 		</property>
 	</bean>
 
+	<bean id="userAccount5" class="security.User">
+		<property name="username" value="reviewer1" />
+		<property name="password"
+			value="5d93ceb70e2bf5daa84ec3d0cd2c731a" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount6" class="security.User">
+		<property name="username" value="reviewer2" />
+		<property name="password"
+			value="5d93ceb70e2bf5daa84ec3d0cd2c731a" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount7" class="security.User">
+		<property name="username" value="reviewer3" />
+		<property name="password"
+			value="5d93ceb70e2bf5daa84ec3d0cd2c731a" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 
 	<!-- Administrators -->
 
 	<bean id="admin1" class="domain.Administrator">
-		<property name="name" value="Ad" />
-		<property name="surname" value="1" />
+		<property name="name" value="Paco" />
+		<property name="middleName" value="Pepe" />
+		<property name="surname" value="Lopez" />
 		<property name="email" value="admin11@mail.com" />
 		<property name="phoneNumber" value="666666666" />
 		<property name="address" value="Admin address 1" />
 		<property name="photo"
-			value="https://www.bewelcome.org/members/avatar/doge?500" />
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
 		<property name="user" ref="userAccount1" />
 	</bean>
 
-	<!-- members -->
+	<!-- author -->
 
-	<bean id="member1" class="domain.Author">
-		<property name="name" value="Mem" />
-		<property name="surname" value="1" />
-		<property name="email" value="member1@mail.com" />
+	<bean id="author1" class="domain.Author">
+		<property name="name" value="Onesimo" />
+		<property name="surname" value="Guayabato" />
+		<property name="email" value="author1@mail.com" />
 		<property name="phoneNumber" value="666666666" />
 		<property name="address" value="Address 1" />
 		<property name="photo"
-			value="https://www.bewelcome.org/members/avatar/doge?500" />
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
 		<property name="user" ref="userAccount2" />
 	</bean>
 
-	<bean id="member2" class="domain.Author">
-		<property name="name" value="Mem" />
-		<property name="surname" value="2" />
-		<property name="email" value="member2@mail.com" />
+	<bean id="author2" class="domain.Author">
+		<property name="name" value="Mano" />
+		<property name="middleName" value="Perro" />
+		<property name="surname" value="Critter" />
+		<property name="email" value="author2@mail.com" />
 		<property name="phoneNumber" value="666666666" />
 		<property name="address" value="Address 2" />
 		<property name="photo"
-			value="https://www.bewelcome.org/members/avatar/doge?500" />
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
 		<property name="user" ref="userAccount3" />
 	</bean>
 
-	<bean id="member3" class="domain.Author">
-		<property name="name" value="Mem" />
-		<property name="surname" value="3" />
-		<property name="email" value="member1@mail.com" />
+	<bean id="author3" class="domain.Author">
+		<property name="name" value="Jorgito" />
+		<property name="middleName" value="RR" />
+		<property name="surname" value="Martin" />
+		<property name="email" value="author3@mail.com" />
 		<property name="phoneNumber" value="666666666" />
 		<property name="address" value="Address 3" />
 		<property name="photo"
-			value="https://www.bewelcome.org/members/avatar/doge?500" />
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
 		<property name="user" ref="userAccount4" />
 	</bean>
+
+	<!-- reviewers -->
+
+	<bean id="reviewer1" class="domain.Reviewer">
+		<property name="name" value="moo" />
+		<property name="middleName" value="oo" />
+		<property name="surname" value="oot" />
+		<property name="email" value="reviewer1@mail.com" />
+		<property name="phoneNumber" value="666666666" />
+		<property name="address" value="Address 3" />
+		<property name="photo"
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
+		<property name="user" ref="userAccount5" />
+		<property name="expertise" value="woof" />
+	</bean>
+
+	<bean id="reviewer2" class="domain.Reviewer">
+		<property name="name" value="He" />
+		<property name="middleName" value="Doesit" />
+		<property name="surname" value="Ferfree" />
+		<property name="email" value="reviewer2@mail.com" />
+		<property name="phoneNumber" value="666666666" />
+		<property name="address" value="Address 3" />
+		<property name="photo"
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
+		<property name="user" ref="userAccount6" />
+		<property name="expertise" value="cleanup" />
+	</bean>
+
+	<bean id="reviewer3" class="domain.Reviewer">
+		<property name="name" value="Yanis" />
+		<property name="surname" value="Varoufakis" />
+		<property name="email" value="reviewer2@mail.com" />
+		<property name="phoneNumber" value="666666666" />
+		<property name="address" value="Address 3" />
+		<property name="photo"
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
+		<property name="user" ref="userAccount7" />
+		<property name="expertise" value="destruction" />
+	</bean>
+
 	<!-- SITE CONFIG -->
 
 	<bean id="siteConfig" class="domain.SiteConfig">
-		<property name="siteName" value="Acme Madruga" />
-		<property name="bannerUrl" value=" https://tinyurl.com/acme-madruga" />
+		<property name="siteName" value="Acme Conference" />
+		<property name="bannerUrl"
+			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
 		<property name="welcomeMessage" value="Welcome vro..." />
 		<property name="countryCode" value="34" />
 	</bean>
@@ -128,7 +216,7 @@
 	</bean>
 
 	<bean id="preferences2" class="domain.ActorPreferences">
-		<property name="owner" ref="member1" />
+		<property name="owner" ref="author1" />
 		<property name="displayRealName" value="true" />
 		<property name="displayPhoneNumber" value="true" />
 		<property name="displayAddress" value="true" />
@@ -137,7 +225,7 @@
 	</bean>
 
 	<bean id="preferences3" class="domain.ActorPreferences">
-		<property name="owner" ref="member2" />
+		<property name="owner" ref="author2" />
 		<property name="displayRealName" value="true" />
 		<property name="displayPhoneNumber" value="true" />
 		<property name="displayAddress" value="true" />
@@ -146,7 +234,7 @@
 	</bean>
 
 	<bean id="preferences4" class="domain.ActorPreferences">
-		<property name="owner" ref="member3" />
+		<property name="owner" ref="author3" />
 		<property name="displayRealName" value="true" />
 		<property name="displayPhoneNumber" value="false" />
 		<property name="displayAddress" value="false" />
@@ -154,6 +242,32 @@
 		<property name="messageSignature" value="" />
 	</bean>
 
+	<bean id="preferences5" class="domain.ActorPreferences">
+		<property name="owner" ref="reviewer1" />
+		<property name="displayRealName" value="true" />
+		<property name="displayPhoneNumber" value="false" />
+		<property name="displayAddress" value="false" />
+		<property name="displayEmail" value="true" />
+		<property name="messageSignature" value="" />
+	</bean>
+	
+	<bean id="preferences6" class="domain.ActorPreferences">
+		<property name="owner" ref="reviewer2" />
+		<property name="displayRealName" value="true" />
+		<property name="displayPhoneNumber" value="false" />
+		<property name="displayAddress" value="false" />
+		<property name="displayEmail" value="true" />
+		<property name="messageSignature" value="" />
+	</bean>
+	
+	<bean id="preferences7" class="domain.ActorPreferences">
+		<property name="owner" ref="reviewer3" />
+		<property name="displayRealName" value="true" />
+		<property name="displayPhoneNumber" value="false" />
+		<property name="displayAddress" value="false" />
+		<property name="displayEmail" value="true" />
+		<property name="messageSignature" value="" />
+	</bean>
 	<!-- Message Boxes -->
 
 	<bean id="admin1RootBox" class="domain.MessageBox">
@@ -200,138 +314,270 @@
 		<property name="owner" ref="admin1" />
 	</bean>
 
-	<bean id="member1RootBox" class="domain.MessageBox">
+	<bean id="author1RootBox" class="domain.MessageBox">
 		<property name="name" value="Mail" />
 		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="member1" />
+		<property name="owner" ref="author1" />
 	</bean>
 
-	<bean id="member1Inbox" class="domain.MessageBox">
+	<bean id="author1Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent" ref="member1RootBox" />
-		<property name="owner" ref="member1" />
+		<property name="parent" ref="author1RootBox" />
+		<property name="owner" ref="author1" />
 	</bean>
 
-	<bean id="member1Outbox" class="domain.MessageBox">
+	<bean id="author1Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent" ref="member1RootBox" />
-		<property name="owner" ref="member1" />
+		<property name="parent" ref="author1RootBox" />
+		<property name="owner" ref="author1" />
 	</bean>
 
-	<bean id="member1Trashbox" class="domain.MessageBox">
+	<bean id="author1Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent" ref="member1RootBox" />
-		<property name="owner" ref="member1" />
+		<property name="parent" ref="author1RootBox" />
+		<property name="owner" ref="author1" />
 	</bean>
 
-	<bean id="member1Spambox" class="domain.MessageBox">
+	<bean id="author1Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
-		<property name="parent" ref="member1RootBox" />
-		<property name="owner" ref="member1" />
+		<property name="parent" ref="author1RootBox" />
+		<property name="owner" ref="author1" />
 	</bean>
 
-	<bean id="member1Notif" class="domain.MessageBox">
+	<bean id="author1Notif" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="NOTIF" />
-		<property name="parent" ref="member1RootBox" />
-		<property name="owner" ref="member1" />
+		<property name="parent" ref="author1RootBox" />
+		<property name="owner" ref="author1" />
 	</bean>
 
-	<bean id="member2RootBox" class="domain.MessageBox">
+	<bean id="author2RootBox" class="domain.MessageBox">
 		<property name="name" value="Mail" />
 		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="member2" />
+		<property name="owner" ref="author2" />
 	</bean>
 
-	<bean id="member2Inbox" class="domain.MessageBox">
+	<bean id="author2Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent" ref="member2RootBox" />
-		<property name="owner" ref="member2" />
+		<property name="parent" ref="author2RootBox" />
+		<property name="owner" ref="author2" />
 	</bean>
 
-	<bean id="member2Outbox" class="domain.MessageBox">
+	<bean id="author2Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent" ref="member2RootBox" />
-		<property name="owner" ref="member2" />
+		<property name="parent" ref="author2RootBox" />
+		<property name="owner" ref="author2" />
 	</bean>
 
-	<bean id="member2Trashbox" class="domain.MessageBox">
+	<bean id="author2Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent" ref="member2RootBox" />
-		<property name="owner" ref="member2" />
+		<property name="parent" ref="author2RootBox" />
+		<property name="owner" ref="author2" />
 	</bean>
 
-	<bean id="member2Spambox" class="domain.MessageBox">
+	<bean id="author2Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
-		<property name="parent" ref="member2RootBox" />
-		<property name="owner" ref="member2" />
+		<property name="parent" ref="author2RootBox" />
+		<property name="owner" ref="author2" />
 	</bean>
 
-	<bean id="member2Notif" class="domain.MessageBox">
+	<bean id="author2Notif" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="NOTIF" />
-		<property name="parent" ref="member2RootBox" />
-		<property name="owner" ref="member2" />
+		<property name="parent" ref="author2RootBox" />
+		<property name="owner" ref="author2" />
 	</bean>
 
-	<bean id="member3RootBox" class="domain.MessageBox">
+	<bean id="author3RootBox" class="domain.MessageBox">
 		<property name="name" value="Mail" />
 		<property name="category" value="ROOT" />
 		<property name="parent">
 			<null />
 		</property>
-		<property name="owner" ref="member3" />
+		<property name="owner" ref="author3" />
 	</bean>
 
-	<bean id="member3Inbox" class="domain.MessageBox">
+	<bean id="author3Inbox" class="domain.MessageBox">
 		<property name="name" value="Inbox" />
 		<property name="category" value="INBOX" />
-		<property name="parent" ref="member3RootBox" />
-		<property name="owner" ref="member3" />
+		<property name="parent" ref="author3RootBox" />
+		<property name="owner" ref="author3" />
 	</bean>
 
-	<bean id="member3Outbox" class="domain.MessageBox">
+	<bean id="author3Outbox" class="domain.MessageBox">
 		<property name="name" value="Outbox" />
 		<property name="category" value="OUTBOX" />
-		<property name="parent" ref="member3RootBox" />
-		<property name="owner" ref="member3" />
+		<property name="parent" ref="author3RootBox" />
+		<property name="owner" ref="author3" />
 	</bean>
 
-	<bean id="member3Trashbox" class="domain.MessageBox">
+	<bean id="author3Trashbox" class="domain.MessageBox">
 		<property name="name" value="Trashbox" />
 		<property name="category" value="TRASHBOX" />
-		<property name="parent" ref="member3RootBox" />
-		<property name="owner" ref="member3" />
+		<property name="parent" ref="author3RootBox" />
+		<property name="owner" ref="author3" />
 	</bean>
 
-	<bean id="member3Spambox" class="domain.MessageBox">
+	<bean id="author3Spambox" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="SPAMBOX" />
-		<property name="parent" ref="member3RootBox" />
-		<property name="owner" ref="member3" />
+		<property name="parent" ref="author3RootBox" />
+		<property name="owner" ref="author3" />
 	</bean>
 
-	<bean id="member3Notif" class="domain.MessageBox">
+	<bean id="author3Notif" class="domain.MessageBox">
 		<property name="name" value="Spambox" />
 		<property name="category" value="NOTIF" />
-		<property name="parent" ref="member3RootBox" />
-		<property name="owner" ref="member3" />
+		<property name="parent" ref="author3RootBox" />
+		<property name="owner" ref="author3" />
 	</bean>
 
+	<!-- reviewer 1 boxes -->
+	<bean id="reviewer1RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="reviewer1" />
+	</bean>
+
+	<bean id="reviewer1Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="reviewer1RootBox" />
+		<property name="owner" ref="reviewer1" />
+	</bean>
+
+	<bean id="reviewer1Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent" ref="reviewer1RootBox" />
+		<property name="owner" ref="reviewer1" />
+	</bean>
+
+	<bean id="reviewer1Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent" ref="reviewer1RootBox" />
+		<property name="owner" ref="reviewer1" />
+	</bean>
+
+	<bean id="reviewer1Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="reviewer1RootBox" />
+		<property name="owner" ref="reviewer1" />
+	</bean>
+
+	<bean id="reviewer1Notif" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="NOTIF" />
+		<property name="parent" ref="reviewer1RootBox" />
+		<property name="owner" ref="reviewer1" />
+	</bean>
+	<!-- reviewer 2 boxes -->
+	<bean id="reviewer2RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="reviewer2" />
+	</bean>
+
+	<bean id="reviewer2Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="reviewer2RootBox" />
+		<property name="owner" ref="reviewer2" />
+	</bean>
+
+	<bean id="reviewer2Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent" ref="reviewer2RootBox" />
+		<property name="owner" ref="reviewer2" />
+	</bean>
+
+	<bean id="reviewer2Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent" ref="reviewer2RootBox" />
+		<property name="owner" ref="reviewer2" />
+	</bean>
+
+	<bean id="reviewer2Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="reviewer2RootBox" />
+		<property name="owner" ref="reviewer2" />
+	</bean>
+
+	<bean id="reviewer2Notif" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="NOTIF" />
+		<property name="parent" ref="reviewer2RootBox" />
+		<property name="owner" ref="reviewer2" />
+	</bean>
+	<!-- reviewer 3 boxes -->
+	<bean id="reviewer3RootBox" class="domain.MessageBox">
+		<property name="name" value="Mail" />
+		<property name="category" value="ROOT" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="owner" ref="reviewer3" />
+	</bean>
+
+	<bean id="reviewer3Inbox" class="domain.MessageBox">
+		<property name="name" value="Inbox" />
+		<property name="category" value="INBOX" />
+		<property name="parent" ref="reviewer3RootBox" />
+		<property name="owner" ref="reviewer3" />
+	</bean>
+
+	<bean id="reviewer3Outbox" class="domain.MessageBox">
+		<property name="name" value="Outbox" />
+		<property name="category" value="OUTBOX" />
+		<property name="parent" ref="reviewer3RootBox" />
+		<property name="owner" ref="reviewer3" />
+	</bean>
+
+	<bean id="reviewer3Trashbox" class="domain.MessageBox">
+		<property name="name" value="Trashbox" />
+		<property name="category" value="TRASHBOX" />
+		<property name="parent" ref="reviewer3RootBox" />
+		<property name="owner" ref="reviewer3" />
+	</bean>
+
+	<bean id="reviewer3Spambox" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="SPAMBOX" />
+		<property name="parent" ref="reviewer3RootBox" />
+		<property name="owner" ref="reviewer3" />
+	</bean>
+
+	<bean id="reviewer3Notif" class="domain.MessageBox">
+		<property name="name" value="Spambox" />
+		<property name="category" value="NOTIF" />
+		<property name="parent" ref="reviewer3RootBox" />
+		<property name="owner" ref="reviewer3" />
+	</bean>
 	<!-- messages -->
 
 	<bean id="message1" class="domain.Message">
@@ -352,6 +598,26 @@
 	<bean id="topic1" class="domain.Topic">
 		<property name="title" value="INQUIRY" />
 		<property name="spanish" value="INVESTIGACION" />
+	</bean>
+
+	<bean id="topic2" class="domain.Topic">
+		<property name="title" value="REBUTTAL" />
+		<property name="spanish" value="REFUTACION" />
+	</bean>
+
+	<bean id="topic3" class="domain.Topic">
+		<property name="title" value="REGISTRATION" />
+		<property name="spanish" value="REGISTRO" />
+	</bean>
+
+	<bean id="topic4" class="domain.Topic">
+		<property name="title" value="TOPICS" />
+		<property name="spanish" value="TEMAS" />
+	</bean>
+
+	<bean id="topic5" class="domain.Topic">
+		<property name="title" value="OTHER" />
+		<property name="spanish" value="OTRO" />
 	</bean>
 
 
@@ -380,26 +646,36 @@
 	<!-- conference -->
 
 	<bean id="conference1" class="domain.Conference">
-		<property name="title" value="title1" />
-		<property name="acronym" value="acronym1" />
-		<property name="venue" value="venue1" />
-		<property name="summary" value="summary1" />
-		<property name="fee" value="1" />
+		<property name="title" value="DOGECON" />
+		<property name="owner" ref="admin1" />
+		<property name="acronym" value="DC" />
+		<property name="venue" value="Bush Stadium" />
+		<property name="summary" value="woof woof" />
+		<property name="fee" value="100" />
 		<property name="submissionDL" value="03/12/2020 13:20" />
 		<property name="notificationDL" value="03/12/2020 13:20" />
 		<property name="cameraDL" value="03/12/2020 13:20" />
 		<property name="startDate" value="03/12/2020 13:20" />
 		<property name="endDate" value="03/12/2020 13:20" />
+		<property name="activities">
+			<null/>
+		</property>
+		
 	</bean>
 
 	<!-- submissions -->
 	<bean id="submission1" class="domain.Submission">
-		<property name="owner" ref="admin1" />
+		<property name="owner" ref="author1" />
 		<property name="conference" ref="conference1" />
 		<property name="ticker" value="ABC-1234" />
 		<property name="status" value="submission.pending" />
 		<property name="paper" ref="paper1" />
 		<property name="cameraPaper" ref="paper2" />
+		<property name="reviewers">
+			<list>
+				<ref bean="reviewer2"/>
+			</list>
+		</property>
 	</bean>
 
 	<!-- papers -->
@@ -409,13 +685,13 @@
 		<property name="summary" value="The frog ate the shark" />
 		<property name="URL" value="http://www.google.com" />
 	</bean>
-	
+
 	<bean id="paper2" class="domain.Paper">
 		<property name="title" value="La Yoni" />
 		<property name="author" value="Manoperros y Meji" />
 		<property name="summary" value="Se murio la yoni" />
 		<property name="URL" value="http://www.google.com" />
 	</bean>
-	
+
 
 </beans>

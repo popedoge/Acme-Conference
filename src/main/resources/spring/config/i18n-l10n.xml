@@ -29,7 +29,10 @@
 		<value>/views/terms/messages</value>
 		<value>/views/messaging/messages</value>
 		<value>/views/conference/messages</value>
-		
+		<value>/views/registration/messages</value>
+		<value>/views/submission/messages</value>
+		<value>/views/report/messages</value>
+		<value>/views/reviewer/messages</value>
 	</util:list>
 
 </beans>

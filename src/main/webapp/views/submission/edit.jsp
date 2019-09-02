@@ -30,29 +30,47 @@
 		<spring:message code="back" />
 	</button>
 </div>
-<form:form modelAttribute="submissionForm"
-	action="conference/admin/edit.do">
+<form:form modelAttribute="submission"
+	action="submission/author/edit.do">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="owner" value="${submissionForm.owner.id}" />
-	<form:hidden path="conference" value="${submissionForm.conference.id}" />
+	<jstl:forEach items="${submission.reviewers}" var="reviewer"
+		varStatus="tagStatus">
+		<form:hidden path="reviewers[${tagStatus.index}]"
+			value="${reviewer.id}" />
+		<form:errors path="reviewers[${tagStatus.index}]" cssClass="error" />
+	</jstl:forEach>
+	<form:hidden path="owner" value="${submission.owner.id}" />
+	<form:errors path="owner" />
+	<form:hidden path="conference" value="${submission.conference.id}" />
+	<form:errors path="conference" />
 	<form:hidden path="ticker" />
+	<form:errors path="ticker" />
 	<form:hidden path="status" />
-
-
-	<div>
-		<form:hidden path="paperId" />
-		<acme:textbox code="submission.paper.title" path="paperTitle" />
-		<acme:textbox code="submission.paper.author" path="paperAuthor" />
-		<acme:textbox code="submission.paper.summary" path="paperSummary" />
-		<acme:textbox code="submission.paper.url" path="paperUrl" />
+	<form:errors path="status" />
+	<br />
+	<div class="box">
+		<b><spring:message code="submission.paper" /></b>
+		<form:hidden path="paper.id" />
+		<form:errors path="paper.id" />
+		<form:hidden path="paper.version" />
+		<form:errors path="paper.version" />
+		<acme:textbox code="submission.paper.title" path="paper.title" />
+		<acme:textbox code="submission.paper.author" path="paper.author" />
+		<acme:textbox code="submission.paper.summary" path="paper.summary" />
+		<acme:textbox code="submission.paper.url" path="paper.URL" />
 	</div>
-	<div>
-		<form:hidden path="cameraId" />
-		<acme:textbox code="submission.paper.title" path="cameraTitle" />
-		<acme:textbox code="submission.paper.author" path="cameraAuthor" />
-		<acme:textbox code="submission.paper.summary" path="cameraSummary" />
-		<acme:textbox code="submission.paper.url" path="cameraURL" />
+	<div class="box">
+		<b><spring:message code="submission.camerapaper" /></b>
+		<form:hidden path="cameraPaper.id" />
+		<form:errors path="cameraPaper.id" />
+		<form:hidden path="cameraPaper.version" />
+		<form:errors path="cameraPaper.version" />
+		<acme:textbox code="submission.paper.title" path="cameraPaper.title" />
+		<acme:textbox code="submission.paper.author" path="cameraPaper.author" />
+		<acme:textbox code="submission.paper.summary"
+			path="cameraPaper.summary" />
+		<acme:textbox code="submission.paper.url" path="cameraPaper.URL" />
 	</div>
 
 	<div>
