@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -101,11 +99,9 @@ public abstract class Actor extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private User	user;
+	private User user;
 
 
-	@NotNull
-	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	public User getUser() {
 		return this.user;

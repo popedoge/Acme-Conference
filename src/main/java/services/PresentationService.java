@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Presentation;
+import forms.ActivityForm;
 import repositories.PresentationRepository;
 
 @Service
@@ -15,25 +16,31 @@ public class PresentationService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private PresentationRepository PresentationRepo;
+	private PresentationRepository presentationRepo;
 
 
 	// Supporting services ----------------------------------------------------
+
+	public ActivityForm formatForm(final ActivityForm form) {
+		final Presentation presentation = this.findById(form.getId());
+		form.setSubmissionId(presentation.getSubmission().getId());
+		return form;
+	}
 
 	public Presentation create() {
 		return new Presentation();
 	}
 
 	public Presentation save(final Presentation Presentation) {
-		return this.PresentationRepo.save(Presentation);
+		return this.presentationRepo.save(Presentation);
 	}
 
 	public void delete(final int id) {
-		this.PresentationRepo.delete(id);
+		this.presentationRepo.delete(id);
 	}
 
 	public Presentation findById(final int id) {
-		return this.PresentationRepo.findOne(id);
+		return this.presentationRepo.findOne(id);
 	}
 
 }

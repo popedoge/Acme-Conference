@@ -56,7 +56,6 @@
 			id="phone-input" />
 	</div>
 	<!-- load reviewer section if reviewer field enabled -->
-	<form:hidden path="isReviewer"/>
 	<jstl:if test="${regForm.form.role == 'REVIEWER'}">
 		<div class="box">
 			<div>

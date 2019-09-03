@@ -52,6 +52,7 @@
 	<div class="box">
 		<b><spring:message code="submission.paper" /></b>
 		<form:hidden path="paper.id" />
+		<form:hidden path="paper.cameraReady" />
 		<form:errors path="paper.id" />
 		<form:hidden path="paper.version" />
 		<form:errors path="paper.version" />
@@ -64,6 +65,7 @@
 		<b><spring:message code="submission.camerapaper" /></b>
 		<form:hidden path="cameraPaper.id" />
 		<form:errors path="cameraPaper.id" />
+		<form:hidden path="cameraPaper.cameraReady" />
 		<form:hidden path="cameraPaper.version" />
 		<form:errors path="cameraPaper.version" />
 		<acme:textbox code="submission.paper.title" path="cameraPaper.title" />

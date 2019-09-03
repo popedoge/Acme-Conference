@@ -27,6 +27,7 @@ import services.RegistrationService;
 @RequestMapping("/conference")
 public class ConferenceController extends AbstractController {
 
+	//TODO: section edit
 	@Autowired
 	private ConferenceService	conferenceService;
 	@Autowired
@@ -87,7 +88,7 @@ public class ConferenceController extends AbstractController {
 		else
 			try {
 				this.conferenceService.save(conference);
-				res = new ModelAndView("redirect:/list.do");
+				res = new ModelAndView("redirect:/conference/list.do");
 			} catch (final Exception e) {
 				res = this.createEditModelAndView(conference, "preferences.error");
 			}

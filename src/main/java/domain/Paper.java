@@ -15,8 +15,16 @@ public class Paper extends DomainEntity {
 	private String	author;
 	private String	summary;
 	private String	URL;
+	private boolean	cameraReady;
 
 
+	public boolean getCameraReady() {
+		return this.cameraReady;
+	}
+
+	public void setCameraReady(final boolean cameraReady) {
+		this.cameraReady = cameraReady;
+	}
 	@NotBlank
 	public String getTitle() {
 		return this.title;

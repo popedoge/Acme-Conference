@@ -6,9 +6,18 @@ public class ConferenceOptionForm {
 	private boolean	evaluate;
 	private boolean	msgReg;
 	private boolean	msgSub;
+	private boolean	addActivity;
 	private boolean	reg;
 	private boolean	sub;
 
+
+	public boolean isAddActivity() {
+		return this.addActivity;
+	}
+
+	public void setAddActivity(final boolean addActivity) {
+		this.addActivity = addActivity;
+	}
 
 	public boolean isEvaluate() {
 		return this.evaluate;

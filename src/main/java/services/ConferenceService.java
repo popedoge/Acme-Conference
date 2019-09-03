@@ -70,6 +70,10 @@ public class ConferenceService {
 				res.setEvaluate(true);
 			else
 				res.setEvaluate(false);
+			if (conference.getStartDate().after(new Date()))
+				res.setAddActivity(true);
+			else
+				res.setAddActivity(false);
 			res.setMsgReg(true);
 			res.setMsgSub(true);
 			res.setReg(false);
@@ -82,8 +86,10 @@ public class ConferenceService {
 				res.setSub(false);
 			else
 				res.setSub(true);
-			res.setReg(true);
-
+			if (conference.getStartDate().before(new Date()))
+				res.setReg(false);
+			else
+				res.setReg(true);
 		} else {
 			res.setEvaluate(false);
 			res.setMsgReg(false);
