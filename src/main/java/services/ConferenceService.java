@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Activity;
 import domain.Actor;
 import domain.Conference;
+import domain.Registration;
 import domain.Report;
 import domain.Submission;
 import forms.ConferenceOptionForm;
@@ -34,6 +36,10 @@ public class ConferenceService {
 	private SubmissionService		submissionService;
 	@Autowired
 	private ReportService			reportService;
+	@Autowired
+	private ActivityService			activityService;
+	@Autowired
+	private RegistrationService		registrationService;
 
 
 	public Conference findById(final int id) {
@@ -78,7 +84,7 @@ public class ConferenceService {
 			res.setMsgSub(true);
 			res.setReg(false);
 			res.setSub(false);
-		} else if (actor.getUser().checkAuthority(Authority.REVIEWER)) {
+		} else if (actor.getUser().checkAuthority(Authority.AUTHOR)) {
 			res.setEvaluate(false);
 			res.setMsgReg(false);
 			res.setMsgSub(false);
@@ -134,7 +140,14 @@ public class ConferenceService {
 	}
 
 	public void delete(final int id) {
+		final List<Activity> activities = this.activityService.findByConference(id);
+		final List<Registration> registrations = this.registrationService.findByConference(id);
+		final List<Submission> submissions = this.submissionService.findByConference(this.findById(id));
+		this.activityService.deleteAll(activities);
+		this.registrationService.deleteAll(registrations);
+		this.submissionService.deleteAll(submissions);
 		this.conferenceRepository.delete(id);
+
 	}
 
 }

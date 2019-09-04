@@ -1,12 +1,13 @@
 
 package services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Activity;
-import domain.Conference;
 import forms.ActivityForm;
 import repositories.ActivityRepository;
 
@@ -17,16 +18,22 @@ public class ActivityService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private ActivityRepository	ActivityRepo;
+	private ActivityRepository	activityRepo;
 	@Autowired
 	private PanelService		panelService;
 	@Autowired
 	private TutorialService		tutorialService;
 	@Autowired
 	private PresentationService	presentationService;
+	@Autowired
+	private ConferenceService	conferenceService;
 
 
 	// Supporting services ----------------------------------------------------
+
+	public void deleteAll(final List<Activity> activities) {
+		this.activityRepo.delete(activities);
+	}
 
 	public Integer findType(final Activity activity) {
 		Integer res = null;
@@ -39,9 +46,13 @@ public class ActivityService {
 		return res;
 	}
 
-	public ActivityForm formatForm(final Activity activity, final Conference conference, Integer type) {
-		final ActivityForm res = new ActivityForm();
-		res.setConferenceId(conference.getId());
+	public List<Activity> findByConference(final int id) {
+		return this.activityRepo.findByConference(id);
+	}
+
+	public ActivityForm formatForm(final Activity activity, final Integer conferenceId, Integer type) {
+		ActivityForm res = new ActivityForm();
+		res.setConferenceId(conferenceId);
 		res.setTitle(activity.getTitle());
 		res.setId(activity.getId());
 		res.setSpeakers(activity.getSpeakers());
@@ -58,17 +69,12 @@ public class ActivityService {
 
 		switch (type) {
 		case 2:
-			return this.tutorialService.formatForm(res);
+			res = this.tutorialService.formatForm(res);
+			break;
 		case 1:
-			return this.presentationService.formatForm(res);
-		default:
-			return res;
+			res = this.presentationService.formatForm(res);
+			break;
 		}
-
-	}
-
-	public Activity parseForm(final ActivityForm form) {
-		final Activity res = this.findById(form.getId());
 		return res;
 	}
 
@@ -77,15 +83,32 @@ public class ActivityService {
 	}
 
 	public Activity save(final Activity Activity) {
-		return this.ActivityRepo.save(Activity);
+		return this.activityRepo.save(Activity);
+	}
+
+	public Activity save(final ActivityForm form) {
+		Activity res = null;
+		switch (form.getType()) {
+		case 0:
+			res = this.panelService.save(form);
+			break;
+		case 1:
+			res = this.presentationService.save(form);
+			break;
+		case 2:
+			res = this.tutorialService.save(form);
+			break;
+		}
+
+		return res;
 	}
 
 	public void delete(final int id) {
-		this.ActivityRepo.delete(id);
+		this.activityRepo.delete(id);
 	}
 
 	public Activity findById(final int id) {
-		return this.ActivityRepo.findOne(id);
+		return this.activityRepo.findOne(id);
 	}
 
 }

@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="activity/admin/edit.do" modelAttribute="activity">
+<form:form action="activity/edit.do" modelAttribute="activity">
 	<form:hidden path="id" />
 	<form:hidden path="conferenceId" />
 	<form:hidden path="type" />
@@ -27,7 +27,7 @@
 	<acme:textbox code="activity.title" path="title" />
 	<acme:textbox code="activity.speakers" path="speakers" />
 	<acme:textbox code="activity.summary" path="summary" />
-
+	<acme:textbox code="activity.location" path="location" />
 	<acme:datepicker code="activity.start" path="startDate" />
 	<acme:datepicker code="activity.end" path="endDate" />
 	<!-- tutorial -->
@@ -40,10 +40,15 @@
 		</jstl:forEach>
 	</jstl:if>
 	<!-- presentation -->
+	<jstl:set var="pickOne">
+		<spring:message code="activity.submission.pick" />
+	</jstl:set>
 	<jstl:if test="${activity.type == 1}">
-		<form:select path="submissionId">
-			<form:options items="${submissions}" itemLabel="title" itemValue="id" />
-			<form:option value="" label="activity.submission.pick" />
+		<form:select path="submission">
+			<form:option value="0" label="${pickOne}" />
+			<form:options items="${submissions}" itemLabel="ticker"
+				itemValue="id" />
+
 		</form:select>
 	</jstl:if>
 	<acme:submit name="save" code="save" />

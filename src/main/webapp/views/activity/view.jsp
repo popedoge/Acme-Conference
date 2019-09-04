@@ -22,162 +22,80 @@
 	<spring:message code="dateformat" />
 </jstl:set>
 <div>
-	<security:authorize access="hasRole('ADMIN')">
-		<!-- evaluate -->
-		<jstl:if test="${options.evaluate}">
-			<div>
-				<a href="conference/admin/eval?id=${conference.id}"> <spring:message
-						code="conference.eval" />
-				</a>
-			</div>
-		</jstl:if>
-		<!-- message registered -->
-		<jstl:if test="${options.msgReg}">
-			<div>
-				<a
-					href="messaging/admin/broadcast/registered.do?id=${conference.id}">
-					<spring:message code="conference.broadcast.registered" />
-				</a>
-			</div>
-		</jstl:if>
-		<!-- message submitted -->
-		<jstl:if test="${options.msgSub}">
-			<div>
-				<a href="messaging/admin/broadcast/submitted.do?id=${conference.id}">
-					<spring:message code="conference.broadcast.submitted" />
-				</a>
-			</div>
-		</jstl:if>
-	</security:authorize>
-
-	<security:authorize access="hasRole('AUTHOR')">
-		<jstl:if test="${options.reg}">
-			<div>
-				<!-- register -->
-				<a href="registration/edit.do?id=${conference.id}"> <spring:message
-						code="conference.register" />
-				</a>
-			</div>
-		</jstl:if>
-		<jstl:if test="${options.sub}">
-			<div>
-				<!-- make submission -->
-				<a href="submission/author/create.do?id=${conference.id}"> <spring:message
-						code="conference.submit" />
-				</a>
-			</div>
-		</jstl:if>
-	</security:authorize>
-
-
-	<security:authorize access="hasRole('REVIEWER')">
-		<div>
-			<!-- view submissions -->
-			<a href="submission/reviewer/list.do?id=${conference.id}"> <spring:message
-					code="conference.submission.view" />
-			</a>
-		</div>
-	</security:authorize>
+	<a href="conference/view.do?id=${activity.conferenceId}"> <spring:message
+			code="back" />
+	</a>
 </div>
 
-<jstl:if test="${not empty notif}">
-	<span class="error"><spring:message code="${notif}" /></span>
-</jstl:if>
 <div>
-	<h3>
-		<jstl:out value="${conference.title}" />
-	</h3>
-	<div>
-		<span style="color: gray;"><fmt:formatDate
-				value="${conference.startDate}" pattern="${df}" />&nbsp;-&nbsp;<span
-			style="color: gray;"><fmt:formatDate
-					value="${conference.endDate}" pattern="${df}" /></span> </span>
-	</div>
-	<div>
-		<b><spring:message code="conference.venue" />:</b>&nbsp;
-		<jstl:out value="${conference.venue}"></jstl:out>
-	</div>
-	<div>
-		<b><spring:message code="conference.summary" />:</b>&nbsp;
-		<jstl:out value="${conference.summary}"></jstl:out>
-	</div>
-	<div>
-		<b><spring:message code="conference.fee" />:</b>&nbsp;
-		<jstl:out value="${conference.fee}"></jstl:out>
-		&nbsp;EUR
-	</div>
-	<br />
-	<!-- activities -->
-	<span><b><jstl:out value="${conference.activities.size()}" /></b>&nbsp;<spring:message
-			code="conference.activities" /></span>
-	<security:authorize access="hasRole('ADMIN')">
-		<jstl:if test="${options.addActivity}">
-			<form action="activity/create.do" method="get" id="activityForm">
-				<input type="hidden" id="conferenceId" name="conferenceId"
-					value="${conference.id}" /> <select name="type" id="type"
-					form="activityForm">
-					<option value="0"><spring:message code="activity.panel" /></option>
-					<option value="1"><spring:message
-							code="activity.presentation" /></option>
-					<option value="2"><spring:message code="activity.tutorial" /></option>
-
-				</select> <input type="submit" value="<spring:message code="add"/>" />
-			</form>
-		</jstl:if>
-	</security:authorize>
-	<div>
-		<jstl:forEach var="activity" items="${conference.activities}">
-			<div class="box">
-				<div>
-					<span><b><jstl:out value="${activity.title}" /></b>&nbsp;-&nbsp;<jstl:out
-							value="${activity.speakers}" /></span>
-				</div>
-				<div>
-					<span style="color: gray"><jstl:out value="${activity.startDate}" />&nbsp;-&nbsp;<jstl:out
-							value="${activity.endDate}" /></span>
-				</div>
-				<div>
-					<jstl:out value="${activity.summary}" />
-				</div>
-				<div></div>
-				<div class="inline-outer">
-					<div>
-						<!-- view activity -->
-						<a href=""> <spring:message code="activity.view" />
-						</a>
-					</div>
-					<security:authorize access="hasRole('ADMIN')">
-						<jstl:if test="${options.addActivity}">
-							<!-- edit -->
-							<div>
-								<a href=""> <i class="fa fa-pencil" aria-hidden="true"></i>
-								</a>
-							</div>
-							<!-- delete -->
-							<div>
-								<a href=""> <i class="fa fa-times" aria-hidden="true"></i>
-								</a>
-							</div>
-						</jstl:if>
-					</security:authorize>
-				</div>
-			</div>
-		</jstl:forEach>
-	</div>
-	<!-- attendance -->
-	<br /> <span><b><jstl:out value="${attendees.size()}" /></b>&nbsp;<spring:message
-			code="conference.attendance" /></span>
-	<security:authorize access="isAuthenticated()">
-		<div>
-			<jstl:forEach var="attendee" items="${attendees}">
-				<div class="box">
-					<a href="actor/profile.do?id=${attendee.owner.id}"> <b><jstl:out
-								value="${attendee.owner.user.username}" /></b>
-					</a> <br /> <span><jstl:out value="${attendee.owner.name}" />&nbsp;<jstl:out
-							value="${attendee.owner.name}" /></span>
-				</div>
-			</jstl:forEach>
-		</div>
-	</security:authorize>
+	<jstl:if test="${activity.type==0}">
+		<h3>
+			<spring:message code="activity.panel" />
+		</h3>
+	</jstl:if>
+	<jstl:if test="${activity.type==1}">
+		<h3>
+			<spring:message code="activity.presentation" />
+		</h3>
+	</jstl:if>
+	<jstl:if test="${activity.type==2}">
+		<h3>
+			<spring:message code="activity.tutorial" />
+		</h3>
+	</jstl:if>
 </div>
+
+<div>
+	<span><b><jstl:out value="${activity.title}" /></b>&nbsp;-&nbsp;<jstl:out
+			value="${activity.speakers}" /></span>
+</div>
+<div>
+	<span style="color: gray"><jstl:out
+			value="${activity.startDate}" />&nbsp;-&nbsp;<jstl:out
+			value="${activity.endDate}" /></span>
+</div>
+<div>
+	<jstl:out value="${activity.summary}" />
+</div>
+<br />
+<!-- tutorial sections -->
+<jstl:if test="${activity.type==2}">
+test
+</jstl:if>
+<!-- submission -->
+<jstl:if test="${activity.type==1}">
+	<div class="box">
+		<div>
+			<b><jstl:out value="${activity.submission.paper.title}" /></b><span
+				style="color: gray;">&nbsp;~&nbsp;<jstl:out
+					value="${activity.submission.paper.author}" /></span>
+		</div>
+		<div>
+			<jstl:out value="${activity.submission.paper.summary}" />
+		</div>
+		<div>
+			<a href="${activity.submission.paper.URL}"><jstl:out
+					value="${activity.submission.paper.URL}" /></a>
+		</div>
+	</div>
+	<!-- camera paper -->
+	<jstl:if test="${not empty activity.submission.cameraPaper}">
+		<div class="box">
+			<div>
+				<b><jstl:out value="${activity.submission.cameraPaper.title}" /></b><span
+					style="color: gray;">&nbsp;~&nbsp;<jstl:out
+						value="${activity.submission.cameraPaper.author}" /></span>
+			</div>
+			<div>
+				<jstl:out value="${activity.submission.cameraPaper.summary}" />
+			</div>
+			<div>
+				<a href="${activity.submission.cameraPaper.URL}"><jstl:out
+						value="${activity.submission.cameraPaper.URL}" /></a>
+			</div>
+		</div>
+	</jstl:if>
+</jstl:if>
+<div></div>
+
 <!-- TODO: finish display (remember activities) -->

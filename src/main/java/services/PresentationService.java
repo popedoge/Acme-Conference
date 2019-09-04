@@ -16,19 +16,45 @@ public class PresentationService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private PresentationRepository presentationRepo;
+	private PresentationRepository	presentationRepo;
+	@Autowired
+	private SubmissionService		submissionService;
+	@Autowired
+	private ActivityService			activityService;
+	@Autowired
+	private ConferenceService		conferenceService;
 
 
 	// Supporting services ----------------------------------------------------
 
 	public ActivityForm formatForm(final ActivityForm form) {
 		final Presentation presentation = this.findById(form.getId());
-		form.setSubmissionId(presentation.getSubmission().getId());
+		form.setSubmission(presentation.getSubmission());
 		return form;
+	}
+
+	public Presentation parseForm(final ActivityForm form) {
+		final Presentation res = this.create();
+		res.setId(form.getId());
+		res.setEndDate(form.getEndDate());
+		res.setConference(this.conferenceService.findById(form.getConferenceId()));
+		res.setSpeakers(form.getSpeakers());
+		res.setStartDate(form.getStartDate());
+		res.setSummary(form.getSummary());
+		res.setTitle(form.getTitle());
+		res.setLocation(form.getLocation());
+
+		res.setSubmission(form.getSubmission());
+		return res;
 	}
 
 	public Presentation create() {
 		return new Presentation();
+	}
+
+	public Presentation save(final ActivityForm form) {
+		final Presentation p = this.parseForm(form);
+		return this.save(p);
 	}
 
 	public Presentation save(final Presentation Presentation) {

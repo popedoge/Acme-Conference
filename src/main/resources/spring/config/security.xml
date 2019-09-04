@@ -89,6 +89,8 @@
 		<!-- activity -->
 		<security:intercept-url pattern="/activity/**"
 			access="hasRole('ADMIN')" />
+			<security:intercept-url pattern="/activity/view.do"
+			access="permitAll" />
 		<!-- OTHER SHIT -->
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

@@ -6,9 +6,11 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,14 +19,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Activity extends DomainEntity {
 
-	private String	title;
-	private String	speakers;
-	private String	location;
-	private String	summary;
-	private Date	startDate;
-	private Date	endDate;
+	private Conference	conference;
+	private String		title;
+	private String		speakers;
+	private String		location;
+	private String		summary;
+	private Date		startDate;
+	private Date		endDate;
 
 
+	@NotNull
+	@ManyToOne
+	public Conference getConference() {
+		return this.conference;
+	}
+
+	public void setConference(final Conference conference) {
+		this.conference = conference;
+	}
 	@NotBlank
 	public String getTitle() {
 		return this.title;

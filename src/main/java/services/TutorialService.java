@@ -16,7 +16,9 @@ public class TutorialService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private TutorialRepository tutorialRepo;
+	private TutorialRepository	tutorialRepo;
+	@Autowired
+	private ConferenceService	conferenceService;
 
 
 	// Supporting services ----------------------------------------------------
@@ -27,12 +29,33 @@ public class TutorialService {
 		return form;
 	}
 
+	public Tutorial parseForm(final ActivityForm form) {
+		final Tutorial res = this.create();
+		res.setId(form.getId());
+		res.setConference(this.conferenceService.findById(form.getConferenceId()));
+		res.setEndDate(form.getEndDate());
+		res.setSpeakers(form.getSpeakers());
+		res.setStartDate(form.getStartDate());
+		res.setSummary(form.getSummary());
+		res.setTitle(form.getTitle());
+		res.setLocation(form.getLocation());
+
+		res.setSections(form.getSections());
+
+		return res;
+	}
+
 	public Tutorial create() {
 		return new Tutorial();
 	}
 
 	public Tutorial save(final Tutorial Tutorial) {
 		return this.tutorialRepo.save(Tutorial);
+	}
+
+	public Tutorial save(final ActivityForm form) {
+		final Tutorial p = this.parseForm(form);
+		return this.save(p);
 	}
 
 	public void delete(final int id) {

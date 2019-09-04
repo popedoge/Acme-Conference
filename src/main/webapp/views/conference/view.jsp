@@ -126,7 +126,7 @@
 		</jstl:if>
 	</security:authorize>
 	<div>
-		<jstl:forEach var="activity" items="${conference.activities}">
+		<jstl:forEach var="activity" items="${activities}">
 			<div class="box">
 				<div>
 					<span><b><jstl:out value="${activity.title}" /></b>&nbsp;-&nbsp;<jstl:out
@@ -141,21 +141,21 @@
 				</div>
 				<div></div>
 				<div class="inline-outer">
-					<div>
+					<div class="inline">
 						<!-- view activity -->
-						<a href=""> <spring:message code="activity.view" />
+						<a href="activity/view.do?id=${activity.id}&conferenceId=${conference.id}"> <spring:message code="activity.view" />
 						</a>
 					</div>
 					<security:authorize access="hasRole('ADMIN')">
 						<jstl:if test="${options.addActivity}">
 							<!-- edit -->
-							<div>
-								<a href=""> <i class="fa fa-pencil" aria-hidden="true"></i>
+							<div class="inline">
+								<a href="activity/edit.do?id=${activity.id}&conferenceId=${conference.id}"> <i class="fa fa-pencil" aria-hidden="true"></i>
 								</a>
 							</div>
 							<!-- delete -->
-							<div>
-								<a href=""> <i class="fa fa-times" aria-hidden="true"></i>
+							<div class="inline">
+								<a href="activity/delete.do?id=${activity.id}&conferenceId=${conference.id}"> <i class="fa fa-times" aria-hidden="true"></i>
 								</a>
 							</div>
 						</jstl:if>

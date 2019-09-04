@@ -7,15 +7,15 @@ import java.util.List;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import domain.Section;
+import domain.Submission;
 import validators.NotNullIfAnotherFieldHasValueConstraint;
 
-@NotNullIfAnotherFieldHasValueConstraint(fieldName = "type", fieldValue = "2", dependFieldName = "submssionId")
+@NotNullIfAnotherFieldHasValueConstraint(fieldName = "type", fieldValue = 1, dependFieldName = "submission")
 public class ActivityForm {
 
 	private Integer			conferenceId;
@@ -28,7 +28,7 @@ public class ActivityForm {
 	private Date			startDate;
 	private Date			endDate;
 	private List<Section>	sections;
-	private Integer			submissionId;
+	private Submission		submission;
 
 
 	@NotBlank
@@ -40,7 +40,6 @@ public class ActivityForm {
 		this.location = location;
 	}
 
-	@NotNull
 	public Integer getConferenceId() {
 		return this.conferenceId;
 	}
@@ -48,7 +47,7 @@ public class ActivityForm {
 	public void setConferenceId(final Integer conferenceId) {
 		this.conferenceId = conferenceId;
 	}
-	@NotNull
+
 	public Integer getId() {
 		return this.id;
 	}
@@ -56,7 +55,7 @@ public class ActivityForm {
 	public void setId(final Integer id) {
 		this.id = id;
 	}
-	@NotNull
+
 	public Integer getType() {
 		return this.type;
 	}
@@ -117,11 +116,11 @@ public class ActivityForm {
 		this.sections = sections;
 	}
 
-	public Integer getSubmissionId() {
-		return this.submissionId;
+	public Submission getSubmission() {
+		return this.submission;
 	}
 
-	public void setSubmissionId(final Integer submissionId) {
-		this.submissionId = submissionId;
+	public void setSubmission(final Submission submission) {
+		this.submission = submission;
 	}
 }

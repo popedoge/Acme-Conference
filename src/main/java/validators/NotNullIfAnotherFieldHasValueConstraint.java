@@ -11,7 +11,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = NotNullIfAnotherFieldHasValueValidator.class)
 @Target({
 	ElementType.TYPE, ElementType.ANNOTATION_TYPE
 })
@@ -19,7 +19,7 @@ import javax.validation.Payload;
 public @interface NotNullIfAnotherFieldHasValueConstraint {
 
 	String fieldName();
-	String fieldValue();
+	int fieldValue();
 	String dependFieldName();
 
 	String message() default "activity.submission.error";
@@ -28,7 +28,7 @@ public @interface NotNullIfAnotherFieldHasValueConstraint {
 
 
 	@Documented
-	@Constraint(validatedBy = EmailValidator.class)
+	@Constraint(validatedBy = NotNullIfAnotherFieldHasValueValidator.class)
 	@Target({
 		ElementType.METHOD, ElementType.FIELD
 	})

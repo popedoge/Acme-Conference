@@ -31,6 +31,10 @@ public class RegistrationService {
 	private AuthorService			authorService;
 
 
+	public void deleteAll(final List<Registration> registrations) {
+		this.registrationRepo.delete(registrations);
+	}
+
 	public Registration create(final Conference conference) {
 		this.authorService.findPrincipal();
 		final Registration registration = new Registration();

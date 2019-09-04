@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import domain.Activity;
 import domain.Conference;
 import domain.Registration;
 import forms.ConferenceOptionForm;
+import services.ActivityService;
 import services.ActorService;
 import services.AdminService;
 import services.ConferenceService;
@@ -36,6 +38,8 @@ public class ConferenceController extends AbstractController {
 	private AdminService		adminService;
 	@Autowired
 	private RegistrationService	registrationService;
+	@Autowired
+	private ActivityService		activityService;
 
 
 	@RequestMapping(value = "/admin/eval", method = RequestMethod.GET)
@@ -46,6 +50,15 @@ public class ConferenceController extends AbstractController {
 		attributes.addFlashAttribute("notif", "conference.eval.complete");
 		return res;
 	}
+
+	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+	public ModelAndView evaluate(@RequestParam final Integer id) {
+		ModelAndView res;
+		this.conferenceService.delete(id);
+		res = new ModelAndView("redirect:/conference/list.do");
+		return res;
+	}
+
 	// TODO: /view
 	// TODO: tiles
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -53,13 +66,17 @@ public class ConferenceController extends AbstractController {
 		ModelAndView res;
 		final Conference conference = this.conferenceService.findById(id);
 		final List<Registration> attendees = this.registrationService.findByConference(id);
+		final List<Activity> activities = this.activityService.findByConference(id);
 		final ConferenceOptionForm options = this.conferenceService.options(conference);
+
 		res = new ModelAndView("conference/view");
+		res.addObject("activities", activities);
 		res.addObject("conference", conference);
 		res.addObject("attendees", attendees);
 		res.addObject("options", options);
 		return res;
 	}
+
 	// lists all
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listAll() {
@@ -80,7 +97,7 @@ public class ConferenceController extends AbstractController {
 		return this.createEditModelAndView(conference);
 	}
 
-	@RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute("conference") @Valid final Conference conference, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors())
@@ -92,15 +109,6 @@ public class ConferenceController extends AbstractController {
 			} catch (final Exception e) {
 				res = this.createEditModelAndView(conference, "preferences.error");
 			}
-		return res;
-	}
-
-	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final Integer id) {
-		ModelAndView res;
-		this.adminService.findPrincipal();
-		this.conferenceService.delete(id);
-		res = new ModelAndView("redirect:/list.do");
 		return res;
 	}
 

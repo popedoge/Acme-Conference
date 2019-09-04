@@ -36,6 +36,10 @@ public class SubmissionService {
 	private final String			dict	= "QWERTYUIOPASDFGHJKLZXCVBNM0123456789";
 
 
+	public void deleteAll(final List<Submission> submissions) {
+		this.submissionRepo.delete(submissions);
+	}
+
 	public Submission assignReviewer(final Submission submission, final Reviewer reviewer) {
 		final List<Reviewer> reviewers = submission.getReviewers();
 		if (!reviewers.contains(reviewer))

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Panel;
+import forms.ActivityForm;
 import repositories.PanelRepository;
 
 @Service
@@ -15,13 +16,34 @@ public class PanelService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private PanelRepository PanelRepo;
+	private PanelRepository		PanelRepo;
+	@Autowired
+	private ConferenceService	conferenceService;
 
 
 	// Supporting services ----------------------------------------------------
 
 	public Panel create() {
 		return new Panel();
+	}
+
+	public Panel parseForm(final ActivityForm form) {
+		final Panel res = this.create();
+		res.setId(form.getId());
+		res.setConference(this.conferenceService.findById(form.getConferenceId()));
+		res.setEndDate(form.getEndDate());
+		res.setSpeakers(form.getSpeakers());
+		res.setStartDate(form.getStartDate());
+		res.setSummary(form.getSummary());
+		res.setTitle(form.getTitle());
+		res.setLocation(form.getLocation());
+
+		return res;
+	}
+
+	public Panel save(final ActivityForm form) {
+		final Panel p = this.parseForm(form);
+		return this.save(p);
 	}
 
 	public Panel save(final Panel Panel) {

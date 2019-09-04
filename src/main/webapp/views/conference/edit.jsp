@@ -60,3 +60,8 @@
 		<input type="submit" name="save" value="<spring:message code="save"/>" />
 	</div>
 </form:form>
+<div>
+	<a href="conference/list.do">
+		<spring:message code="cancel"/>
+	</a>
+</div>
