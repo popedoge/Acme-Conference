@@ -16,7 +16,7 @@ public class PanelService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private PanelRepository		PanelRepo;
+	private PanelRepository		panelRepo;
 	@Autowired
 	private ConferenceService	conferenceService;
 
@@ -47,15 +47,15 @@ public class PanelService {
 	}
 
 	public Panel save(final Panel Panel) {
-		return this.PanelRepo.save(Panel);
+		return this.panelRepo.save(Panel);
 	}
 
 	public void delete(final int id) {
-		this.PanelRepo.delete(id);
+		this.panelRepo.delete(id);
 	}
 
 	public Panel findById(final int id) {
-		return this.PanelRepo.findOne(id);
+		return this.panelRepo.findOne(id);
 	}
 
 }

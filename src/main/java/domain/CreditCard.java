@@ -63,7 +63,7 @@ public class CreditCard {
 	public void setExpirationYear(final Integer expirationYear) {
 		this.expirationYear = expirationYear;
 	}
-
+	@NotNull
 	@Range(min = 0, max = 999)
 	public Integer getCvv() {
 		return this.cvv;

@@ -117,20 +117,21 @@ public class SubmissionController extends AbstractController {
 
 	@RequestMapping(value = "/author/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final Integer id) {
-
 		final Submission submission = this.submissionService.initialize(id);
+		Assert.isTrue(submission.getConference().getLocked());
 		return this.createEditModelAndView(submission);
 	}
 	@RequestMapping(value = "/author/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final Integer id) {
-
 		final Submission submission = this.submissionService.findById(id);
+		Assert.isTrue(submission.getConference().getLocked());
 		return this.createEditModelAndView(submission);
 	}
 
 	@RequestMapping(value = "/author/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Submission submission, final BindingResult binding, final RedirectAttributes attributes) {
 		ModelAndView res;
+		Assert.isTrue(submission.getConference().getLocked());
 		Assert.isTrue(submission.getConference().getSubmissionDL().after(new Date()));
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(submission);

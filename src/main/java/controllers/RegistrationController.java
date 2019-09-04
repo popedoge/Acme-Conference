@@ -1,10 +1,13 @@
 
 package controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,12 +35,41 @@ public class RegistrationController extends AbstractController {
 	private ConferenceService	conferenceService;
 
 
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final Integer id) {
+		ModelAndView res;
+		final Registration reg = this.registrationService.findById(id);
+		Assert.isTrue(reg.getOwner().equals(this.actorService.findPrincipal()));
+		this.registrationService.delete(reg.getId());
+		res = new ModelAndView("redirect:list.do");
+		return res;
+	}
+
+	@RequestMapping(value = "/author/list", method = RequestMethod.GET)
+	public ModelAndView listByAuthor() {
+		ModelAndView res;
+		final List<Registration> registrations = this.registrationService.findByOwner(this.actorService.findPrincipal().getId());
+		res = new ModelAndView("registration/list");
+		res.addObject("registrations", registrations);
+		return res;
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView listAll() {
+		ModelAndView res;
+		final List<Registration> registrations = this.registrationService.findAll();
+		res = new ModelAndView("registration/list");
+		res.addObject("registrations", registrations);
+		return res;
+	}
+
 	// TODO: finish edit -> has to save to registration
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam(required = false) final Integer id, final RedirectAttributes attributes) {
+	public ModelAndView edit(@RequestParam final Integer id, final RedirectAttributes attributes) {
 		ModelAndView res = new ModelAndView();
 		try {
 			final Conference conference = this.conferenceService.findById(id);
+			Assert.isTrue(conference.getLocked());
 			final Registration registration = this.registrationService.create(conference);
 			res = this.createEditModelAndView(registration);
 		} catch (final Exception e) {
@@ -54,6 +86,7 @@ public class RegistrationController extends AbstractController {
 			res = this.createEditModelAndView(registration);
 		else
 			try {
+				Assert.isTrue(registration.getConference().getLocked());
 				this.registrationService.save(registration);
 
 				res = new ModelAndView("redirect:/conference/view.do?id=" + registration.getConference().getId());

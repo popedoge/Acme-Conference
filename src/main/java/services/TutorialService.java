@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import domain.Tutorial;
 import forms.ActivityForm;
+import forms.SectionForm;
 import repositories.TutorialRepository;
 
 @Service
@@ -23,9 +24,17 @@ public class TutorialService {
 
 	// Supporting services ----------------------------------------------------
 
+	public Tutorial saveAndAdd(final SectionForm form) {
+		Tutorial tutorial = this.findById(form.getTutorialId());
+		tutorial = this.tutorialRepo.save(tutorial);
+		tutorial.getSections().add(form.getSection());
+		return this.tutorialRepo.save(tutorial);
+	}
+
 	public ActivityForm formatForm(final ActivityForm form) {
 		final Tutorial tutorial = this.findById(form.getId());
-		form.setSections(tutorial.getSections());
+		if (tutorial != null)
+			form.setSections(tutorial.getSections());
 		return form;
 	}
 

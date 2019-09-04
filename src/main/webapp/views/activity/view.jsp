@@ -59,8 +59,24 @@
 </div>
 <br />
 <!-- tutorial sections -->
-<jstl:if test="${activity.type==2}">
-test
+
+<jstl:if test="${activity.type == 2}">
+	<security:authorize access="hasRole('ADMIN')">
+		<!-- add section -->
+		<div>
+			<a href="section/edit.do?id=${activity.id}"> <spring:message
+					code="tutorial.add" />
+			</a>
+		</div>
+	</security:authorize>
+	<jstl:forEach items="${activity.sections}" var="section"
+		varStatus="tagStatus">
+		<div class="box">
+			<div>
+				<b><jstl:out value="${section.title}" /></b>
+			</div>
+		</div>
+	</jstl:forEach>
 </jstl:if>
 <!-- submission -->
 <jstl:if test="${activity.type==1}">

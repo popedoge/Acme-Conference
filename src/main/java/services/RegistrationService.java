@@ -75,4 +75,8 @@ public class RegistrationService {
 	public List<Registration> findByConference(final int id) {
 		return this.registrationRepo.findByConference(id);
 	}
+
+	public List<Registration> findAll() {
+		return this.registrationRepo.findAll();
+	}
 }

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,6 @@ import domain.Conference;
 import domain.Registration;
 import forms.ConferenceOptionForm;
 import services.ActivityService;
-import services.ActorService;
-import services.AdminService;
 import services.ConferenceService;
 import services.RegistrationService;
 
@@ -33,14 +32,18 @@ public class ConferenceController extends AbstractController {
 	@Autowired
 	private ConferenceService	conferenceService;
 	@Autowired
-	private ActorService		actorService;
-	@Autowired
-	private AdminService		adminService;
-	@Autowired
 	private RegistrationService	registrationService;
 	@Autowired
 	private ActivityService		activityService;
 
+
+	@RequestMapping(value = "/admin/lock", method = RequestMethod.GET)
+	public ModelAndView lock(@RequestParam final Integer id, final RedirectAttributes attributes) {
+		ModelAndView res;
+		this.conferenceService.lock(id);
+		res = new ModelAndView("redirect:/conference/admin/list.do");
+		return res;
+	}
 
 	@RequestMapping(value = "/admin/eval", method = RequestMethod.GET)
 	public ModelAndView evaluate(@RequestParam final Integer id, final RedirectAttributes attributes) {
@@ -76,9 +79,8 @@ public class ConferenceController extends AbstractController {
 		res.addObject("options", options);
 		return res;
 	}
-
-	// lists all
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	//list all
+	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
 	public ModelAndView listAll() {
 		ModelAndView res;
 		final List<Conference> conferences = this.conferenceService.findAll();
@@ -87,12 +89,23 @@ public class ConferenceController extends AbstractController {
 		return res;
 	}
 
+	// lists final
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView listFinal() {
+		ModelAndView res;
+		final List<Conference> conferences = this.conferenceService.findFinal();
+		res = new ModelAndView("conference/list");
+		res.addObject("conferences", conferences);
+		return res;
+	}
+
 	@RequestMapping(value = "/admin/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam(required = false) final Integer id) {
 		Conference conference;
-		if (id != null && id != 0)
+		if (id != null && id != 0) {
 			conference = this.conferenceService.findById(id);
-		else
+			Assert.isTrue(!conference.getLocked());
+		} else
 			conference = this.conferenceService.create();
 		return this.createEditModelAndView(conference);
 	}
@@ -100,12 +113,13 @@ public class ConferenceController extends AbstractController {
 	@RequestMapping(value = "/admin/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute("conference") @Valid final Conference conference, final BindingResult binding) {
 		ModelAndView res;
+		Assert.isTrue(!conference.getLocked());
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(conference);
 		else
 			try {
 				this.conferenceService.save(conference);
-				res = new ModelAndView("redirect:/conference/list.do");
+				res = new ModelAndView("redirect:/conference/admin/list.do");
 			} catch (final Exception e) {
 				res = this.createEditModelAndView(conference, "preferences.error");
 			}

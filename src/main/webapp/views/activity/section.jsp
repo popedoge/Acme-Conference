@@ -1,5 +1,5 @@
 <%--
- * footer.jsp
+ * login.jsp
  *
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -12,24 +12,19 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<jsp:useBean id="date" class="java.util.Date" />
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<hr />
-<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-	url="jdbc:mysql://localhost:3306/Acme-Conference" user="acme-user"
-	password="ACME-Us3r-P@ssw0rd" />
-<sql:query dataSource="${snapshot}" var="name">
-         SELECT * from site_config limit 1;
-      </sql:query>
+<form:form action="section/edit.do" modelAttribute="section">
+	<form:hidden path="tutorialId" />
+	<form:hidden path="section.section.id" />
+	<acme:textbox code="section.title" path="section.section.title" />
+	<acme:textbox code="section.summary" path="section.section.summary" />
+	<acme:textbox code="section.pictures" path="section.section.pictures" />
 
-<b>Copyright <jstl:out value="${name.rows[0].site_name}" /> &copy; 
-	ACME, Inc.
-</b>
+	<acme:submit name="save" code="save" />
+</form:form>

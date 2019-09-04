@@ -12,15 +12,16 @@ package repositories;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import domain.Activity;
 
-@Repository
+@Transactional
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
 
-	@Query("select a from Activity a where a.conference.id=?1")
-	List<Activity> findByConference(int conferenceId);
+	@Query("select a from Activity a where a.conference.id = ?1")
+	public List<Activity> findByConference(int id);
 }

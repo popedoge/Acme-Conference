@@ -79,6 +79,8 @@
 		<!-- REGISTRATION -->
 		<security:intercept-url
 			pattern="/registration/**" access="hasRole('AUTHOR')" />
+		<security:intercept-url
+			pattern="/registration/list.do" access="hasRole('ADMIN')" />
 		<!-- REPORTS -->
 		<security:intercept-url pattern="/report/**"
 			access="isAuthenticated()" />
@@ -89,8 +91,10 @@
 		<!-- activity -->
 		<security:intercept-url pattern="/activity/**"
 			access="hasRole('ADMIN')" />
-			<security:intercept-url pattern="/activity/view.do"
-			access="permitAll" />
+		<security:intercept-url
+			pattern="/activity/view.do" access="permitAll" />
+		<security:intercept-url pattern="/section/**"
+			access="hasRole('ADMIN')" />
 		<!-- OTHER SHIT -->
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

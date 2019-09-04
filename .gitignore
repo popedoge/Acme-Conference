@@ -227,3 +227,5 @@ target/classes/repositories/ProcessionRepository\.class
 
 target/classes/services/BrotherhoodFloatService\.class
 /target/
+
+src/main/resources/Entities.map

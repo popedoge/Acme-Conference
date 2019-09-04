@@ -33,6 +33,7 @@
 <form:form modelAttribute="conference" action="conference/admin/edit.do">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="locked" />
 	<form:hidden path="owner" value="${conference.owner.id}" />
 	<form:errors path="owner" cssClass="error" />
 	<jstl:forEach items="${submission.activities}" var="activity"

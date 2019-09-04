@@ -23,8 +23,8 @@
 
 <div>
 	<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/sample-project" user="acme-user"
-		password="abcd1234" />
+		url="jdbc:mysql://localhost:3306/Acme-Conference" user="acme-user"
+		password="ACME-Us3r-P@ssw0rd" />
 
 	<sql:query dataSource="${snapshot}" var="banner">
          SELECT * from site_config limit 1;
@@ -69,8 +69,14 @@
 					<li><a href="conference/list.do"><spring:message
 								code="master.page.conference.list" /></a></li>
 					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="conference/admin/list.do"><spring:message
+									code="master.page.conference.list.all" /></a></li>
 						<li><a href="conference/admin/edit.do"><spring:message
 									code="master.page.conference.create" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('AUTHOR')">
+						<li><a href="registration/author/list.do"><spring:message
+									code="master.page.conference.register" /></a></li>
 					</security:authorize>
 				</ul></li>
 		</security:authorize>

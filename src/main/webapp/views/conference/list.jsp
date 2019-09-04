@@ -39,25 +39,43 @@
 		<fmt:formatDate value="${row.endDate}" pattern="${df}" />
 	</display:column>
 	<display:column>
-		<!-- edit -->
-		<security:authorize access="hasRole('ADMIN')">
-			<a href="conference/admin/edit.do?id=${row.id}"> <i
-				class="fa fa-pencil" aria-hidden="true"></i>
-			</a>
-		</security:authorize>
-	</display:column>
-	<display:column>
-		<!-- delete -->
-		<security:authorize access="hasRole('ADMIN')">
-			<a href="conference/admin/delete.do?id=${row.id}"> <i
-				class="fa fa-times" aria-hidden="true"></i>
-			</a>
-		</security:authorize>
-	</display:column>
-	<display:column>
 		<!-- view -->
 		<a href="conference/view.do?id=${row.id}"> <i class="fa fa-eye"
 			aria-hidden="true"></i>
 		</a>
 	</display:column>
+	<display:column>
+		<!-- edit -->
+		<security:authorize access="hasRole('ADMIN')">
+			<jstl:if test="${!row.locked}">
+				<a href="conference/admin/edit.do?id=${row.id}"> <i
+					class="fa fa-pencil" aria-hidden="true"></i>
+				</a>
+			</jstl:if>
+		</security:authorize>
+	</display:column>
+	<display:column>
+
+		<!-- delete -->
+		<security:authorize access="hasRole('ADMIN')">
+			<jstl:if test="${!row.locked}">
+				<a href="conference/admin/delete.do?id=${row.id}"> <i
+					class="fa fa-times" aria-hidden="true"></i>
+				</a>
+			</jstl:if>
+		</security:authorize>
+	</display:column>
+	<display:column>
+		<!-- lock -->
+		<jstl:if test="${!row.locked}">
+			<a href="conference/admin/lock.do?id=${row.id}"> <i
+				class="fa fa-unlock" aria-hidden="true"></i>
+			</a>
+		</jstl:if>
+		<jstl:if test="${row.locked}">
+			<i class="fa fa-lock" aria-hidden="true"></i>
+		</jstl:if>
+
+	</display:column>
+
 </display:table>

@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -15,7 +16,7 @@ public class Tutorial extends Activity {
 	private List<Section> sections;
 
 
-	@OneToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Section> getSections() {
 		return this.sections;
 	}

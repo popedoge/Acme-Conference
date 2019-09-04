@@ -25,8 +25,6 @@ public class ActivityService {
 	private TutorialService		tutorialService;
 	@Autowired
 	private PresentationService	presentationService;
-	@Autowired
-	private ConferenceService	conferenceService;
 
 
 	// Supporting services ----------------------------------------------------

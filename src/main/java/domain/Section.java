@@ -1,12 +1,8 @@
 
 package domain;
 
-import java.util.List;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -15,9 +11,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Section extends DomainEntity {
 
-	private String			title;
-	private String			summary;
-	private List<String>	pictures;
+	private String	title;
+	private String	summary;
+	private String	pictures;
 
 
 	@NotBlank
@@ -37,13 +33,11 @@ public class Section extends DomainEntity {
 		this.summary = summary;
 	}
 
-	@ElementCollection
-	@CollectionTable(name = "pictures")
-	public List<String> getPictures() {
+	public String getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final List<String> pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 

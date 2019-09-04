@@ -42,6 +42,15 @@ public class ConferenceService {
 	private RegistrationService		registrationService;
 
 
+	public Conference lock(final Integer id) {
+		final Conference conference = this.findById(id);
+		conference.setLocked(true);
+		return this.save(conference);
+	}
+
+	public List<Conference> findFinal() {
+		return this.conferenceRepository.findFinal();
+	}
 	public Conference findById(final int id) {
 		return this.conferenceRepository.findOne(id);
 	}
@@ -64,6 +73,7 @@ public class ConferenceService {
 		final Actor actor = this.actorService.findPrincipal();
 		Assert.isTrue(actor.getUser().checkAuthority(Authority.ADMIN));
 		final Conference res = new Conference();
+		res.setLocked(false);
 		res.setOwner(actor);
 		return res;
 	}
@@ -72,10 +82,12 @@ public class ConferenceService {
 		final Actor actor = this.actorService.findPrincipal();
 		final ConferenceOptionForm res = new ConferenceOptionForm();
 		if (actor.getUser().checkAuthority(Authority.ADMIN)) {
-			if (conference.getSubmissionDL().before(new Date()))
+			//evaluate if after submissionDL && final
+			if (conference.getSubmissionDL().before(new Date()) && conference.getLocked())
 				res.setEvaluate(true);
 			else
 				res.setEvaluate(false);
+			//add activity if before event start date
 			if (conference.getStartDate().after(new Date()))
 				res.setAddActivity(true);
 			else

@@ -18,10 +18,6 @@ public class PresentationService {
 	@Autowired
 	private PresentationRepository	presentationRepo;
 	@Autowired
-	private SubmissionService		submissionService;
-	@Autowired
-	private ActivityService			activityService;
-	@Autowired
 	private ConferenceService		conferenceService;
 
 
@@ -29,7 +25,8 @@ public class PresentationService {
 
 	public ActivityForm formatForm(final ActivityForm form) {
 		final Presentation presentation = this.findById(form.getId());
-		form.setSubmission(presentation.getSubmission());
+		if (presentation != null)
+			form.setSubmission(presentation.getSubmission());
 		return form;
 	}
 

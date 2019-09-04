@@ -1,3 +1,4 @@
+
 package repositories;
 
 import java.util.List;
@@ -9,10 +10,8 @@ import org.springframework.stereotype.Repository;
 import domain.Conference;
 
 @Repository
-public interface ConferenceRepository
-		extends
-			JpaRepository<Conference, Integer> {
+public interface ConferenceRepository extends JpaRepository<Conference, Integer> {
 
-	@Query("")
-	public List<Conference> findByOwner(int id);
+	@Query("select c from Conference c where c.locked=TRUE")
+	public List<Conference> findFinal();
 }

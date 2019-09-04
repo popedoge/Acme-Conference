@@ -27,7 +27,7 @@ public class Conference extends DomainEntity {
 	private String			venue;
 	private String			summary;
 	private Integer			fee;
-
+	private Boolean			locked;
 	// DL= DeadLine
 
 	private Date			submissionDL;
@@ -39,6 +39,14 @@ public class Conference extends DomainEntity {
 	private List<Activity>	activities;
 
 
+	@NotNull
+	public boolean getLocked() {
+		return this.locked;
+	}
+
+	public void setLocked(final boolean lock) {
+		this.locked = lock;
+	}
 	@OneToMany
 	public List<Activity> getActivities() {
 		return this.activities;

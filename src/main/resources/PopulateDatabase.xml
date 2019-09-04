@@ -660,6 +660,26 @@
 		<property name="activities">
 			<null/>
 		</property>
+		<property name="locked" value="false"/>
+		
+	</bean>
+	
+	<bean id="conference2" class="domain.Conference">
+		<property name="title" value="conke vs bepis: ultimate battle" />
+		<property name="owner" ref="admin1" />
+		<property name="acronym" value="CVSB" />
+		<property name="venue" value="Bush Stadium" />
+		<property name="summary" value="*sluuuuuuuuuuuuuuuuurp*" />
+		<property name="fee" value="100" />
+		<property name="submissionDL" value="03/12/2020 13:20" />
+		<property name="notificationDL" value="03/12/2020 13:20" />
+		<property name="cameraDL" value="03/12/2020 13:20" />
+		<property name="startDate" value="03/12/2020 13:20" />
+		<property name="endDate" value="03/12/2020 13:20" />
+		<property name="activities">
+			<null/>
+		</property>
+		<property name="locked" value="false"/>
 		
 	</bean>
 
