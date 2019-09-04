@@ -12,7 +12,7 @@
 	<!-- Artifact identification and properties -->
 
 	<groupId>G88</groupId>
-	<artifactId>Sample-Project</artifactId>
+	<artifactId>Acme-Conference</artifactId>
 	<version>0.1</version>
 	<packaging>war</packaging>
 
@@ -22,9 +22,9 @@
 
 	<!-- Indexing information -->
 
-	<name>Sample-Project</name>
+	<name>Acme-Conference</name>
 	<url>http://www.g88-sample.com</url>
-	<description>The best sample project ever</description>
+	<description>Just give me a passing grade - end this development hell</description>
 
 	<!-- Build commands -->
 

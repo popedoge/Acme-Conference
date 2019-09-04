@@ -26,7 +26,7 @@
 		<!-- evaluate -->
 		<jstl:if test="${options.evaluate}">
 			<div>
-				<a href="conference/admin/eval?id=${conference.id}"> <spring:message
+				<a href="conference/admin/eval.do?id=${conference.id}"> <spring:message
 						code="conference.eval" />
 				</a>
 			</div>

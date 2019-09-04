@@ -3,7 +3,6 @@ package controllers;
 
 import javax.validation.Valid;
 
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,8 +34,7 @@ public class ActivityController extends AbstractController {
 	public ModelAndView view(@RequestParam final Integer id, @RequestParam final Integer conferenceId) {
 		final ModelAndView res;
 		final Activity activity = this.activityService.findById(id);
-		Assert.assertNotNull(activity);
-		final ActivityForm form = this.activityService.formatForm(activity, conferenceId, this.activityService.findType(activity));
+		final ActivityForm form = this.activityService.formatForm(activity, conferenceId, this.activityService.findType(id));
 		res = new ModelAndView("activity/view");
 		res.addObject("activity", form);
 		return res;

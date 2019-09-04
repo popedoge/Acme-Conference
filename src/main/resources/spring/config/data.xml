@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
-	* data.xml 
-	* 
-	* Copyright (C) 2019 Universidad de Sevilla 
-	* 
-	* The use of this project is hereby constrained to the conditions of the 
-	* TDG Licence, a copy of which you may download from 
-	* http://www.tdg-seville.info/License.html
--->
+<!-- * data.xml * * Copyright (C) 2019 Universidad de Sevilla * * The use 
+	of this project is hereby constrained to the conditions of the * TDG Licence, 
+	a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd                           
@@ -26,27 +22,33 @@
 	<jpa:repositories base-package="security" />
 
 	<!-- Data source -->
-	
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> 
-		<property name="driverClass" value="com.mysql.jdbc.Driver" /> 
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sample-project?autoReconnect=true&amp;useSSL=false" /> 
-		<property name="user" value="acme-user" /> 
-		<property name="password" value="abcd1234" />
-<!-- 		<property name="user" value="administrator" />  -->
-<!-- 		<property name="password" value="mientras" />  -->
-		<property name="minPoolSize" value="1" /> 
-		<property name="maxPoolSize" value="5" /> 
+
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/acme-conference?autoReconnect=true&amp;useSSL=false" />
+		<property name="user" value="acme-user" />
+		<property name="password" value="ACME-Us3r-P@ssw0rd" />
+<!-- 		<property name="jdbcUrl" -->
+<!-- 			value="jdbc:mysql://bp4ajrmwy5d4rwjj3vbb-mysql.services.clever-cloud.com:3306/bp4ajrmwy5d4rwjj3vbb" /> -->
+<!-- 		<property name="user" value="uhg15lsrgtrrwu52" /> -->
+<!-- 		<property name="password" value="VtrtmLVqxgEEjnGFPLyn" /> -->
+		<property name="minPoolSize" value="1" />
+		<property name="maxPoolSize" value="5" />
 	</bean>
 
 
 	<!-- JPA -->
 
 	<bean id="persistenceUnit" class="java.lang.String">
-		<constructor-arg value="Sample-Project" />
+		<constructor-arg value="Acme-Conference" />
 	</bean>
 
 	<bean id="sqlDialect" class="java.lang.String">
-		<constructor-arg value="org.hibernate.dialect.MySQLDialect" />
+		<constructor-arg
+			value="org.hibernate.dialect.MySQLDialect" />
 	</bean>
 
 	<util:properties id="jpaProperties">

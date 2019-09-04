@@ -26,7 +26,7 @@ public class Conference extends DomainEntity {
 	private String			acronym;
 	private String			venue;
 	private String			summary;
-	private Integer			fee;
+	private Long			fee;
 	private Boolean			locked;
 	// DL= DeadLine
 
@@ -90,10 +90,10 @@ public class Conference extends DomainEntity {
 		this.summary = summary;
 	}
 	@NotNull
-	public Integer getFee() {
+	public Long getFee() {
 		return this.fee;
 	}
-	public void setFee(final Integer fee) {
+	public void setFee(final Long fee) {
 		this.fee = fee;
 	}
 

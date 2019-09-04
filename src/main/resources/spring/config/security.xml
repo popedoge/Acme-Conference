@@ -59,6 +59,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/misc/**"
 			access="permitAll" />
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/user/**"
 			access="isAuthenticated()" />
 

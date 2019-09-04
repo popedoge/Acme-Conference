@@ -75,6 +75,12 @@
 			<div>
 				<b><jstl:out value="${section.title}" /></b>
 			</div>
+			<div>
+				<jstl:out value="${section.summary}" />
+			</div>
+			<div>
+				<img src="${section.pictures}">
+			</div>
 		</div>
 	</jstl:forEach>
 </jstl:if>

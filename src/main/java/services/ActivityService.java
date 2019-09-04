@@ -33,13 +33,13 @@ public class ActivityService {
 		this.activityRepo.delete(activities);
 	}
 
-	public Integer findType(final Activity activity) {
+	public Integer findType(final Integer id) {
 		Integer res = null;
-		if (this.panelService.findById(activity.getId()) != null)
+		if (this.panelService.findById(id) != null)
 			res = 0;
-		else if (this.presentationService.findById(activity.getId()) != null)
+		else if (this.presentationService.findById(id) != null)
 			res = 1;
-		else if (this.tutorialService.findById(activity.getId()) != null)
+		else if (this.tutorialService.findById(id) != null)
 			res = 2;
 		return res;
 	}
@@ -60,7 +60,7 @@ public class ActivityService {
 		res.setLocation(activity.getLocation());
 
 		if (type == null || type > 2) {
-			type = this.findType(activity);
+			type = this.findType(activity.getId());
 			res.setType(type);
 		} else
 			res.setType(type);

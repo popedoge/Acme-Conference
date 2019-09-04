@@ -15,4 +15,5 @@ public class MiscController {
 		final ModelAndView res = new ModelAndView("terms/terms");
 		return res;
 	}
+
 }

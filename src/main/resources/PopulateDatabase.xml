@@ -200,7 +200,7 @@
 	<bean id="siteConfig" class="domain.SiteConfig">
 		<property name="siteName" value="Acme Conference" />
 		<property name="bannerUrl"
-			value="https://media.tenor.com/images/c094a7e701671534e78d802cc91b40b3/tenor.gif" />
+			value="https://i.ibb.co/GVpZCtM/acme-conference.png" />
 		<property name="welcomeMessage" value="Welcome vro..." />
 		<property name="countryCode" value="34" />
 	</bean>
@@ -671,6 +671,25 @@
 		<property name="venue" value="Bush Stadium" />
 		<property name="summary" value="*sluuuuuuuuuuuuuuuuurp*" />
 		<property name="fee" value="100" />
+		<property name="submissionDL" value="03/12/2020 13:20" />
+		<property name="notificationDL" value="03/12/2020 13:20" />
+		<property name="cameraDL" value="03/12/2020 13:20" />
+		<property name="startDate" value="03/12/2020 13:20" />
+		<property name="endDate" value="03/12/2020 13:20" />
+		<property name="activities">
+			<null/>
+		</property>
+		<property name="locked" value="false"/>
+		
+	</bean>
+	
+	<bean id="conference3" class="domain.Conference">
+		<property name="title" value="hillbill convention" />
+		<property name="owner" ref="admin1" />
+		<property name="acronym" value="HBC" />
+		<property name="venue" value="Bush Stadium" />
+		<property name="summary" value="*buuuuuuuuuuuuuuuuurp*" />
+		<property name="fee" value="12" />
 		<property name="submissionDL" value="03/12/2020 13:20" />
 		<property name="notificationDL" value="03/12/2020 13:20" />
 		<property name="cameraDL" value="03/12/2020 13:20" />

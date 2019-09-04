@@ -52,6 +52,8 @@
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="admin/dashboard.do"><spring:message
+								code="master.page.admin.dashboard" /></a></li>
 					<li><a href="config/admin/edit.do"><spring:message
 								code="master.page.admin.config" /></a></li>
 					<li><a href="messaging/admin/broadcast/actors.do"><spring:message

@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="report/edit.do" modelAttribute="report">
+<form:form action="report/reviewer/edit.do" modelAttribute="report">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="owner" value="${report.owner.id}" /><form:errors path="owner" cssClass="error"/>

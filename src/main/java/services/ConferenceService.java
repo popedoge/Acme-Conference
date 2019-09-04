@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,6 +63,8 @@ public class ConferenceService {
 	}
 
 	public Conference save(final Conference conference) {
+		if (conference.getActivities() == null)
+			conference.setActivities(new ArrayList<Activity>());
 		return this.conferenceRepository.save(conference);
 	}
 

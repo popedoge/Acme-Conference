@@ -13,6 +13,7 @@ import domain.Administrator;
 import domain.Conference;
 import domain.Reviewer;
 import domain.Submission;
+import forms.DashboardForm;
 import repositories.AdministratorRepository;
 import security.UserAccountService;
 
@@ -49,6 +50,98 @@ public class AdminService {
 		final Administrator res = this.adminRepository.save(admin);
 		return res;
 
+	}
+
+	public DashboardForm getDashboardStats() {
+		final DashboardForm form = new DashboardForm();
+		final List<Long> feeStats = this.submissionPerConferenceStats();
+		form.setMinConferenceFee(feeStats.get(0));
+		form.setMaxConferenceFee(feeStats.get(1));
+		form.setStdConferenceFee(feeStats.get(2));
+
+		final List<Long> subStats = this.submissionPerConferenceStats();
+		form.setMinSubmissionsPerConference(subStats.get(0));
+		form.setMaxSubmissionsPerConference(subStats.get(1));
+		form.setStdSubmissionsPerConference(subStats.get(2));
+
+		final List<Long> regStats = this.registrationsPerConferenceStats();
+		form.setMinRegistrationsPerConference(regStats.get(0));
+		form.setMaxRegistrationsPerConference(regStats.get(1));
+		form.setStdRegistrationsPerConference(regStats.get(2));
+
+		return form;
+	}
+
+	private List<Long> feePerConferenceStats() {
+		final List<Long> res = new ArrayList<Long>();
+		final List<Long> perConference = this.adminRepository.feePerConference();
+		Integer sum = 0;
+		Integer min = null;
+		Integer max = null;
+		for (Integer i = 0; i < perConference.size(); i++) {
+			sum += perConference.get(i).intValue();
+			if (min == null || perConference.get(i).intValue() < min)
+				min = perConference.get(i).intValue();
+			if (max == null || perConference.get(i).intValue() > max)
+				max = perConference.get(i).intValue();
+		}
+		final Long average = (sum.longValue() / Integer.valueOf(perConference.size()).longValue());
+		Double deviation = 0.0;
+		for (Integer i = 0; i < perConference.size(); i++)
+			deviation += deviation + Math.pow(perConference.get(i).longValue() - average, 2);
+
+		res.add((long) min.doubleValue());
+		res.add((long) max.doubleValue());
+		res.add(Math.round(deviation));
+		return res;
+	}
+
+	private List<Long> submissionPerConferenceStats() {
+		final List<Long> res = new ArrayList<Long>();
+		final List<Long> perConference = this.adminRepository.submissionsPerConference();
+		Integer sum = 0;
+		Integer min = null;
+		Integer max = null;
+		for (Integer i = 0; i < perConference.size(); i++) {
+			sum += perConference.get(i).intValue();
+			if (min == null || perConference.get(i).intValue() < min)
+				min = perConference.get(i).intValue();
+			if (max == null || perConference.get(i).intValue() > max)
+				max = perConference.get(i).intValue();
+		}
+		final Long average = (sum.longValue() / Integer.valueOf(perConference.size()).longValue());
+		Double deviation = 0.0;
+		for (Integer i = 0; i < perConference.size(); i++)
+			deviation += deviation + Math.pow(perConference.get(i).longValue() - average, 2);
+
+		res.add((long) min.doubleValue());
+		res.add((long) max.doubleValue());
+		res.add(Math.round(deviation));
+		return res;
+	}
+
+	private List<Long> registrationsPerConferenceStats() {
+		final List<Long> res = new ArrayList<Long>();
+		final List<Long> perConference = this.adminRepository.registrationsPerConference();
+		Integer sum = 0;
+		Integer min = null;
+		Integer max = null;
+		for (Integer i = 0; i < perConference.size(); i++) {
+			sum += perConference.get(i).intValue();
+			if (min == null || perConference.get(i).intValue() < min)
+				min = perConference.get(i).intValue();
+			if (max == null || perConference.get(i).intValue() > max)
+				max = perConference.get(i).intValue();
+		}
+		final Long average = (sum.longValue() / Integer.valueOf(perConference.size()).longValue());
+		Double deviation = 0.0;
+		for (Integer i = 0; i < perConference.size(); i++)
+			deviation += deviation + Math.pow(perConference.get(i).longValue() - average, 2);
+
+		res.add((long) min.doubleValue());
+		res.add((long) max.doubleValue());
+		res.add(Math.round(deviation));
+		return res;
 	}
 
 	public void autoAssign() {

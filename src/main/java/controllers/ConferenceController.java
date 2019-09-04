@@ -48,7 +48,7 @@ public class ConferenceController extends AbstractController {
 	@RequestMapping(value = "/admin/eval", method = RequestMethod.GET)
 	public ModelAndView evaluate(@RequestParam final Integer id, final RedirectAttributes attributes) {
 		ModelAndView res;
-		res = new ModelAndView("redirect:/view?id=" + id);
+		res = new ModelAndView("redirect:/conference/view?id=" + id);
 		this.conferenceService.evaluate(this.conferenceService.findById(id));
 		attributes.addFlashAttribute("notif", "conference.eval.complete");
 		return res;
