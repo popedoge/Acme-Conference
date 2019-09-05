@@ -97,6 +97,14 @@
 			pattern="/activity/view.do" access="permitAll" />
 		<security:intercept-url pattern="/section/**"
 			access="hasRole('ADMIN')" />
+
+
+		<!-- TODO: LOREM -->
+		<security:intercept-url pattern="/lorem/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/lorem/admin/**"
+			access="hasRole('ADMIN')" />
+
 		<!-- OTHER SHIT -->
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

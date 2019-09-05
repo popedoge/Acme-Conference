@@ -28,6 +28,7 @@
 		<value>/views/report/tiles.xml</value>
 		<value>/views/activity/tiles.xml</value>
 		<value>/views/admin/tiles.xml</value>
+		<value>/views/lorem/tiles.xml</value>
 	</util:list>
 
 </beans>

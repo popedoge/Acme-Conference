@@ -30,4 +30,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select a.fee from Conference a")
 	public List<Long> feePerConference();
 
+	//TODO: edit this stuff
+	@Query("select count(a.id) from Lorem a group by a.reference")
+	public List<Long> loremPerReference();
 }

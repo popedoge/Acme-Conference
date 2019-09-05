@@ -30,7 +30,7 @@
 		<property name="jdbcUrl"
 			value="jdbc:mysql://localhost:3306/acme-conference?autoReconnect=true&amp;useSSL=false" />
 		<property name="user" value="acme-user" />
-		<property name="password" value="ACME-Us3r-P@ssw0rd" />
+		<property name="password" value="abcd1234" />
 <!-- 		<property name="jdbcUrl" -->
 <!-- 			value="jdbc:mysql://bp4ajrmwy5d4rwjj3vbb-mysql.services.clever-cloud.com:3306/bp4ajrmwy5d4rwjj3vbb" /> -->
 <!-- 		<property name="user" value="uhg15lsrgtrrwu52" /> -->
