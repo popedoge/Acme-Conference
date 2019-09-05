@@ -23,23 +23,10 @@
 	<spring:message code="lorem.format" />
 </jstl:set>
 <jstl:set var="stdf">
-	yyMMdd
+	yyyyMMdd
 </jstl:set>
 
-<script type="text/javascript">
-	var table = document.getElementById("lorem-table");
-	var tbody = table.getElementsByTagName("tbody")[0];
-	var rows = tbody.getElementsByTagName("tr");
-	// add event handlers so rows light up and are clickable
-	for (i = 0; i < rows.length; i++) {
-		var value = rows[i].getElementsByTagName("td")[0].firstChild.nodeValue;
-		if (value == 'mraible') {
-			rows[i].style.backgroundColor = "red";
-		}
-	}
-</script>
-
-<display:table htmlId="lorem-table" name="lorems" id="row"
+<display:table htmlId="lorem-table" name="lorem" id="row"
 	requestURI="${requestURI}" pagesize="10" class="displaytag">
 	<display:column titleKey="lorem.ticker" property="ticker" />
 	<display:column titleKey="lorem.date">
@@ -91,3 +78,4 @@
 
 
 </display:table>
+<script type="text/javascript" src="scripts/lorem.js"></script>

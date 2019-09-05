@@ -4,20 +4,22 @@ $(document).ready(function() {
 
 		if (index > 0) {
 
-			aux = this.cells[2].textContent;
-			sum = aux[4] + aux[5] + aux[9] + aux[10] + aux[2] + aux[3];
+			aux = this.cells[1]
 
-			var formatDate = moment(sum, "MMDDYY");
+			sum = $(aux).find(".hidden-date")[0].textContent.trim();
 
-			console.log(formatDate);
-			var currentDate = moment();
-			console.log(currentDate);
+			const date = new Date(sum.substring(0, 4), sum.substring(5, 6) - 1, sum.substring(6, 8));
+			const now = new Date();
 
-			var difference = moment.duration(currentDate.diff(formatDate)).asMonths();
+			const diffInMillis = now.getTime() - date.getTime();
+			const difference = diffInMillis / (1000 * 60 * 60 * 24);
+			console.log(now);
+			console.log(date);
 			console.log(difference);
-			if (difference < 1) {
+
+			if (difference < 30) {
 				$(this).css('background-color', 'MediumSlateBlue');
-			} else if (difference > 1 && difference < 2) {
+			} else if (difference > 30 && difference < 61) {
 				$(this).css('background-color', 'Coral');
 			} else {
 				$(this).css('background-color', 'DimGrey');

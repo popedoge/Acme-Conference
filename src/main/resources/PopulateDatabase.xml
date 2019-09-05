@@ -737,7 +737,7 @@
 	<bean id="lorem1" class="domain.Lorem">
 		<property name="ticker" value="QWERTY" />
 		<property name="reference" ref="conference1" />
-		<property name="publicationMoment" ref="04/09/2019 13:20" />
+		<property name="publicationMoment" value="04/09/2019 13:20" />
 		<property name="body" value="this a test" />
 		<property name="locked" value="false" />
 	</bean>
@@ -745,7 +745,7 @@
 	<bean id="lorem2" class="domain.Lorem">
 		<property name="ticker" value="QWEASD" />
 		<property name="reference" ref="conference1" />
-		<property name="publicationMoment" ref="01/08/2019 13:20" />
+		<property name="publicationMoment" value="01/08/2019 13:20" />
 		<property name="body" value="this a test" />
 		<property name="locked" value="false" />
 	</bean>
@@ -753,7 +753,7 @@
 	<bean id="lorem3" class="domain.Lorem">
 		<property name="ticker" value="QWEZXC" />
 		<property name="reference" ref="conference1" />
-		<property name="publicationMoment" ref="04/05/2019 13:20" />
+		<property name="publicationMoment" value="04/05/2019 13:20" />
 		<property name="body" value="this a test" />
 		<property name="locked" value="false" />
 	</bean>

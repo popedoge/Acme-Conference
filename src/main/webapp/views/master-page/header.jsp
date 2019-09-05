@@ -22,9 +22,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <div>
+<!-- TODO: CHANGE PASSWORDS! -->
 	<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/Acme-Conference" user="acme-user"
-		password="ACME-Us3r-P@ssw0rd" />
+		password="abcd1234" />
 
 	<sql:query dataSource="${snapshot}" var="banner">
          SELECT * from site_config limit 1;
