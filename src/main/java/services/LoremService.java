@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -27,12 +28,15 @@ public class LoremService {
 	public Lorem create() {
 		final Lorem res = new Lorem();
 		res.setLocked(false);
+		res.setTicker(this.generateTicker());
+		res.setPublicationMoment(new Date());
 		return res;
 	}
 
 	public Lorem lock(final int id) {
 		final Lorem lorem = this.findById(id);
 		lorem.setLocked(true);
+
 		return this.save(lorem);
 	}
 

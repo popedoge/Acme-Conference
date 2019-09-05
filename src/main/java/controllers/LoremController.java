@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Lorem;
 import services.AdminService;
+import services.ConferenceService;
 import services.LoremService;
 
 @Controller
@@ -24,9 +25,11 @@ import services.LoremService;
 public class LoremController extends AbstractController {
 
 	@Autowired
-	private LoremService	loremService;
+	private LoremService		loremService;
 	@Autowired
-	private AdminService	adminService;
+	private AdminService		adminService;
+	@Autowired
+	private ConferenceService	referenceService;
 
 
 	@RequestMapping(value = "/admin/lock", method = RequestMethod.GET)
@@ -35,6 +38,17 @@ public class LoremController extends AbstractController {
 		this.adminService.findPrincipal();
 
 		this.loremService.lock(id);
+		return new ModelAndView("redirect:list.do");
+	}
+
+	//delete
+	//TODO: test this
+	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final Integer id) {
+		//assert admin
+		this.adminService.findPrincipal();
+
+		this.loremService.delete(id);
 		return new ModelAndView("redirect:list.do");
 	}
 
@@ -68,7 +82,7 @@ public class LoremController extends AbstractController {
 
 	//edit
 	@RequestMapping(value = "/admin/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam(required = false) final Integer id) {
+	public ModelAndView edit(@RequestParam(required = false) final Integer id, @RequestParam(required = false) final Integer referenceId) {
 		//assert admin
 		this.adminService.findPrincipal();
 
@@ -78,8 +92,10 @@ public class LoremController extends AbstractController {
 			//id present -> find lorem
 			lorem = this.loremService.findById(id);
 			Assert.isTrue(!lorem.getLocked());
-		} else
+		} else {
 			lorem = this.loremService.create();
+			lorem.setReference(this.referenceService.findById(referenceId));
+		}
 
 		res = this.createEditModelAndView(lorem);
 		return res;

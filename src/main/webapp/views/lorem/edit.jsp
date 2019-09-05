@@ -19,13 +19,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="lorem/edit.do" modelAttribute="lorem">
-	<form:hidden path="id"/>
+<form:form action="lorem/admin/edit.do" modelAttribute="lorem">
+	<form:hidden path="id"/><form:errors path="id" cssClass="error"/>
 	<form:hidden path="version"/>
-	<form:hidden path="reference" value="${lorem.reference.id}"/>
-	<form:hidden path="ticker"/>
-	<form:hidden path="publicationMoment"/>
-	<form:hidden path="locked"/>
+	<form:hidden path="reference" value="${lorem.reference.id}"/><form:errors path="reference" cssClass="error"/>
+	<form:hidden path="ticker"/><form:errors path="ticker" cssClass="error"/>
+	<form:hidden path="publicationMoment"/><form:errors path="publicationMoment" cssClass="error"/>
+	<form:hidden path="locked"/><form:errors path="locked" cssClass="error"/>
 	<!-- TODO: ADD OTHER ATTRIBUTES -->
 	
 	<!-- body -->
