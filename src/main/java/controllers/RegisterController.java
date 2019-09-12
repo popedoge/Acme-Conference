@@ -12,46 +12,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Author;
-import domain.Reviewer;
+import domain.Member;
 import forms.RegisterForm;
 import security.Authority;
 import security.UserAccountService;
 import services.ActorService;
-import services.AuthorService;
-import services.ReviewerService;
+import services.MemberService;
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
 
 	@Autowired
-	private AuthorService		authorService;
-	@Autowired
 	private ActorService		actorService;
 	@Autowired
-	private ReviewerService		reviewerService;
+	private MemberService		memberService;
 	@Autowired
 	private UserAccountService	userAccountService;
 
 
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public ModelAndView createUser() {
-		final Author author = this.authorService.create(this.userAccountService.createUser(Authority.AUTHOR));
+		final Member member = this.memberService.create(this.userAccountService.createUser(Authority.MEMBER));
 		final RegisterForm regForm = new RegisterForm();
-		regForm.setForm(this.actorService.formatForm(author));
-		regForm.getForm().setRole(Authority.AUTHOR);
+		regForm.setForm(this.actorService.formatForm(member));
+		regForm.getForm().setRole(Authority.MEMBER);
 		return this.createActorEditModelAndView(regForm);
 	}
 
-	@RequestMapping(value = "/init-reviewer", method = RequestMethod.GET)
-	public ModelAndView createReviewer() {
-		final Reviewer reviewer = this.reviewerService.create(this.userAccountService.createUser(Authority.REVIEWER));
-		final RegisterForm regForm = new RegisterForm();
-		regForm.setForm(this.actorService.formatForm(reviewer));
-		regForm.getForm().setRole(Authority.REVIEWER);
-		return this.createActorEditModelAndView(regForm);
-	}
+	//	@RequestMapping(value = "/init-reviewer", method = RequestMethod.GET)
+	//	public ModelAndView createReviewer() {
+	//		final Customer customer = this.memberService.create(this.userAccountService.createUser(Authority.REVIEWER));
+	//		final RegisterForm regForm = new RegisterForm();
+	//		regForm.setForm(this.actorService.formatForm(customer));
+	//		regForm.getForm().setRole(Authority.REVIEWER);
+	//		return this.createActorEditModelAndView(regForm);
+	//	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveUser(@ModelAttribute("regForm") @Valid final RegisterForm form, final BindingResult binding) {
@@ -61,10 +57,11 @@ public class RegisterController {
 		else
 			try {
 				Assert.isTrue(form.getForm().getRole() != null && form.getForm().getRole() != "", "Error registering: no role specified");
-				if (form.getForm().getRole().equals(Authority.AUTHOR))
-					this.authorService.register(form);
-				else if (form.getForm().getRole().equals(Authority.REVIEWER))
-					this.reviewerService.register(form);
+				//admin stuff
+
+				//member stuff
+				if (form.getForm().getRole().equals(Authority.MEMBER))
+					this.memberService.register(form);
 				res = new ModelAndView("redirect:../security/login.do");
 			} catch (
 

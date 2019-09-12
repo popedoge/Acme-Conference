@@ -589,36 +589,9 @@
 		<property name="deliveryDate" value="03/12/2019 13:20" />
 		<property name="subject" value="notif test" />
 		<property name="body" value="vro wat" />
-		<property name="topic" ref="topic1" />
 		<property name="tick" value="false" />
 	</bean>
 
-	<!-- topic -->
-
-	<bean id="topic1" class="domain.Topic">
-		<property name="title" value="INQUIRY" />
-		<property name="spanish" value="INVESTIGACION" />
-	</bean>
-
-	<bean id="topic2" class="domain.Topic">
-		<property name="title" value="REBUTTAL" />
-		<property name="spanish" value="REFUTACION" />
-	</bean>
-
-	<bean id="topic3" class="domain.Topic">
-		<property name="title" value="REGISTRATION" />
-		<property name="spanish" value="REGISTRO" />
-	</bean>
-
-	<bean id="topic4" class="domain.Topic">
-		<property name="title" value="TOPICS" />
-		<property name="spanish" value="TEMAS" />
-	</bean>
-
-	<bean id="topic5" class="domain.Topic">
-		<property name="title" value="OTHER" />
-		<property name="spanish" value="OTRO" />
-	</bean>
 
 
 	<!-- social network -->
@@ -643,94 +616,6 @@
 		<property name="url" value="http://slither.io/" />
 	</bean>
 
-	<!-- conference -->
-
-	<bean id="conference1" class="domain.Conference">
-		<property name="title" value="DOGECON" />
-		<property name="owner" ref="admin1" />
-		<property name="acronym" value="DC" />
-		<property name="venue" value="Bush Stadium" />
-		<property name="summary" value="woof woof" />
-		<property name="fee" value="100" />
-		<property name="submissionDL" value="03/12/2020 13:20" />
-		<property name="notificationDL" value="03/12/2020 13:20" />
-		<property name="cameraDL" value="03/12/2020 13:20" />
-		<property name="startDate" value="03/12/2020 13:20" />
-		<property name="endDate" value="03/12/2020 13:20" />
-		<property name="activities">
-			<null/>
-		</property>
-		<property name="locked" value="false"/>
-		
-	</bean>
-	
-	<bean id="conference2" class="domain.Conference">
-		<property name="title" value="conke vs bepis: ultimate battle" />
-		<property name="owner" ref="admin1" />
-		<property name="acronym" value="CVSB" />
-		<property name="venue" value="Bush Stadium" />
-		<property name="summary" value="*sluuuuuuuuuuuuuuuuurp*" />
-		<property name="fee" value="100" />
-		<property name="submissionDL" value="03/12/2020 13:20" />
-		<property name="notificationDL" value="03/12/2020 13:20" />
-		<property name="cameraDL" value="03/12/2020 13:20" />
-		<property name="startDate" value="03/12/2020 13:20" />
-		<property name="endDate" value="03/12/2020 13:20" />
-		<property name="activities">
-			<null/>
-		</property>
-		<property name="locked" value="false"/>
-		
-	</bean>
-	
-	<bean id="conference3" class="domain.Conference">
-		<property name="title" value="hillbill convention" />
-		<property name="owner" ref="admin1" />
-		<property name="acronym" value="HBC" />
-		<property name="venue" value="Bush Stadium" />
-		<property name="summary" value="*buuuuuuuuuuuuuuuuurp*" />
-		<property name="fee" value="12" />
-		<property name="submissionDL" value="03/12/2020 13:20" />
-		<property name="notificationDL" value="03/12/2020 13:20" />
-		<property name="cameraDL" value="03/12/2020 13:20" />
-		<property name="startDate" value="03/12/2020 13:20" />
-		<property name="endDate" value="03/12/2020 13:20" />
-		<property name="activities">
-			<null/>
-		</property>
-		<property name="locked" value="false"/>
-		
-	</bean>
-
-	<!-- submissions -->
-	<bean id="submission1" class="domain.Submission">
-		<property name="owner" ref="author1" />
-		<property name="conference" ref="conference1" />
-		<property name="ticker" value="ABC-1234" />
-		<property name="status" value="submission.pending" />
-		<property name="paper" ref="paper1" />
-		<property name="cameraPaper" ref="paper2" />
-		<property name="reviewers">
-			<list>
-				<ref bean="reviewer2"/>
-			</list>
-		</property>
-	</bean>
-
-	<!-- papers -->
-	<bean id="paper1" class="domain.Paper">
-		<property name="title" value="The Frog and the Shark" />
-		<property name="author" value="Doggie McDoge" />
-		<property name="summary" value="The frog ate the shark" />
-		<property name="URL" value="http://www.google.com" />
-	</bean>
-
-	<bean id="paper2" class="domain.Paper">
-		<property name="title" value="La Yoni" />
-		<property name="author" value="Manoperros y Meji" />
-		<property name="summary" value="Se murio la yoni" />
-		<property name="URL" value="http://www.google.com" />
-	</bean>
 
 
 </beans>

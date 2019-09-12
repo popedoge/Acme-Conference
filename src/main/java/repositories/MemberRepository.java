@@ -11,11 +11,16 @@
 package repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import domain.Tutorial;
+import domain.Actor;
+import domain.Member;
 
 @Repository
-public interface TutorialRepository extends JpaRepository<Tutorial, Integer> {
+public interface MemberRepository extends JpaRepository<Member, Integer> {
+
+	@Query("select a from Member a where a.user.id = ?1")
+	Actor findByUser(int userId);
 
 }

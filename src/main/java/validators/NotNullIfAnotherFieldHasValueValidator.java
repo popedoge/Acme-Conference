@@ -9,7 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 public class NotNullIfAnotherFieldHasValueValidator implements ConstraintValidator<NotNullIfAnotherFieldHasValueConstraint, Object> {
 
 	private String	fieldName;
-	private int		expectedFieldValue;
+	private String	expectedFieldValue;
 	private String	dependFieldName;
 
 
@@ -30,7 +30,7 @@ public class NotNullIfAnotherFieldHasValueValidator implements ConstraintValidat
 			final String fieldValue = BeanUtils.getProperty(value, this.fieldName);
 			final String dependFieldValue = BeanUtils.getProperty(value, this.dependFieldName);
 
-			if (this.expectedFieldValue == Integer.valueOf(fieldValue) && dependFieldValue == null) {
+			if (this.expectedFieldValue.equals(fieldValue) && dependFieldValue == null) {
 				ctx.disableDefaultConstraintViolation();
 				ctx.buildConstraintViolationWithTemplate(ctx.getDefaultConstraintMessageTemplate()).addNode(this.dependFieldName).addConstraintViolation();
 				return false;

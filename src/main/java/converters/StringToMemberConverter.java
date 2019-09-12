@@ -1,5 +1,5 @@
 /*
- * StringToReviewerConverter.java
+ * StringToMemberConverter.java
  *
  * Copyright (C) 2019 Universidad de Sevilla
  *
@@ -14,25 +14,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Reviewer;
-import repositories.ReviewerRepository;
+import domain.Member;
+import repositories.MemberRepository;
 
 @Component
 @Transactional
-public class StringToReviewerConverter implements Converter<String, Reviewer> {
+public class StringToMemberConverter implements Converter<String, Member> {
 
 	@org.springframework.beans.factory.annotation.Autowired
-	ReviewerRepository ReviewerRepository;
+	MemberRepository MemberRepository;
 
 
 	@Override
-	public Reviewer convert(final String text) {
-		Reviewer result;
+	public Member convert(final String text) {
+		Member result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.ReviewerRepository.findOne(id);
+			result = this.MemberRepository.findOne(id);
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}

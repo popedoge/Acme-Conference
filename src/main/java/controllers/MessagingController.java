@@ -17,23 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Actor;
-import domain.Author;
-import domain.Conference;
 import domain.Message;
 import domain.MessageBox;
-import domain.Registration;
-import domain.Submission;
-import domain.Topic;
 import forms.MessageForm;
 import forms.MoveMessageForm;
 import services.ActorService;
-import services.AuthorService;
-import services.ConferenceService;
 import services.MessageBoxService;
 import services.MessageService;
-import services.RegistrationService;
-import services.SubmissionService;
-import services.TopicService;
 
 @Controller
 @RequestMapping(value = "/messaging")
@@ -45,75 +35,7 @@ public class MessagingController {
 	private MessageService		messageService;
 	@Autowired
 	private ActorService		actorService;
-	@Autowired
-	private TopicService		topicService;
-	@Autowired
-	private AuthorService		authorService;
-	@Autowired
-	private SubmissionService	submissionService;
-	@Autowired
-	private RegistrationService	registrationService;
-	@Autowired
-	private ConferenceService	conferenceService;
 
-
-	//ADMIN STUFF ================================================
-
-	@RequestMapping(value = "/admin/broadcast/actors", method = RequestMethod.GET)
-	public ModelAndView broadcastActors() {
-		ModelAndView res;
-		final List<Actor> actors = this.actorService.findAll();
-		String recipients = "";
-		for (final Actor actor : actors)
-			recipients = recipients + actor.getId() + ",";
-		final MessageForm mail = new MessageForm();
-		mail.setLock(false);
-		mail.setRecipients(recipients);
-		res = this.createMessageEditModelAndView(mail);
-		return res;
-	}
-	@RequestMapping(value = "/admin/broadcast/authors", method = RequestMethod.GET)
-	public ModelAndView broadcastAuthors() {
-		ModelAndView res;
-		final List<Author> authors = this.authorService.findAll();
-		String recipients = "";
-		for (final Author author : authors)
-			recipients = recipients + author.getId() + ",";
-		final MessageForm mail = new MessageForm();
-		mail.setLock(false);
-		mail.setRecipients(recipients);
-		res = this.createMessageEditModelAndView(mail);
-		return res;
-	}
-	@RequestMapping(value = "/admin/broadcast/registered", method = RequestMethod.GET)
-	public ModelAndView broadcastRegistered(@RequestParam final Integer id) {
-		ModelAndView res;
-		String recipients = "";
-		final List<Registration> registrations = this.registrationService.findByConference(id);
-		for (final Registration reg : registrations)
-			recipients = recipients + reg.getOwner().getId() + ",";
-
-		final MessageForm mail = new MessageForm();
-		mail.setLock(false);
-		mail.setRecipients(recipients);
-		res = this.createMessageEditModelAndView(mail);
-		return res;
-	}
-	@RequestMapping(value = "/admin/broadcast/submitted", method = RequestMethod.GET)
-	public ModelAndView broadcastSubmitted(@RequestParam final Integer id) {
-		ModelAndView res;
-		String recipients = "";
-		final Conference conference = this.conferenceService.findById(id);
-		final List<Submission> submissions = this.submissionService.findByConference(conference);
-		for (final Submission sub : submissions)
-			recipients = recipients + sub.getOwner().getId() + ",";
-
-		final MessageForm mail = new MessageForm();
-		mail.setLock(false);
-		mail.setRecipients(recipients);
-		res = this.createMessageEditModelAndView(mail);
-		return res;
-	}
 
 	//NORMAL STUFF ================================================
 
@@ -147,8 +69,6 @@ public class MessagingController {
 				message.setBody(mail.getBody());
 				// TODO: fix messages
 
-				final Topic topic = this.topicService.findById(mail.getTopic());
-				message.setTopic(topic);
 				this.messageService.send(message);
 				res = new ModelAndView("redirect:view.do");
 			} catch (final Exception e) {
@@ -324,11 +244,10 @@ public class MessagingController {
 
 	protected ModelAndView createMessageEditModelAndView(final MessageForm mail, final String messageCode) {
 		ModelAndView res;
-		final List<Topic> topics = this.topicService.findAll();
 
 		res = new ModelAndView("messaging/write");
 		res.addObject("mail", mail);
-		res.addObject("topics", topics);
+
 		res.addObject("message", messageCode);
 		return res;
 	}

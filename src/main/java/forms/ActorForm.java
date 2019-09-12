@@ -4,44 +4,22 @@ package forms;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.URL;
 
 import security.Authority;
-import validators.EmailConstraint;
 
 public class ActorForm {
 
 	private Integer	id;
 	private String	role;
-	private String	firstName;
-	private String	middleName;
 	private String	username;
-	private String	lastName;
-	private String	phoneNumber;
+	private String	avatar;
+	private String	bio;
 	private String	email;
-	private String	address;
-	private String	photo;
-	private String	expertise;
 
 
-	public String getMiddleName() {
-		return this.middleName;
-	}
-
-	public void setMiddleName(final String middleName) {
-		this.middleName = middleName;
-	}
-
-	public String getExpertise() {
-		return this.expertise;
-	}
-
-	public void setExpertise(final String expertise) {
-		this.expertise = expertise;
-	}
-
-	@Pattern(regexp = "^" + Authority.ADMIN + "|" + Authority.AUTHOR + "|" + Authority.REVIEWER + "$")
+	@Pattern(regexp = "^" + Authority.ADMIN + "|" + Authority.MEMBER + "$")
 	public String getRole() {
 		return this.role;
 	}
@@ -68,34 +46,7 @@ public class ActorForm {
 		this.id = id;
 	}
 
-	@NotBlank
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setFirstName(final String firstName) {
-		this.firstName = firstName;
-	}
-
-	@NotBlank
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(final String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-	public void setPhoneNumber(final String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	@NotBlank
-	@EmailConstraint
+	@Email
 	public String getEmail() {
 		return this.email;
 	}
@@ -104,21 +55,22 @@ public class ActorForm {
 		this.email = email;
 	}
 
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(final String address) {
-		this.address = address;
-	}
-
 	@URL
-	public String getPhoto() {
-		return this.photo;
+	public String getAvatar() {
+		return this.avatar;
 	}
 
-	public void setPhoto(final String photo) {
-		this.photo = photo;
+	public void setAvatar(final String avatar) {
+		this.avatar = avatar;
+	}
+
+	@Size(max = 300)
+	public String getBio() {
+		return this.bio;
+	}
+
+	public void setBio(final String bio) {
+		this.bio = bio;
 	}
 
 }

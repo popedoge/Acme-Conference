@@ -19,7 +19,7 @@ import javax.validation.Payload;
 public @interface NotNullIfAnotherFieldHasValueConstraint {
 
 	String fieldName();
-	int fieldValue();
+	String fieldValue();
 	String dependFieldName();
 
 	String message() default "activity.submission.error";

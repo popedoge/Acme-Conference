@@ -12,9 +12,6 @@ import javax.validation.constraints.NotNull;
 public class ActorPreferences extends DomainEntity {
 
 	private Actor	owner;
-	private boolean	displayRealName;
-	private boolean	displayPhoneNumber;
-	private boolean	displayAddress;
 	private boolean	displayEmail;
 	private String	messageSignature;
 
@@ -27,30 +24,6 @@ public class ActorPreferences extends DomainEntity {
 
 	public void setOwner(final Actor owner) {
 		this.owner = owner;
-	}
-
-	public boolean getDisplayRealName() {
-		return this.displayRealName;
-	}
-
-	public void setDisplayRealName(final boolean displayRealName) {
-		this.displayRealName = displayRealName;
-	}
-
-	public boolean getDisplayPhoneNumber() {
-		return this.displayPhoneNumber;
-	}
-
-	public void setDisplayPhoneNumber(final boolean displayPhoneNumber) {
-		this.displayPhoneNumber = displayPhoneNumber;
-	}
-
-	public boolean getDisplayAddress() {
-		return this.displayAddress;
-	}
-
-	public void setDisplayAddress(final boolean displayAddress) {
-		this.displayAddress = displayAddress;
 	}
 
 	public boolean getDisplayEmail() {

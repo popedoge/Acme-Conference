@@ -29,7 +29,6 @@ public class Message extends DomainEntity {
 	private String				subject;
 	private Date				deliveryDate;
 	private String				body;
-	private Topic				topic;
 	private boolean				tick;
 
 
@@ -103,15 +102,6 @@ public class Message extends DomainEntity {
 
 	public void setBody(final String body) {
 		this.body = body;
-	}
-
-	@ManyToOne(optional = false)
-	public Topic getTopic() {
-		return this.topic;
-	}
-
-	public void setTopic(final Topic topic) {
-		this.topic = topic;
 	}
 
 }

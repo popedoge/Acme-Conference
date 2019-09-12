@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.URL;
 
 import security.User;
@@ -25,81 +26,13 @@ public abstract class Actor extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	private String	name;
-	private String	surname;
-	private String	middleName;
 	private String	email;
-	// for phone number
-	private String	phoneNumber;
-	//
-	private String	photo;
-	private String	address;
-
-
-	public String getMiddleName() {
-		return this.middleName;
-	}
-
-	public void setMiddleName(final String middleName) {
-		this.middleName = middleName;
-	}
-
-	@URL
-	public String getPhoto() {
-		return this.photo;
-	}
-
-	public void setPhoto(final String photo) {
-		this.photo = photo;
-	}
-
-	@NotBlank
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(final String name) {
-		this.name = name;
-	}
-
-	@NotBlank
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(final String email) {
-		this.email = email;
-	}
-
-	@NotBlank
-	public String getSurname() {
-		return this.surname;
-	}
-
-	public void setSurname(final String surname) {
-		this.surname = surname;
-	}
-
-	public String getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-	public void setPhoneNumber(final String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(final String address) {
-		this.address = address;
-	}
-
+	private String	avatar;
+	private String	bio;
 
 	// Relationships ----------------------------------------------------------
 
-	private User user;
+	private User	user;
 
 
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
@@ -109,6 +42,33 @@ public abstract class Actor extends DomainEntity {
 
 	public void setUser(final User user) {
 		this.user = user;
+	}
+
+	@Email
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(final String email) {
+		this.email = email;
+	}
+
+	@URL
+	public String getAvatar() {
+		return this.avatar;
+	}
+
+	public void setAvatar(final String avatar) {
+		this.avatar = avatar;
+	}
+
+	@Size(max = 300)
+	public String getBio() {
+		return this.bio;
+	}
+
+	public void setBio(final String bio) {
+		this.bio = bio;
 	}
 
 }

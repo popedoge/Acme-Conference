@@ -1,8 +1,8 @@
 /*
  * LoginController.java
- * 
+ *
  * Copyright (C) 2019 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +31,7 @@ public class LoginController extends AbstractController {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	LoginService	service;
+	LoginService service;
 
 
 	// Constructors -----------------------------------------------------------
@@ -42,7 +43,7 @@ public class LoginController extends AbstractController {
 	// Login ------------------------------------------------------------------
 
 	@RequestMapping("/login")
-	public ModelAndView login(@Valid @ModelAttribute Credentials credentials, BindingResult bindingResult, @RequestParam(required = false) boolean showError) {
+	public ModelAndView login(final Model model, @Valid @ModelAttribute final Credentials credentials, final BindingResult bindingResult, @RequestParam(required = false) final boolean showError) {
 		Assert.notNull(credentials);
 		Assert.notNull(bindingResult);
 
